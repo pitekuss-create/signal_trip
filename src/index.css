@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-cinzel: 'Cinzel', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-noto: 'Noto Serif KR', serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #0c0a09; /* stone-950 */
+  color: #e7e5e4; /* stone-200 */
+}
