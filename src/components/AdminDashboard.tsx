@@ -15,6 +15,11 @@ export const AdminDashboard: React.FC = () => {
     setToast({ message, visible: true });
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('admin_authenticated');
+    window.location.href = '/admin';
+  };
+
   useEffect(() => {
     if (toast.visible) {
       const timer = setTimeout(() => {
@@ -27,7 +32,7 @@ export const AdminDashboard: React.FC = () => {
   return (
     <div className="flex min-h-screen bg-stone-950 text-stone-100 font-sans selection:bg-teal-500/30 selection:text-teal-200">
       {/* Sidebar Navigation */}
-      <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} />
 
       {/* Main Panel Content */}
       <main className="flex-1 p-8 md:p-12 overflow-y-auto max-h-screen relative">

@@ -73,18 +73,6 @@ export const CRMTab: React.FC<CRMTabProps> = ({ showToast }) => {
     }
   };
 
-  // Extract unique dates
-  const uniqueDates = React.useMemo(() => {
-    const datesSet = new Set<string>();
-    applications.forEach(app => {
-      if (app.preferred_schedules && Array.isArray(app.preferred_schedules)) {
-        app.preferred_schedules.forEach(d => {
-          if (d) datesSet.add(d);
-        });
-      }
-    });
-    return Array.from(datesSet).sort();
-  }, [applications]);
 
   // Filter & Search logic
   const filteredApps = applications.filter(app => {
@@ -163,9 +151,11 @@ export const CRMTab: React.FC<CRMTabProps> = ({ showToast }) => {
             className="px-4 py-3 bg-stone-950 border border-stone-900 focus:border-teal-500/50 rounded-full text-sm focus:outline-none transition-all text-stone-300 shadow-inner cursor-pointer"
           >
             <option value="all">모든 참여 날짜</option>
-            {uniqueDates.map(date => (
-              <option key={date} value={date}>{date}</option>
-            ))}
+            <option value="6월 22일 ~ 24일 (2박 3일)">6월 22일 ~ 24일 (2박 3일)</option>
+            <option value="6월 26일 ~ 28일 (2박 3일)">6월 26일 ~ 28일 (2박 3일)</option>
+            <option value="7월 6일 ~ 8일 (2박 3일)">7월 6일 ~ 8일 (2박 3일)</option>
+            <option value="7월 10일 ~ 12일 (2박 3일)">7월 10일 ~ 12일 (2박 3일)</option>
+            <option value="waitlist">정해진 일정 외 참가 : 추후 참가 모집 시 문자 알림 받기 (Waitlist)</option>
           </select>
 
           {/* Search */}

@@ -5,15 +5,17 @@ import {
   Shuffle, 
   Heart, 
   ArrowLeft, 
-  ShieldCheck 
+  ShieldCheck,
+  LogOut
 } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: 'crm' | 'phase' | 'mixer' | 'votes';
   setActiveTab: (tab: 'crm' | 'phase' | 'mixer' | 'votes') => void;
+  onLogout: () => void;
 }
 
-export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
+export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onLogout }) => {
   const menuItems = [
     { id: 'crm', label: '참가자 심사 (CRM)', icon: Users, desc: '신청서 승인/거절' },
     { id: 'phase', label: '실시간 페이즈 제어', icon: Radio, desc: '글로벌 Phase 전환' },
@@ -66,7 +68,7 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }
       </nav>
 
       {/* Footer Settings */}
-      <div className="p-6 border-t border-stone-900 bg-stone-950/40 space-y-4">
+      <div className="p-6 border-t border-stone-900 bg-stone-950/40 space-y-3">
         <div className="flex items-center gap-2.5 p-3.5 bg-stone-900/40 border border-stone-900 rounded-xl backdrop-blur-md">
           <ShieldCheck size={16} className="text-teal-400 shrink-0" />
           <div className="min-w-0">
@@ -75,6 +77,14 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }
           </div>
         </div>
         
+        <button
+          onClick={onLogout}
+          className="flex items-center justify-center gap-2.5 w-full py-3 bg-rose-950/30 hover:bg-rose-900/40 border border-rose-900/30 hover:border-rose-900/50 rounded-full text-sm text-rose-400 hover:text-rose-300 transition-all duration-300 font-bold cursor-pointer shadow-sm"
+        >
+          <LogOut size={14} />
+          로그아웃
+        </button>
+
         <a
           href="/"
           className="flex items-center justify-center gap-2.5 w-full py-3 bg-stone-900 hover:bg-stone-850 border border-stone-800 hover:border-stone-700 rounded-full text-sm text-stone-400 hover:text-stone-200 transition-all duration-300 font-medium cursor-pointer shadow-sm"
