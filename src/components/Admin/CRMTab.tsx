@@ -155,7 +155,7 @@ export const CRMTab: React.FC<CRMTabProps> = ({ showToast }) => {
             <option value="6월 26일 ~ 28일 (2박 3일)">6월 26일 ~ 28일 (2박 3일)</option>
             <option value="7월 6일 ~ 8일 (2박 3일)">7월 6일 ~ 8일 (2박 3일)</option>
             <option value="7월 10일 ~ 12일 (2박 3일)">7월 10일 ~ 12일 (2박 3일)</option>
-            <option value="waitlist">정해진 일정 외 참가 : 추후 참가 모집 시 문자 알림 받기 (Waitlist)</option>
+            <option value="waitlist">정해진 일정 외 참가</option>
           </select>
 
           {/* Search */}
