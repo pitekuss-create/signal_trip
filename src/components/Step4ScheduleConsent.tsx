@@ -21,10 +21,11 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
   errors,
 }) => {
   const scheduleOptions = [
-    { id: 'june_3_weekday', label: '6월 3째주 평일 (화, 수, 목)' },
-    { id: 'june_3_weekend', label: '6월 3째주 주말 (금, 토, 일)' },
-    { id: 'june_4_weekday', label: '6월 4째주 평일 (화, 수, 목)' },
-    { id: 'june_4_weekend', label: '6월 4째주 주말 (금, 토, 일)' }
+    { id: '6월 22일 ~ 24일 (2박 3일)', label: '6월 22일 ~ 24일 (2박 3일)' },
+    { id: '6월 26일 ~ 28일 (2박 3일)', label: '6월 26일 ~ 28일 (2박 3일)' },
+    { id: '7월 6일 ~ 8일 (2박 3일)', label: '7월 6일 ~ 8일 (2박 3일)' },
+    { id: '7월 10일 ~ 12일 (2박 3일)', label: '7월 10일 ~ 12일 (2박 3일)' },
+    { id: 'waitlist', label: '정해진 일정 외 참가 : 추후 참가 모집 시 문자 알림 받기 (Waitlist)' }
   ];
 
   const handleScheduleToggle = (id: string) => {
@@ -76,6 +77,23 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
             );
           })}
         </div>
+
+        {/* 일정 변경 관련 안내 문구 */}
+        <div style={{
+          marginTop: '16px',
+          padding: '14px 18px',
+          backgroundColor: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          borderRadius: '12px',
+          fontSize: '13px',
+          lineHeight: '1.5',
+          color: '#475569',
+          fontWeight: 'bold',
+          wordBreak: 'keep-all'
+        }}>
+          📌 [안내] 제출 완료 후 부득이하게 일정을 변경하셔야 할 경우, 관리자 이메일(<a href="mailto:noteband@naver.com" style={{ color: '#00C7B5', textDecoration: 'underline' }}>noteband@naver.com</a>)로 직접 문의해 주시기 바랍니다.
+        </div>
+
         {errors.schedule && <p style={{ fontSize: '13px', color: '#ef4444', fontWeight: 'bold', marginTop: '8px' }}>{errors.schedule}</p>}
       </div>
 
