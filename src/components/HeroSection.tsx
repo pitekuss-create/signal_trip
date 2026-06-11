@@ -148,7 +148,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         {/* 🚨 참가비 박스 50% 축소 절대 강제화 🚨 */}
         <div style={{ width: '100%', maxWidth: '700px', margin: '0 auto', marginBottom: '5rem' }} className="border-2 border-stone-100 p-10 text-center bg-stone-50 rounded-[40px]">
           <p className="text-sm tracking-[0.3em] text-stone-500 mb-6 uppercase font-bold">Participation Fee</p>
-          <h2 className="text-3xl tracking-[0.1em] text-[#00C7B5] mb-12 font-bold">1인 참가비: 250,000원</h2>
+          <h2 className="tracking-[0.1em] text-[#00C7B5] mb-12 font-bold" style={{ fontSize: '21px' }}>1인 참가비: 250,000원</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'space-between', textAlign: 'left' }}>
             <div style={{ flex: '1 1 250px' }}>
               <p className="text-stone-900 mb-4 pb-3 border-b-2 border-stone-200 tracking-[0.1em] font-bold text-base">포함 내역</p>
