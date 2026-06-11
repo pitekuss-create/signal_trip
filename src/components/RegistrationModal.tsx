@@ -52,9 +52,9 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
     if (currentStep === 1) {
       if (!step1Data.name.trim()) newErrors.name = '본명을 입력해 주세요.';
       if (!step1Data.nickname.trim()) newErrors.nickname = '닉네임을 입력해 주세요.';
-      const phoneRegex = /^010-\d{4}-\d{4}$/;
+      const numbersOnly = step1Data.phone.replace(/[^0-9]/g, '');
       if (!step1Data.phone.trim()) newErrors.phone = '연락처를 입력해 주세요.';
-      else if (!phoneRegex.test(step1Data.phone)) newErrors.phone = '연락처 형식(010-XXXX-XXXX)에 맞게 입력해 주세요.';
+      else if (numbersOnly.length !== 10 && numbersOnly.length !== 11) newErrors.phone = '올바른 연락처(10~11자리 숫자)를 입력해 주세요.';
       if (!step1Data.age.trim()) newErrors.age = '나이를 입력해 주세요.';
       else if (parseInt(step1Data.age) < 19) newErrors.age = '만 19세 이상만 가입 가능합니다.';
       if (!step1Data.gender) newErrors.gender = '성별을 선택해 주세요.';

@@ -1,5 +1,19 @@
 import { User, Eye, Phone, Hash, MapPin } from 'lucide-react';
 
+const formatPhoneNumber = (value: string) => {
+  const cleaned = value.replace(/[^0-9]/g, '');
+  if (cleaned.length <= 3) {
+    return cleaned;
+  }
+  if (cleaned.length <= 7) {
+    return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+  }
+  if (cleaned.length <= 10) {
+    return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+  }
+  return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 7)}-${cleaned.slice(7, 11)}`;
+};
+
 export interface Step1Data {
   name: string;
   nickname: string;
@@ -62,8 +76,12 @@ export default function Step1BasicInfo({ data, updateData }: Step1Props) {
             <input
               type="tel"
               value={data.phone || ''}
-              onChange={(e) => updateData({ phone: e.target.value })}
+              onChange={(e) => {
+                const formatted = formatPhoneNumber(e.target.value);
+                updateData({ phone: formatted });
+              }}
               placeholder="010-0000-0000"
+              maxLength={13}
               className="w-full bg-white border border-stone-200 rounded-md py-3 pl-10 pr-4 text-stone-900 focus:outline-none focus:border-[#00C7B5] focus:ring-1 focus:ring-[#00C7B5] transition-colors"
             />
           </div>

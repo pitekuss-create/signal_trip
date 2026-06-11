@@ -179,8 +179,8 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               e.stopPropagation();
               onOpenRegistration(); // 알림창 빼고 모달만 바로 열리게 수정
             }}
-            className="px-24 py-6 bg-[#00C7B5] text-white font-bold hover:bg-[#00b3a3] transition-all tracking-[0.2em] text-2xl mb-6 rounded-full shadow-[0_15px_30px_rgba(0,199,181,0.3)]"
-            style={{ position: 'relative', zIndex: 999999, cursor: 'pointer', pointerEvents: 'auto' }}
+            className="px-24 py-6 bg-[#00C7B5] text-white font-bold hover:bg-[#00b3a3] transition-all tracking-[0.2em] text-2xl mb-6 rounded-full shadow-[0_15px_30px_rgba(0,199,181,0.3)] whitespace-nowrap"
+            style={{ position: 'relative', zIndex: 999999, cursor: 'pointer', pointerEvents: 'auto', whiteSpace: 'nowrap' }}
           >
             참가 신청하기
           </button>
