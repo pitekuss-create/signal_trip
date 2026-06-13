@@ -19,6 +19,7 @@ export interface Participant {
   company_name: string;
   address: string;
   status?: string;
+  is_agreed?: boolean;
 }
 
 export interface TripSession {

@@ -34,7 +34,7 @@ const RESTAURANTS = [
 const CAFE_INFO = {
   name: '카페 델문도',
   address: '제주특별자치도 서귀포시 안덕면 산록남로 762번길 113',
-  mission: '두 사람만의 시간이에요, 여기에서 못 꼬시면 접어라 접어.',
+  mission: '두 사람만의 시간이에요, 서로의 매력들을 뿜뿜 해주세요.',
 };
 
 const TALK_CARDS = [

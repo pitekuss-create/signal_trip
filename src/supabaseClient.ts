@@ -67,4 +67,7 @@ export interface Application {
   deal_breaker?: string;
   crisis_response?: string;
   group_position?: string;
+
+  // Onboarding
+  is_agreed?: boolean;
 }

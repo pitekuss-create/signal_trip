@@ -12,6 +12,7 @@ import Phase5DateMission from './Phase5DateMission';
 import Phase6FinalTeam from './Phase6FinalTeam';
 import Phase7FinalChoice from './Phase7FinalChoice';
 import Phase8Result from './Phase8Result';
+import RuleNoticeModal from './RuleNoticeModal';
 
 interface TimelineItem {
   phase: number;
@@ -472,6 +473,9 @@ export default function WebAppContainer() {
 
       {/* Toast overlay */}
       <Toast message={toast.message} visible={toast.visible} />
+
+      {/* Rule Notice Modal */}
+      <RuleNoticeModal />
 
       {/* Timeline FAB */}
       {user && localViewPhase >= 1 && (

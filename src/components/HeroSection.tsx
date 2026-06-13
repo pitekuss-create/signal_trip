@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Footer from './WebApp/Footer';
 
 interface HeroSectionProps {
   onOpenRegistration: () => void;
@@ -97,7 +98,8 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
   }
 
   return (
-    <div className="relative min-h-screen bg-white text-stone-900 w-full flex flex-col items-center py-20 px-4">
+    <div className="w-full min-h-screen bg-white text-stone-900 flex flex-col">
+      <div className="relative w-full flex-1 flex flex-col items-center py-20 px-4">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
         * { font-family: 'Gowun Dodum', sans-serif; }
@@ -190,6 +192,8 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         </div>
 
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }
