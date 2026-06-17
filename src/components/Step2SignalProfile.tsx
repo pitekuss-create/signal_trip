@@ -65,12 +65,12 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
         <p className="text-xs text-stone-400 font-light mt-1">당신의 취향과 개성을 표현해 주세요.</p>
       </div>
 
-      {/* 이상형 소개 */}
+      {/* 여행 스타일 소개 */}
       <div className="space-y-2">
-        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">나의 이상형</label>
+        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">나의 여행 스타일</label>
         <textarea
           rows={3}
-          placeholder="어떤 스타일의 사람과 여행을 떠나고 싶으신가요? 구체적인 취향과 분위기를 적어주세요."
+          placeholder="어떤 스타일의 여행을 떠나고 싶으신가요? 선호하는 여행 방식이나 성향을 적어주세요."
           value={data.idealType}
           onChange={(e) => updateData({ idealType: e.target.value })}
           className={`w-full px-4 py-3 bg-brand-black border ${

@@ -22,8 +22,8 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
       a: "시그널 트립은 바로 그런 분들을 위해 설계되었어요. 외향적인 소수에게 대화가 휩쓸리지 않도록, 전용 웹앱이 48시간의 대화와 미션을 공평하게 리드해 줍니다. 그저 안내에 따라 편안하게 진짜 내 모습을 보여주기만 하면 돼요."
     },
     {
-      q: "1:1 데이트 파트너는 어떻게 정해지나요?",
-      a: "1일 차 저녁, 개별 인터뷰와 웹앱을 통해 '시그널 투표'를 진행해요. 이를 바탕으로 가장 결이 맞고 호감도가 높은 상대방과 2일 차 프라이빗 1:1 데이트를 즐기게 될 거예요."
+      q: "팀 크루는 어떻게 만들어지나요??",
+      a: "제출해주신 '취향 데이터 신청서'를 바탕으로 엄밀한 분석을 거쳐 매칭됩니다. 여행의 질감, 미식의 철학 등 결이 가장 잘 맞는 분들을 하나의 크루로 묶어드립니다. 따라서 탑승 신청서를 최대한 상세하고 진정성 있게 작성해주실수록, 48시간 동안 완벽한 시너지를 낼 수 있는 크루를 만나실 확률이 높아집니다."
     }
   ];
 
@@ -65,7 +65,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             >
               <div className="relative hover:-translate-y-3 transition-transform duration-300">
                 <img
-                  src="/envelope.png"
+                  src="/images/envelope.png"
                   alt="초대장"
                   style={{ width: '100%', maxWidth: '340px', height: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.15))' }}
                 />
@@ -81,19 +81,19 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 style={{ opacity: animStep >= 1 ? 1 : 0, transform: animStep >= 1 ? 'translateY(0)' : 'translateY(20px)', transition: 'all 1s ease', fontSize: '1.2rem', lineHeight: '1.6' }}
                 className="text-stone-800 tracking-widest break-keep"
               >
-                "이제부터 당신은 낯선 곳으로 떠납니다"
+                "이제부터 당신은 제주의 낯선 여행지로 탐험을 떠납니다"
               </p>
               <p
                 style={{ opacity: animStep >= 2 ? 1 : 0, transform: animStep >= 2 ? 'translateY(0)' : 'translateY(20px)', transition: 'all 1s ease', fontSize: '1.6rem', color: '#00C7B5', fontWeight: 'bold' }}
                 className="tracking-widest break-keep"
               >
-                "48시간의 긴 소개팅"
+                "48시간의 시크릿 소셜 미션"
               </p>
               <p
                 style={{ opacity: animStep >= 3 ? 1 : 0, transform: animStep >= 3 ? 'translateY(0)' : 'translateY(20px)', transition: 'all 1s ease', fontSize: '1.2rem', lineHeight: '1.6' }}
                 className="text-stone-800 tracking-widest break-keep"
               >
-                "여행지에서 사랑을 시작할까요?"
+                "취향 데이터로 묶인 크루와 함께"
               </p>
 
               {/* 버튼 간격도 폰트에 맞춰서 적절히 축소 */}
@@ -124,31 +124,85 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         @keyframes pageFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
 
-      {/* Section 1: Brand Manifesto (Full-width, Cinematic Background Image) */}
+      {/* Section 1: Hero Section (최상단 메인 배너) */}
       <div
         className="w-full relative bg-cover bg-[position:center_70%] py-32 md:py-40 px-6 text-center"
-        style={{ backgroundImage: `url('/hero-bg.png')` }}
+        style={{ backgroundImage: `url('/images/hero-bg.png')` }}
       >
         <div className="absolute inset-0 bg-black/70" />
         <div className="relative z-10 max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-4xl text-white tracking-wide font-medium leading-snug break-keep">
-            "1초의 스와이프로 결정되는 가벼운 인연에 지치셨나요?"
+            제주에 숨겨진 프라이빗 라운지의 암호를 해독하라.
           </h2>
-          <p className="mt-8 text-gray-300 text-sm md:text-base leading-loose max-w-2xl mx-auto break-keep font-light">
-            시그널 트립은 알고리즘이 아닌, 사람과 사람의 고유한 '결'에 집중합니다.<br />
-            화려한 스펙이나 사진 한 장으로 평가받는 소개팅에서 벗어나,<br />
-            제주의 낯선 풍경 속에서 당신의 진짜 취향과 가치관을 알아볼 누군가를 만나보세요.
+          <p className="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
+            스마트폰 속 지령에 따라 움직이는 48시간의 시크릿 소셜 미션. 취향 데이터로 묶인 8명의 크루와 함께,<br />
+            이제부터 당신은 <span className="text-[#00d0c0] font-bold">제주의 낯선 여행지로 탐험</span>을 떠납니다.
           </p>
         </div>
       </div>
 
       <div className="relative w-full flex-1 flex flex-col items-center py-20 px-4">
         <div className="w-full max-w-6xl flex flex-col items-center">
-          {/* Section 2: The Silhouette of 48 Hours */}
+
+          {/* Section 2: THE CORE RULES (시그널 트립 핵심 원칙) */}
+          <div className="w-full py-12 px-4 border-b border-stone-100 mb-20 flex justify-center">
+            <div className="w-full max-w-4xl flex flex-col items-center">
+              <div className="text-center mb-12 space-y-4">
+                <p className="text-sm tracking-[0.4em] text-[#00C7B5] uppercase font-bold">THE CORE RULES</p>
+                <h2 className="text-3xl tracking-[0.1em] text-stone-900 font-bold">시그널 트립 핵심 원칙</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center w-full">
+                <div className="flex justify-center">
+                  <img
+                    src="/images/rule-system.png"
+                    alt="Rule System"
+                    className="w-full max-w-md h-auto object-contain rounded-3xl shadow-md"
+                  />
+                </div>
+                <div className="space-y-8 text-left">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 bg-[#00C7B5]/10 text-[#00C7B5] text-xs rounded-full font-bold">RULE 1</span>
+                      블라인드 프로필
+                    </h3>
+                    <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">
+                      [블라인드 프로필] 사회적 계급장을 떼고, 오직 '결'로만 소통합니다. 1박 2일 동안 서로를 닉네임으로만 부릅니다.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 bg-[#00C7B5]/10 text-[#00C7B5] text-xs rounded-full font-bold">RULE 2</span>
+                      스마트폰 지령 시스템
+                    </h3>
+                    <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">
+                      [스마트폰 지령 시스템] 가이드는 없습니다. 전용 웹앱을 통해 은밀한 힌트와 목적지의 GPS가 전송됩니다.
+                    </p>
+                  </div>
+                  <div className="mb-6">
+                    <div className="flex items-center mb-2">
+                      <span className="bg-teal-50 text-teal-500 text-xs font-bold px-2 py-1 rounded mr-3">
+                        RULE 3
+                      </span>
+                      <h3 className="text-lg font-bold text-gray-900">
+                        하이엔드 큐레이션
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      계획 스트레스 제로. 몸만 오십시오. 맛집 검색도, 동선 고민도 필요 없습니다. 하이엔드 다이닝과 시크릿 디제잉 라운지가 완벽하게 세팅되어 있습니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 3: THE JOURNEY (48시간 타임라인 - 4개의 카드 UI) */}
           <div className="w-full py-12 px-4 border-b border-stone-100 mb-24">
             <div className="text-center mb-16 space-y-4">
-              <p className="text-sm tracking-[0.4em] text-[#00C7B5] uppercase font-bold">The Journey</p>
-              <h2 className="text-3xl tracking-[0.1em] text-stone-900 font-bold">48시간의 실루엣</h2>
+              <p className="text-sm tracking-[0.4em] text-[#00C7B5] uppercase font-bold">THE JOURNEY</p>
+              <h2 className="text-3xl tracking-[0.1em] text-stone-900 font-bold">48시간 타임라인</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full">
@@ -156,14 +210,14 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="border border-stone-100 rounded-3xl overflow-hidden bg-white text-left flex flex-col shadow-sm hover:shadow-lg transition-all duration-300">
                 <div className="w-full aspect-[4/5] overflow-hidden">
                   <img
-                    src="/day1-sunset.png"
-                    alt="Day 1. Sunset"
+                    src="/images/journey-keyring.png"
+                    alt="Day 1. 14:00 [미션 01. 크루 결성]"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-6 md:p-8 flex-1 flex flex-col justify-center">
-                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 1. Sunset</h3>
-                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">어색함이 설렘으로 바뀌는 낯선 해안도로에서의 첫 만남</p>
+                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 1. 14:00 [미션 01. 크루 결성]</h3>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">사전 배송된 시크릿 키링으로 나의 크루를 찾으세요.</p>
                 </div>
               </div>
 
@@ -171,14 +225,14 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="border border-stone-100 rounded-3xl overflow-hidden bg-white text-left flex flex-col shadow-sm hover:shadow-lg transition-all duration-300">
                 <div className="w-full aspect-[4/5] overflow-hidden">
                   <img
-                    src="/day1-night.png"
-                    alt="Day 1. Night"
+                    src="/images/journey-dj.png"
+                    alt="Day 1. 18:00 [프라이빗 다이닝 & DJ]"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-6 md:p-8 flex-1 flex flex-col justify-center">
-                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 1. Night</h3>
-                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">서로의 음악 취향이 부딪히는 프라이빗 바이닐(Vinyl) 라운지</p>
+                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 1. 18:00 [프라이빗 다이닝 & DJ]</h3>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">미션을 푼 크루에게만 허락되는 라운지 네트워킹.</p>
                 </div>
               </div>
 
@@ -186,14 +240,14 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="border border-stone-100 rounded-3xl overflow-hidden bg-white text-left flex flex-col shadow-sm hover:shadow-lg transition-all duration-300">
                 <div className="w-full aspect-[4/5] overflow-hidden">
                   <img
-                    src="/day2-morning.png"
-                    alt="Day 2. Morning"
+                    src="/images/journey-mission.png"
+                    alt="Day 2. 10:00 [미션 02. 커스텀 룰]"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-6 md:p-8 flex-1 flex flex-col justify-center">
-                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 2. Morning</h3>
-                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">선택된 자들만 알 수 있는 시크릿 로컬 맛집에서의 1:1 다이닝</p>
+                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 2. 10:00 [미션 02. 커스텀 룰]</h3>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">크루 취향에 맞춰진 숨겨진 공간으로 지령 전송.</p>
                 </div>
               </div>
 
@@ -201,40 +255,26 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="border border-stone-100 rounded-3xl overflow-hidden bg-white text-left flex flex-col shadow-sm hover:shadow-lg transition-all duration-300">
                 <div className="w-full aspect-[4/5] overflow-hidden">
                   <img
-                    src="/day2-night.png"
-                    alt="Day 2. Night"
+                    src="/images/journey-ending.png"
+                    alt="Day 2. 14:00 [엔딩 크레딧]"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-6 md:p-8 flex-1 flex flex-col justify-center">
-                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 2. Night</h3>
-                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">위스키 한 잔과 디제잉 음악, 그리고 마지막 밍글링 속 오가는 확실한 시그널</p>
+                  <h3 className="text-base font-bold text-stone-800 mb-2 tracking-wide">Day 2. 14:00 [엔딩 크레딧]</h3>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed break-keep font-normal">모든 미션 종료. 8명 전원의 진짜 프로필 봉인 해제.</p>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Section 3: App-based System Value (결제 가치 입증) */}
-          <div className="w-full max-w-3xl mx-auto py-24 text-center px-6 border-b border-stone-100 mb-20">
-            <span className="text-[10px] tracking-[0.6em] text-[#00C7B5] uppercase font-bold block mb-4">THE SYSTEM</span>
-            <h2 className="text-2xl md:text-3xl text-stone-800 tracking-wide font-medium leading-snug break-keep">
-              "어색한 침묵도, 억지 텐션도 필요 없습니다."
-            </h2>
-            <p className="mt-8 text-stone-500 text-sm md:text-base leading-loose max-w-2xl mx-auto break-keep font-light whitespace-pre-line">
-              {`시그널 트립에는 분위기를 띄우는 유치한 진행자가 없습니다. 
-대신, 당신의 스마트폰 속 '전용 웹앱'이 48시간의 감정선을 완벽하게 리드합니다. 
-누구도 소외되지 않는 턴제 대화 카드, 취향을 공유하는 시크릿 미션을 따라가다 보면
-어느새 가장 '나다운' 모습으로 결이 맞는 사람들과 깊어지게 될 것입니다.`}
-            </p>
           </div>
 
         </div>
       </div>
 
       {/* Section 4: Who We Invite (Full-width, White Magazine Quote style) */}
-      <div 
+      <div
         className="w-full relative bg-cover bg-center py-24 md:py-32 px-6 text-center"
-        style={{ backgroundImage: `url('/hero-bg-2.png')` }}
+        style={{ backgroundImage: `url('/images/hero-bg-2.png')` }}
       >
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 max-w-3xl mx-auto space-y-8">
@@ -244,15 +284,15 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           <div className="max-w-xl mx-auto text-left space-y-6">
             <div className="flex items-start gap-4">
               <span className="text-emerald-400 font-bold text-sm mt-1">✓</span>
-              <p className="text-white/90 text-sm md:text-base leading-relaxed break-keep font-light">단순한 스펙이나 외모보다, 사람과 사람 사이의 고유한 '결'을 알아볼 수 있는 분</p>
+              <p className="text-white/90 text-sm md:text-base leading-relaxed break-keep font-light">마주 앉아 호구조사하는 어색한 소개팅보다, 함께 미션을 풀며 자연스럽게 친해지는 '자만추'를 원하시는 분</p>
             </div>
             <div className="flex items-start gap-4">
               <span className="text-emerald-400 font-bold text-sm mt-1">✓</span>
-              <p className="text-white/90 text-sm md:text-base leading-relaxed break-keep font-light">어색한 침묵 속에서도 여유를 즐기며, 타인의 취향과 가치관을 깊이 있게 존중하는 분</p>
+              <p className="text-white/90 text-sm md:text-base leading-relaxed break-keep font-light">여행 계획을 짜는 스트레스 없이, 완벽하게 세팅된 하이엔드 큐레이션에 몸만 오고 싶으신 분</p>
             </div>
             <div className="flex items-start gap-4">
               <span className="text-emerald-400 font-bold text-sm mt-1">✓</span>
-              <p className="text-white/90 text-sm md:text-base leading-relaxed break-keep font-light">인위적인 조건 매칭이 아닌, 낯선 여행지가 만들어내는 낭만적인 우연을 믿으시는 분</p>
+              <p className="text-white/90 text-sm md:text-base leading-relaxed break-keep font-light">뻔한 관광지가 아닌, 아무도 모르는 프라이빗한 공간에서의 디제잉과 미식을 즐길 줄 아는 분</p>
             </div>
           </div>
 
@@ -267,7 +307,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
       {/* Section 5: Zero Tolerance Policy (Privacy & Safety Promise) */}
       <div className="w-full py-16 md:py-20 px-6 bg-white flex justify-center">
         <div className="w-full max-w-3xl bg-gray-50 rounded-3xl p-10 md:p-12 text-center shadow-sm">
-          <img src="/feature-privacy.png" alt="Privacy Protection" className="w-32 h-32 md:w-40 md:h-40 object-contain mx-auto mb-8" />
+          <img src="/images/feature-privacy.png" alt="Privacy Protection" className="w-32 h-32 md:w-40 md:h-40 object-contain mx-auto mb-8" />
           <p className="text-emerald-500 text-sm tracking-widest font-medium">100% PRIVACY & SAFETY</p>
           <h3 className="text-gray-800 text-2xl md:text-3xl font-semibold mt-3">완벽한 몰입을 위한 프라이버시 보호</h3>
           <p className="text-gray-500 leading-relaxed mt-5 text-sm md:text-base break-keep font-light whitespace-pre-line">
@@ -299,21 +339,21 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           >
             {/* 어필 포인트 1 */}
             <div style={{ flex: '1 1 280px', maxWidth: '300px' }} className="bg-white p-8 border-2 border-stone-100 text-center flex flex-col items-center rounded-[40px] shadow-sm hover:shadow-xl transition-all">
-              <img src="/feature-match.png" alt="Data Matching" className="w-40 h-40 object-contain mx-auto mb-8" />
-              <h3 className="text-lg tracking-[0.1em] mb-4 text-[#00C7B5] font-bold">DATA-DRIVEN MATCHING</h3>
-              <p className="text-stone-600 leading-relaxed break-keep text-sm">작성하신 프로필과 이상형 데이터를 주최 측이 직접 분석하여, 가장 결이 맞는 8명만을 엄선해 48시간의 여행을 시작합니다.</p>
+              <img src="/images/feature-match.png" alt="Data Matching" className="w-40 h-40 object-contain mx-auto mb-8" />
+              <h3 className="text-lg tracking-[0.1em] mb-4 text-[#00C7B5] font-bold">[취향 기반 크루 매칭]</h3>
+              <p className="text-stone-600 leading-relaxed break-keep text-sm">여행 스타일과 성향 데이터를 분석하여, 가장 결이 맞는 4명씩 2개의 크루를 구성합니다.</p>
             </div>
 
             {/* 어필 포인트 2 */}
             <div style={{ flex: '1 1 280px', maxWidth: '300px' }} className="bg-white p-8 border-2 border-stone-100 text-center flex flex-col items-center rounded-[40px] shadow-sm hover:shadow-xl transition-all">
-              <img src="/feature-guide.png" alt="Local Guide" className="w-40 h-40 object-contain mx-auto mb-8" />
-              <h3 className="text-lg tracking-[0.1em] mb-4 text-[#00C7B5] font-bold">LOCAL EXPERT GUIDE</h3>
-              <p className="text-stone-600 leading-relaxed break-keep text-sm">제주 로컬 전문가가 엄선한 시크릿 카페, 1:1 데이트를 위한 하이엔드 맛집, 그리고 영감을 채워줄 프라이빗 전시 투어 등 완벽한 여행 코스를 제공합니다.</p>
+              <img src="/images/feature-guide.png" alt="Local Guide" className="w-40 h-40 object-contain mx-auto mb-8" />
+              <h3 className="text-lg tracking-[0.1em] mb-4 text-[#00C7B5] font-bold">[시크릿 택시 펀딩 (No 운전)]</h3>
+              <p className="text-stone-600 leading-relaxed break-keep text-sm">희생해서 운전대를 잡을 필요 없습니다. 팀별로 두둑한 카카오 택시 지원금이 지급됩니다.</p>
             </div>
 
             {/* 어필 포인트 3 */}
             <div style={{ flex: '1 1 280px', maxWidth: '300px' }} className="bg-white p-8 border-2 border-stone-100 text-center flex flex-col items-center rounded-[40px] shadow-sm hover:shadow-xl transition-all">
-              <img src="/feature-verify.png" alt="Verified Identity" className="w-40 h-40 object-contain mx-auto mb-8" />
+              <img src="/images/feature-verify.png" alt="Verified Identity" className="w-40 h-40 object-contain mx-auto mb-8" />
               <h3 className="text-lg tracking-[0.1em] mb-4 text-[#00C7B5] font-bold">100% VERIFIED IDENTITY</h3>
               <p className="text-stone-600 leading-relaxed break-keep text-sm">직장 및 사업자 인증을 통과한 확실한 신원, 그리고 엄격한 법적 싱글(미혼) 서약 제도가 당신의 48시간을 가장 안전하게 보호합니다.</p>
             </div>
@@ -330,11 +370,10 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               {faqData.map((faq, index) => {
                 const isOpen = openFaq === index;
                 return (
-                  <div 
-                    key={index} 
-                    className={`border-b pb-4 transition-colors duration-300 ${
-                      isOpen ? 'border-emerald-200' : 'border-gray-100 hover:border-emerald-200'
-                    }`}
+                  <div
+                    key={index}
+                    className={`border-b pb-4 transition-colors duration-300 ${isOpen ? 'border-emerald-200' : 'border-gray-100 hover:border-emerald-200'
+                      }`}
                   >
                     <button
                       onClick={() => setOpenFaq(isOpen ? null : index)}
@@ -375,18 +414,18 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div style={{ flex: '1 1 250px' }}>
                 <p className="text-stone-900 mb-4 pb-3 border-b-2 border-stone-200 tracking-[0.1em] font-bold text-base">포함 내역</p>
                 <ul className="space-y-3 text-stone-600 text-sm">
-                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 프라이빗 여행 투어</li>
-                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 프리미엄 케이터링 2회</li>
-                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 디제잉 파티 라운지 대관</li>
-                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 미션 디저트 리워드</li>
+                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 팀별 택시 이동 펀딩금</li>
+                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 하이엔드 디너 & 런치 (2식)</li>
+                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 베이스캠프 대관 및 DJ 파티</li>
+                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 시크릿 미션 키링</li>
+                  <li className="flex items-center"><span className="text-[#00C7B5] mr-2 font-bold">✔</span> 2일 차 취향별 체험 티켓</li>
                 </ul>
               </div>
               <div style={{ flex: '1 1 250px' }}>
                 <p className="text-stone-900 mb-4 pb-3 border-b-2 border-stone-200 tracking-[0.1em] font-bold text-base">불포함 내역</p>
                 <ul className="space-y-3 text-stone-600 text-sm">
                   <li className="flex items-start"><span className="text-stone-400 mr-2 mt-0.5">✖</span> 제주 왕복 항공권</li>
-                  <li className="flex items-start"><span className="text-stone-400 mr-2 mt-0.5">✖</span> <div>개별 숙소 <span className="text-xs text-[#00C7B5] block mt-1">(심사 통과 시 추천 숙소 제공)</span></div></li>
-                  <li className="flex items-start"><span className="text-stone-400 mr-2 mt-0.5">✖</span> 1:1 데이트 시 개인 식사 비용</li>
+                  <li className="flex items-start"><span className="text-stone-400 mr-2 mt-0.5">✖</span> <div>개별 숙소 <span className="text-xs text-[#00C7B5] block mt-1">(동선에 맞는 최적의 숙소 리스트를 제공합니다)</span></div></li>
                 </ul>
               </div>
             </div>
@@ -404,7 +443,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               className="px-24 py-6 bg-[#00C7B5] text-white font-bold hover:bg-[#00b3a3] transition-all tracking-[0.2em] text-2xl mb-6 rounded-full shadow-[0_15px_30px_rgba(0,199,181,0.3)] whitespace-nowrap"
               style={{ position: 'relative', zIndex: 999999, cursor: 'pointer', pointerEvents: 'auto', whiteSpace: 'nowrap' }}
             >
-              참가 신청하기
+              시크릿 크루 탑승하기
             </button>
             <p className="text-sm text-stone-400">
               ※ 결제는 엄격한 서류 심사를 통과하신 분들에 한해 추후 개별 안내됩니다.

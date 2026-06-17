@@ -15,10 +15,10 @@ const LETTER_LINES = [
   '이제부터 당신은',
   '낯선 곳으로 떠납니다.',
   '',
-  '48시간의 긴 소개팅.',
+  '48시간의 시크릿 소셜 미션.',
   '',
-  '여행지에서',
-  '사랑을 시작할까요?',
+  '취향 크루와 함께',
+  '새로운 이면을 탐험할까요?',
 ];
 
 export default function Phase1Lobby({ user, globalPhase, onStartTrip, showToast }: Phase1Props) {

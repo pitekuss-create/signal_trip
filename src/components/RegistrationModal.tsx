@@ -33,7 +33,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
   });
 
   const [step3Data, setStep3Data] = useState<PreInterviewData>({
-    dealBreaker: [], crisisResponse: [], groupPosition: '',
+    q1: '', q2: '', groupPosition: '', q3: '', q4: '', q5: ''
   });
 
   const [step4Data, setStep4Data] = useState<Step3Data>({
@@ -65,16 +65,19 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
     }
 
     if (currentStep === 2) {
-      if (!step2Data.idealType.trim()) newErrors.idealType = '나의 이상형 소개를 입력해 주세요.';
+      if (!step2Data.idealType.trim()) newErrors.idealType = '나의 여행 스타일을 입력해 주세요.';
       if (!step2Data.bio.trim()) newErrors.bio = '자기소개를 입력해 주세요.';
       if (step2Data.photos.length === 0) newErrors.photos = '사진을 업로드해 주세요.';
       if (!step2Data.snsLink.trim()) newErrors.snsLink = 'SNS 링크를 필수로 입력해 주세요.';
     }
 
     if (currentStep === 3) {
-      if (step3Data.dealBreaker.length === 0) newErrors.dealBreaker = '절대 불가 조건을 선택해 주세요.';
-      if (step3Data.crisisResponse.length === 0) newErrors.crisisResponse = '연애 선호도를 선택해 주세요.';
+      if (!step3Data.q1) newErrors.q1 = 'Q1 질문에 답해주세요.';
+      if (!step3Data.q2) newErrors.q2 = 'Q2 질문에 답해주세요.';
       if (!step3Data.groupPosition) newErrors.groupPosition = '모임 내 포지션을 선택해 주세요.';
+      if (!step3Data.q3) newErrors.q3 = 'Q3 질문에 답해주세요.';
+      if (!step3Data.q4 || !step3Data.q4.trim()) newErrors.q4 = 'Q4 질문에 답해주세요.';
+      if (!step3Data.q5 || !step3Data.q5.trim()) newErrors.q5 = 'Q5 질문에 답해주세요.';
     }
 
     if (currentStep === 4) {
@@ -169,9 +172,9 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
         privacy_pledge: step5Data.privacyPledge,
         status: 'pending',
 
-        deal_breaker: step3Data.dealBreaker.join(', '),
-        crisis_response: step3Data.crisisResponse.join(', '),
-        group_position: step3Data.groupPosition
+        deal_breaker: `Q1: ${step3Data.q1} / Q4 지뢰: ${step3Data.q4.trim()}`,
+        crisis_response: `Q2: ${step3Data.q2} / Q5 소울: ${step3Data.q5.trim()}`,
+        group_position: `포지션: ${step3Data.groupPosition} / Q3: ${step3Data.q3}`
       };
 
       // 5. Supabase Database Insert 실행
@@ -198,7 +201,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
     setIsSuccess(false);
     setStep1Data({ name: '', nickname: '', phone: '', address: '', gender: '', age: '', mbti: '' });
     setStep2Data({ idealType: '', bio: '', photos: [], snsLink: '', photoFiles: [] });
-    setStep3Data({ dealBreaker: [], crisisResponse: [], groupPosition: '' });
+    setStep3Data({ q1: '', q2: '', groupPosition: '', q3: '', q4: '', q5: '' });
     setStep4Data({ jobType: '', companyName: '', verificationFile: '', fileName: '', verificationFileObject: undefined });
     setStep5Data({ schedule: [], singlePledge: false, privacyPledge: false });
     setErrors({});

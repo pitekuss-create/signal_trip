@@ -21,11 +21,11 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
   errors,
 }) => {
   const scheduleOptions = [
-    { id: '6월 22일 ~ 24일 (2박 3일)', label: '6월 22일 ~ 24일 (2박 3일)' },
-    { id: '6월 26일 ~ 28일 (2박 3일)', label: '6월 26일 ~ 28일 (2박 3일)' },
-    { id: '7월 6일 ~ 8일 (2박 3일)', label: '7월 6일 ~ 8일 (2박 3일)' },
-    { id: '7월 10일 ~ 12일 (2박 3일)', label: '7월 10일 ~ 12일 (2박 3일)' },
-    { id: 'waitlist', label: '정해진 일정 외 참가 : 추후 참가 모집 시 문자 알림 받기 (Waitlist)' }
+    { id: '6월25일~26일(1박2일)', label: '6월25일~26일(1박2일)' },
+    { id: '6월27일~28일(1박2일)', label: '6월27일~28일(1박2일)' },
+    { id: '7월2일~3일(1박2일)', label: '7월2일~3일(1박2일)' },
+    { id: '7월4일~5일(1박2일)', label: '7월4일~5일(1박2일)' },
+    { id: 'waitlist', label: '정해진 일정 외 참가 : 추후 참가 모집 시 문자 알림 받기' }
   ];
 
   const handleScheduleToggle = (id: string) => {
