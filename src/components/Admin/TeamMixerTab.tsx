@@ -468,7 +468,7 @@ export const TeamMixerTab: React.FC<TeamMixerTabProps> = ({ showToast }) => {
   const females = useMemo(() => participants.filter(p => p.gender === 'FEMALE'), [participants]);
 
   return (
-    <div className="space-y-8 text-left">
+    <div className="space-y-8 text-left overflow-x-auto w-full">
       {/* Overview of approved participants */}
       <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-lg">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">

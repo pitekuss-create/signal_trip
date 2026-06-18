@@ -214,7 +214,7 @@ export const VoteViewerTab: React.FC<VoteViewerTabProps> = ({ showToast }) => {
   const females = useMemo(() => participants.filter(p => p.gender === 'FEMALE'), [participants]);
 
   return (
-    <div className="space-y-6 text-left">
+    <div className="space-y-6 text-left overflow-x-auto w-full">
       <div className="bg-stone-900 border border-stone-800 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-5 shadow-lg">
         <div className="flex bg-stone-950 p-1.5 border border-stone-900 rounded-full shrink-0">
           {(['first', 'final'] as const).map((r) => (

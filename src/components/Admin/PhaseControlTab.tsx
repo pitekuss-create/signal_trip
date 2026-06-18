@@ -363,7 +363,7 @@ export const PhaseControlTab: React.FC<PhaseControlTabProps> = ({ showToast }) =
   const currentPhase = session?.current_phase ?? 1;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 overflow-x-auto w-full">
       {/* Live Monitor Header */}
       <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl bg-gradient-to-br from-stone-900 to-stone-950/40">
         {/* Background glow overlay */}

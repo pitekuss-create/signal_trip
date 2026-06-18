@@ -30,12 +30,12 @@ export const AdminDashboard: React.FC = () => {
   }, [toast.visible]);
 
   return (
-    <div className="flex min-h-screen bg-stone-950 text-stone-100 font-sans selection:bg-teal-500/30 selection:text-teal-200">
+    <div className="flex flex-col md:flex-row min-h-screen bg-stone-950 text-stone-100 font-sans selection:bg-teal-500/30 selection:text-teal-200">
       {/* Sidebar Navigation */}
       <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} />
 
       {/* Main Panel Content */}
-      <main className="flex-1 p-8 md:p-12 overflow-y-auto max-h-screen relative">
+      <main className="flex-1 p-6 md:p-12 overflow-y-auto max-h-screen w-full overflow-x-hidden relative">
         {/* Background glow decorator */}
         <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-teal-500/5 blur-[120px] rounded-full pointer-events-none" />
         

@@ -24,9 +24,9 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, 
   ] as const;
 
   return (
-    <div className="w-80 bg-stone-950 border-r border-stone-900 flex flex-col min-h-screen shadow-xl z-20">
+    <div className="w-full md:w-80 bg-stone-950 border-b md:border-b-0 md:border-r border-stone-900 flex flex-col h-auto md:h-screen md:min-h-screen shadow-xl z-20">
       {/* Brand Header */}
-      <div className="p-6 border-b border-stone-900/80">
+      <div className="p-4 md:p-6 border-b border-stone-900/80">
         <div className="flex items-center gap-2">
           <span className="font-cinzel text-xs tracking-[0.3em] text-teal-400 uppercase font-semibold">Host Administration</span>
           <span className="text-[11px] px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20 font-mono">LIVE</span>
@@ -38,7 +38,7 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, 
       </div>
 
       {/* Menu List */}
-      <nav className="flex-1 p-4 space-y-2">
+      <nav className="flex-1 p-3 md:p-4 space-y-1 md:space-y-2">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -46,21 +46,21 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, 
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-start gap-4 p-4 rounded-l-xl rounded-r-none transition-all duration-300 group text-left cursor-pointer ${
+              className={`w-full flex items-center md:items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl md:rounded-l-xl md:rounded-r-none transition-all duration-300 group text-left cursor-pointer ${
                 isActive
                   ? 'bg-teal-500/10 text-teal-400 border-r-4 border-teal-500'
                   : 'border-r-4 border-transparent hover:bg-stone-900/60 text-stone-400 hover:text-stone-200'
               }`}
             >
               <Icon 
-                size={22} 
-                className={`mt-0.5 shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+                size={20} 
+                className={`shrink-0 transition-transform duration-300 group-hover:scale-110 ${
                   isActive ? 'text-teal-400' : 'text-stone-500 group-hover:text-stone-400'
                 }`} 
               />
-              <div>
+              <div className="flex flex-col">
                 <p className="text-sm font-bold tracking-wide font-sans">{item.label}</p>
-                <p className="text-xs text-stone-500 mt-1 group-hover:text-stone-400 font-light">{item.desc}</p>
+                <p className="hidden md:block text-xs text-stone-500 mt-1 group-hover:text-stone-400 font-light">{item.desc}</p>
               </div>
             </button>
           );
@@ -68,18 +68,18 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, 
       </nav>
 
       {/* Footer Settings */}
-      <div className="p-6 border-t border-stone-900 bg-stone-950/40 space-y-3">
-        <div className="flex items-center gap-2.5 p-3.5 bg-stone-900/40 border border-stone-900 rounded-xl backdrop-blur-md">
+      <div className="p-4 md:p-6 border-t border-stone-900 bg-stone-950/40 space-y-2 md:space-y-3">
+        <div className="flex items-center gap-2.5 p-2.5 md:p-3.5 bg-stone-900/40 border border-stone-900 rounded-xl backdrop-blur-md">
           <ShieldCheck size={16} className="text-teal-400 shrink-0" />
           <div className="min-w-0">
             <p className="text-xs font-bold text-stone-300 truncate">관리자 보안 모드</p>
-            <p className="text-[11px] text-stone-600 font-mono mt-0.5">DB Connection Secure</p>
+            <p className="text-[10px] md:text-[11px] text-stone-600 font-mono mt-0.5">DB Connection Secure</p>
           </div>
         </div>
         
         <button
           onClick={onLogout}
-          className="flex items-center justify-center gap-2.5 w-full py-3 bg-rose-950/30 hover:bg-rose-900/40 border border-rose-900/30 hover:border-rose-900/50 rounded-full text-sm text-rose-400 hover:text-rose-300 transition-all duration-300 font-bold cursor-pointer shadow-sm"
+          className="flex items-center justify-center gap-2.5 w-full py-2 md:py-3 bg-rose-950/30 hover:bg-rose-900/40 border border-rose-900/30 hover:border-rose-900/50 rounded-full text-xs md:text-sm text-rose-400 hover:text-rose-300 transition-all duration-300 font-bold cursor-pointer shadow-sm"
         >
           <LogOut size={14} />
           로그아웃
@@ -87,7 +87,7 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, 
 
         <a
           href="/"
-          className="flex items-center justify-center gap-2.5 w-full py-3 bg-stone-900 hover:bg-stone-850 border border-stone-800 hover:border-stone-700 rounded-full text-sm text-stone-400 hover:text-stone-200 transition-all duration-300 font-medium cursor-pointer shadow-sm"
+          className="flex items-center justify-center gap-2.5 w-full py-2 md:py-3 bg-stone-900 hover:bg-stone-850 border border-stone-800 hover:border-stone-700 rounded-full text-xs md:text-sm text-stone-400 hover:text-stone-200 transition-all duration-300 font-medium cursor-pointer shadow-sm"
         >
           <ArrowLeft size={14} />
           랜딩 페이지로 가기
