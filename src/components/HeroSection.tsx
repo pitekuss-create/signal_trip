@@ -321,11 +321,11 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           <Footer />
         </div>
 
-        {/* Section 6: Sticky Bottom CTA (Tall Button py-5 text-xl) */}
-        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md p-4 bg-white/90 backdrop-blur-sm border-t border-gray-100 z-50">
+        {/* Section 6: Sticky Bottom CTA (Floating Button) */}
+        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md px-4 pt-4 pb-8 bg-gradient-to-t from-black/80 to-transparent z-50">
           <button
             onClick={handleCtaClick}
-            className="w-full bg-[#00C7B5] text-white py-5 rounded-xl font-bold text-xl shadow-xl hover:brightness-105 active:scale-[0.99] transition-all duration-200 cursor-pointer text-center"
+            className="w-3/4 max-w-xs mx-auto block bg-[#00C7B5] text-white py-3.5 rounded-xl font-bold text-base shadow-xl hover:brightness-105 active:scale-[0.99] transition-all duration-200 cursor-pointer text-center"
           >
             시그널 트립 탑승하기
           </button>
