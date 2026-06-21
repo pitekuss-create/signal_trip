@@ -151,11 +151,11 @@ export const CRMTab: React.FC<CRMTabProps> = ({ showToast }) => {
             className="px-4 py-3 bg-stone-950 border border-stone-900 focus:border-teal-500/50 rounded-full text-sm focus:outline-none transition-all text-stone-300 shadow-inner cursor-pointer"
           >
             <option value="all">모든 참여 날짜</option>
-            <option value="6월 22일 ~ 24일 (2박 3일)">6월 22일 ~ 24일 (2박 3일)</option>
-            <option value="6월 26일 ~ 28일 (2박 3일)">6월 26일 ~ 28일 (2박 3일)</option>
-            <option value="7월 6일 ~ 8일 (2박 3일)">7월 6일 ~ 8일 (2박 3일)</option>
-            <option value="7월 10일 ~ 12일 (2박 3일)">7월 10일 ~ 12일 (2박 3일)</option>
-            <option value="waitlist">정해진 일정 외 참가</option>
+            <option value="7월 3일(금) 참가">7월 3일(금) 참가</option>
+            <option value="7월 4일(토) 참가">7월 4일(토) 참가</option>
+            <option value="7월 5일(일) 참가">7월 5일(일) 참가</option>
+            <option value="7월 6일(월) 참가">7월 6일(월) 참가</option>
+            <option value="flexible">제주 여행 예정 (일정 조율)</option>
           </select>
 
           {/* Search */}

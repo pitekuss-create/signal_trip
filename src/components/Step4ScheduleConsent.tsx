@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, ShieldAlert, Check } from 'lucide-react';
 
 export interface Step4Data {
@@ -20,19 +20,62 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
   updateData,
   errors,
 }) => {
-  const scheduleOptions = [
-    { id: '6월25일~26일(1박2일)', label: '6월25일~26일(1박2일)' },
-    { id: '6월27일~28일(1박2일)', label: '6월27일~28일(1박2일)' },
-    { id: '7월2일~3일(1박2일)', label: '7월2일~3일(1박2일)' },
-    { id: '7월4일~5일(1박2일)', label: '7월4일~5일(1박2일)' },
-    { id: 'waitlist', label: '정해진 일정 외 참가 : 추후 참가 모집 시 문자 알림 받기' }
-  ];
+  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 6, 1)); // 2026년 7월 (0-indexed 6)
 
-  const handleScheduleToggle = (id: string) => {
-    const updatedSchedule = data.schedule.includes(id)
-      ? data.schedule.filter((item) => item !== id)
-      : [...data.schedule, id];
-    updateData({ schedule: updatedSchedule });
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayIndex = new Date(year, month, 1).getDay();
+
+  const gridItems: (Date | null)[] = [];
+  for (let i = 0; i < firstDayIndex; i++) {
+    gridItems.push(null);
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    gridItems.push(new Date(year, month, d));
+  }
+
+  const minDate = new Date(2026, 6, 3); // 2026년 7월 3일
+
+  const isBeforeMinDate = (date: Date) => {
+    const compareDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    return compareDate < minDate;
+  };
+
+  const formatDate = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+
+  const handleDateClick = (date: Date) => {
+    const dateStr = formatDate(date);
+    if (data.schedule.includes(dateStr)) {
+      updateData({ schedule: [] });
+    } else {
+      updateData({ schedule: [dateStr] });
+    }
+  };
+
+  const handleFlexibleToggle = () => {
+    if (data.schedule.includes('flexible')) {
+      updateData({ schedule: [] });
+    } else {
+      updateData({ schedule: ['flexible'] });
+    }
+  };
+
+  const handlePrevMonth = () => {
+    const prev = new Date(year, month - 1, 1);
+    if (prev >= new Date(2026, 6, 1)) {
+      setCurrentMonth(prev);
+    }
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth(new Date(year, month + 1, 1));
   };
 
   return (
@@ -46,36 +89,148 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#444', fontSize: '14px', fontWeight: 'bold', marginBottom: '12px' }}>
           <Calendar size={18} color="#00C7B5" />
-          <span>선호 참가 일정 (중복 선택 가능)</span>
+          <span>선호 참가 일정 (단일 선택)</span>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {scheduleOptions.map((opt) => {
-            const isSelected = data.schedule.includes(opt.id);
-            return (
-              <div
-                key={opt.id}
-                onClick={() => handleScheduleToggle(opt.id)}
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '16px 20px', borderRadius: '12px',
-                  border: isSelected ? '2px solid #00C7B5' : '1px solid #d6d3d1',
-                  backgroundColor: isSelected ? '#e6f9f7' : '#fff',
-                  cursor: 'pointer', transition: 'all 0.2s'
-                }}
-              >
-                <span style={{ fontSize: '15px', fontWeight: 'bold', color: isSelected ? '#00C7B5' : '#444' }}>{opt.label}</span>
-                <div style={{
-                  width: '24px', height: '24px', borderRadius: '50%',
-                  border: isSelected ? '2px solid #00C7B5' : '2px solid #d6d3d1',
-                  backgroundColor: isSelected ? '#00C7B5' : 'transparent',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center'
-                }}>
-                  {isSelected && <Check size={14} color="#fff" strokeWidth={3} />}
-                </div>
-              </div>
-            );
-          })}
+        {/* Calendar UI Container */}
+        <div style={{
+          border: '1px solid #d6d3d1',
+          borderRadius: '16px',
+          padding: '20px',
+          backgroundColor: '#fcfcfc',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+        }}>
+          {/* Navigation Header */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <button
+              type="button"
+              onClick={handlePrevMonth}
+              disabled={year === 2026 && month === 6}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: (year === 2026 && month === 6) ? '#cbd5e1' : '#00C7B5',
+                cursor: (year === 2026 && month === 6) ? 'not-allowed' : 'pointer',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                padding: '4px 12px',
+                outline: 'none'
+              }}
+            >
+              &lt;
+            </button>
+            <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#1e293b' }}>
+              {year}년 {month + 1}월
+            </span>
+            <button
+              type="button"
+              onClick={handleNextMonth}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#00C7B5',
+                cursor: 'pointer',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                padding: '4px 12px',
+                outline: 'none'
+              }}
+            >
+              &gt;
+            </button>
+          </div>
+
+          {/* Weekdays Row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '8px', textAlign: 'center', marginBottom: '12px' }}>
+            {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
+              <span key={day} style={{ fontSize: '13px', fontWeight: 'bold', color: '#64748b' }}>
+                {day}
+              </span>
+            ))}
+          </div>
+
+          {/* Days Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '8px', textAlign: 'center' }}>
+            {gridItems.map((dateVal, idx) => {
+              if (!dateVal) {
+                return <div key={`empty-${idx}`} />;
+              }
+              const isBeforeMin = isBeforeMinDate(dateVal);
+              const dateStr = formatDate(dateVal);
+              const isSelected = data.schedule.includes(dateStr);
+
+              return (
+                <button
+                  key={dateStr}
+                  type="button"
+                  disabled={isBeforeMin}
+                  onClick={() => handleDateClick(dateVal)}
+                  style={{
+                    background: isSelected ? '#00C7B5' : 'transparent',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '100%',
+                    height: 'auto',
+                    aspectRatio: '1/1',
+                    maxWidth: '40px',
+                    margin: '0 auto',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: isSelected ? '#ffffff' : (isBeforeMin ? '#cbd5e1' : '#334155'),
+                    cursor: isBeforeMin ? 'not-allowed' : 'pointer',
+                    outline: 'none',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  {dateVal.getDate()}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Selected Date Preview text */}
+          {data.schedule.length > 0 && !data.schedule.includes('flexible') && (
+            <div style={{ marginTop: '16px', fontSize: '13px', fontWeight: 'bold', color: '#00C7B5', textAlign: 'center' }}>
+              선택한 일정: {data.schedule[0]}
+            </div>
+          )}
+        </div>
+
+        {/* 제주 여행 예정 checkbox */}
+        <div
+          onClick={handleFlexibleToggle}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '16px 20px',
+            borderRadius: '12px',
+            border: data.schedule.includes('flexible') ? '2px solid #00C7B5' : '1px solid #d6d3d1',
+            backgroundColor: data.schedule.includes('flexible') ? '#e6f9f7' : '#ffffff',
+            cursor: 'pointer',
+            marginTop: '16px',
+            transition: 'all 0.2s'
+          }}
+        >
+          <div style={{
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            border: data.schedule.includes('flexible') ? '2px solid #00C7B5' : '2px solid #d6d3d1',
+            backgroundColor: data.schedule.includes('flexible') ? '#00C7B5' : 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0
+          }}>
+            {data.schedule.includes('flexible') && <Check size={16} color="#ffffff" strokeWidth={3} />}
+          </div>
+          <span style={{ fontSize: '14px', fontWeight: 'bold', color: data.schedule.includes('flexible') ? '#00C7B5' : '#444', lineHeight: '1.4' }}>
+            제주 여행 예정 - 취향이 비슷한 여행 메이트가 나타날 경우 연락 (일정 조율)
+          </span>
         </div>
 
         {/* 일정 변경 관련 안내 문구 */}

@@ -9,7 +9,7 @@ function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-white text-stone-900 font-sans">
+    <div className="relative min-h-screen bg-stone-950 text-stone-200 font-sans">
       {/* Main Landing Page Hero Section */}
       <HeroSection onOpenRegistration={() => setIsModalOpen(true)} />
 

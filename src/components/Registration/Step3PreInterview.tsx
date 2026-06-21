@@ -209,7 +209,7 @@ export const Step3PreInterview: React.FC<Step3Props> = ({ data, updateData, erro
       <div>
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', color: '#444', fontSize: '14px', fontWeight: 'bold', marginBottom: '8px' }}>
           <Frown size={18} color="#00C7B5" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <span>Q4. 함께 48시간을 보낼 크루들을 위해 미리 알려주세요. 식탁에 "절대 올라와서는 안 되는" 지뢰(Dealbreaker)가 있습니까? (텍스트 입력)</span>
+          <span>Q4. 완벽한 취향 매칭으로 만날 단 한 명의 메이트를 위해 미리 알려주세요. 식탁에 '절대 올라와서는 안 되는' 지뢰(Dealbreaker)가 있습니까? (텍스트 입력)</span>
         </div>
         <textarea
           rows={2}
