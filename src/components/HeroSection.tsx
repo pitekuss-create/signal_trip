@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ChevronDown, 
+import {
+  ChevronDown,
   ChevronUp
 } from 'lucide-react';
 import Footer from './WebApp/Footer';
@@ -45,7 +45,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
     <div className="w-full min-h-screen bg-stone-950 flex flex-col items-center">
       {/* Mobile Outer Container: Centered on desktop, restricted to max-w-md */}
       <div className="w-full max-w-md min-h-screen bg-white text-gray-900 flex flex-col relative border-x border-gray-100 shadow-2xl overflow-x-hidden animate-fadeIn">
-        
+
         {/* Section 1: Main Hero 1 (Driving BG - Dark Gradient Overlay & Overline) */}
         <section className="relative h-[80vh] flex flex-col justify-end px-6 pb-20 overflow-hidden bg-stone-950">
           {/* Background Image */}
@@ -78,7 +78,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         {/* Section 2: Main Hero 2 (Romance Provocation - Italic Serif & Overline) */}
         <section className="relative h-[65vh] flex flex-col justify-center items-center px-8 text-center overflow-hidden bg-stone-950">
           {/* Night Romance Background */}
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url('/images/hero-romance.png')` }}
           />
@@ -150,17 +150,17 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           <div className="space-y-16">
             {/* Step 1 */}
             <div className="flex flex-col items-center">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
                 className="w-48 h-48 rounded-full border-2 border-[#00C7B5] bg-white flex items-center justify-center mx-auto shadow-md"
               >
-                <img 
-                  src="/images/step1-clipboard.png" 
-                  className="w-32 h-32 object-contain" 
-                  alt="Step 1 일러스트" 
+                <img
+                  src="/images/step1-clipboard.png"
+                  className="w-32 h-32 object-contain"
+                  alt="Step 1 일러스트"
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 01</div>
@@ -175,17 +175,17 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
 
             {/* Step 2 */}
             <div className="flex flex-col items-center">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
                 className="w-48 h-48 rounded-full border-2 border-[#00C7B5] bg-white flex items-center justify-center mx-auto shadow-md"
               >
-                <img 
-                  src="/images/step2-unlock.png" 
-                  className="w-32 h-32 object-contain" 
-                  alt="Step 2 일러스트" 
+                <img
+                  src="/images/step2-unlock.png"
+                  className="w-32 h-32 object-contain"
+                  alt="Step 2 일러스트"
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 02</div>
@@ -200,17 +200,17 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
 
             {/* Step 3 */}
             <div className="flex flex-col items-center">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
                 className="w-48 h-48 rounded-full border-2 border-[#00C7B5] bg-white flex items-center justify-center mx-auto shadow-md"
               >
-                <img 
-                  src="/images/step3-qr.png" 
-                  className="w-32 h-32 object-contain" 
-                  alt="Step 3 일러스트" 
+                <img
+                  src="/images/step3-qr.png"
+                  className="w-32 h-32 object-contain"
+                  alt="Step 3 일러스트"
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 03</div>
@@ -225,23 +225,23 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
 
             {/* Step 4 */}
             <div className="flex flex-col items-center">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
                 className="w-48 h-48 rounded-full border-2 border-[#00C7B5] bg-white flex items-center justify-center mx-auto shadow-md"
               >
-                <img 
-                  src="/images/step4-ticket.png" 
-                  className="w-32 h-32 object-contain" 
-                  alt="Step 4 일러스트" 
+                <img
+                  src="/images/step4-ticket.png"
+                  className="w-32 h-32 object-contain"
+                  alt="Step 4 일러스트"
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 04</div>
               <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">프로필 해제 & 보물찾기</h3>
               <p className="text-base font-medium text-gray-800 mt-4 leading-relaxed break-keep px-4">
-                "스캔 즉시 상대방의 진짜 프로필과 시그널 트립이 쏘는 '보물(최고급 F&B 2인 이용권)'이 지급됩니다. 이제 준비된 공간에서 두 사람만의 여행을 시작하세요."
+                "스캔 즉시 상대방의 진짜 프로필과 시그널 트립이 쏘는 '보물(검증된 F&B 2인 이용권)'이 지급됩니다. 이제 준비된 공간에서 두 사람만의 여행을 시작하세요."
               </p>
               <div className="mt-4 bg-gray-100 rounded-xl p-4 mx-4 text-sm text-gray-600 leading-relaxed break-keep">
                 ✨ 스캔 완료 알림과 함께 상대방의 프로필 카드가 열리고, 근처 로컬 맛집의 '2인 식사권' 쿠폰이 반짝이며 나타납니다.
@@ -275,7 +275,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                         {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       </span>
                     </button>
-                    
+
                     {isOpen && (
                       <div className="p-5 pt-0 text-base text-gray-700 leading-relaxed font-sans border-t border-gray-100 break-keep bg-white">
                         {faq.a}
@@ -293,7 +293,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             <div className="bg-gradient-to-t from-black/70 via-black/20 to-transparent absolute inset-0" />
             <div className="absolute bottom-6 left-6 right-6">
               <p className="text-white text-lg font-serif leading-snug drop-shadow-md break-keep">
-                여행지에서 우연히 만나는<br/>
+                여행지에서 우연히 만나는<br />
                 낯선곳에서 우연히 계속 지나치는
               </p>
               <p className="text-[#00C7B5] text-xl font-bold mt-2 tracking-wide drop-shadow-md">
