@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Check,
+  Shield,
+  Lock,
+  FileText
 } from 'lucide-react';
 import Footer from './WebApp/Footer';
 
@@ -18,6 +22,16 @@ interface HeroSectionProps {
 
 export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+
+  const heroImages = ['/images/hero-bright.png', '/images/hero-dark.png'];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleCtaClick = () => {
     if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
@@ -46,16 +60,22 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
       {/* Mobile Outer Container: Centered on desktop, restricted to max-w-md */}
       <div className="w-full max-w-md min-h-screen bg-white text-gray-900 flex flex-col relative border-x border-gray-100 shadow-2xl overflow-x-hidden animate-fadeIn">
 
-        {/* Section 1: Main Hero 1 (Driving BG - Dark Gradient Overlay & Overline) */}
+        {/* Section 1: Main Hero 1 (Slider BG - Dark Gradient Overlay & Overline) */}
         <section className="relative h-[80vh] flex flex-col justify-end px-6 pb-20 overflow-hidden bg-stone-950">
-          {/* Background Image */}
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('/images/driving.png')` }}
-          />
+          {/* Background Slider Images */}
+          {heroImages.map((src, idx) => (
+            <div
+              key={src}
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+                currentHeroIndex === idx ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ backgroundImage: `url('${src}')` }}
+            />
+          ))}
 
           {/* Dark Gradient Overlay for Text Contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80" />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70" />
 
           {/* Main Hook Copy with Overline */}
           <div className="relative z-10">
@@ -66,7 +86,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-[25px] sm:text-3xl font-extrabold leading-snug drop-shadow-lg text-white break-keep tracking-tight"
+              className="text-[25px] font-extrabold leading-snug drop-shadow-lg text-white break-keep tracking-tight"
             >
               시끄러운 게하 파티는 싫고,<br />
               혼술바는 부담스러운 사람들을 위한<br />
@@ -104,52 +124,181 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           </div>
         </section>
 
-        {/* Section 3: Value Proposition (White Background - Plain Envelope) */}
-        <section className="px-6 py-20 bg-white flex flex-col items-center border-b border-gray-100">
-          <div className="text-center space-y-3 mb-8">
+        {/* Section 3: Persona Section (옅은 크림색 배경) */}
+        <section className="px-6 py-20 bg-stone-50 border-b border-gray-100/50 flex flex-col items-center">
+          <div className="text-center space-y-3 mb-12">
             <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
-              SECRET MISSION
+              PERSONA
             </span>
-            <h2 className="text-2xl font-bold mt-12 text-gray-900 leading-snug break-keep font-noto">
-              시그널 트립에서 취향이 잘 맞는 여행메이트와 함께 보물을 찾아요
+            <h2 className="text-2xl font-extrabold text-gray-900 leading-snug break-keep tracking-tight font-sans">
+              이런 분들을 위한<br />제주 비밀 여행입니다.
             </h2>
-            <p className="text-lg mt-4 text-gray-700 max-w-[340px] mx-auto leading-relaxed break-keep">
-              신청서를 분석 후 취향이 가장 잘 맞는 여행메이트를 운명적으로 만나게 됩니다.
-            </p>
           </div>
 
-          {/* Envelope Image - Drop shadow 2D depth effect */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="w-full relative px-2"
-          >
-            <img
-              src="/images/invite-envelope.jpg"
-              className="w-full max-w-sm mx-auto object-contain mt-10 drop-shadow-2xl"
-              alt="초대 편지 봉투"
-            />
-          </motion.div>
+          <div className="w-full space-y-4 max-w-sm">
+            {[
+              "억지 텐션을 끌어올려야 하는 시끄러운 게하 파티에 지친 분",
+              "혼자 가는 제주 여행, 밥 한 끼/술 한 잔 같이할 결이 맞는 동행이 고픈 분",
+              "내향적(I)이라서 다수와의 만남보다 1:1, 혹은 소규모의 깊은 대화가 편한 분",
+              "영화 속 주인공처럼 낯선 장소에서 시작되는 로맨틱한 우연을 꿈꾸는 분"
+            ].map((text, idx) => (
+              <div
+                key={idx}
+                className="flex items-start gap-4 p-5 bg-white border border-stone-200/60 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-200"
+              >
+                <div className="w-6 h-6 rounded-full bg-[#00C7B5]/10 flex items-center justify-center text-[#00C7B5] shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5" strokeWidth={3} />
+                </div>
+                <p className="text-sm font-medium text-gray-700 leading-relaxed break-keep font-sans">
+                  {text}
+                </p>
+              </div>
+            ))}
+          </div>
         </section>
 
-        {/* Section 4: Process (제주맥주 스타일 일러스트 인포그래픽 - Light Gray Background - Scaled 30% / 40%) */}
+        {/* Section 4: Cinematic Journey Section (우아한 레이아웃) */}
+        <section className="px-6 py-20 bg-white border-b border-gray-100 flex flex-col items-center">
+          <div className="text-center space-y-3 mb-16">
+            <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
+              CINEMATIC JOURNEY
+            </span>
+            <h2 className="text-2xl font-extrabold text-gray-900 leading-snug tracking-tight font-serif break-keep">
+              시그널 트립,<br />이렇게 영화가 시작됩니다
+            </h2>
+          </div>
+
+          <div className="w-full space-y-16 max-w-sm">
+            {/* Scene 1 */}
+            <div className="flex flex-col gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100"
+              >
+                <img
+                  src="/images/scene1_taste.png"
+                  alt="나의 여행 취향 기록하기 (D-3)"
+                  className="w-full h-48 sm:h-56 object-cover"
+                />
+              </motion.div>
+              <div className="space-y-2 px-1 text-left">
+                <span className="text-xs font-bold tracking-wider text-rose-500 block uppercase font-mono">
+                  🎬 Scene 1
+                </span>
+                <h3 className="text-lg font-bold text-gray-900 break-keep font-serif">
+                  나의 여행 취향 기록하기 (D-3)
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
+                  복잡한 스펙 대신, 당신이 제주에서 느끼고 싶은 분위기, 좋아하는 음악, 선호하는 대화의 온도를 들려주세요. 당신의 결에 완벽히 맞는 단 한 명의 여행 메이트를 찾기 위한 첫걸음입니다.
+                </p>
+              </div>
+            </div>
+
+            {/* Scene 2 */}
+            <div className="flex flex-col gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100"
+              >
+                <img
+                  src="/images/scene2_invitation.png"
+                  alt="운명적인 시크릿 초대장 도착 (D-1)"
+                  className="w-full h-48 sm:h-56 object-cover"
+                />
+              </motion.div>
+              <div className="space-y-2 px-1 text-left">
+                <span className="text-xs font-bold tracking-wider text-rose-500 block uppercase font-mono">
+                  💌 Scene 2
+                </span>
+                <h3 className="text-lg font-bold text-gray-900 break-keep font-serif">
+                  운명적인 시크릿 초대장 도착 (D-1)
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
+                  "내일 오후 3시, 안도 타다오가 설계한 [본태박물관] 물의 정원 앞으로 와주세요." 매칭이 완료되면, 두 사람의 취향이 교차하는 완벽한 장소와 시크릿 시그널(예: 왼손에 반으로 접은 팜플렛)이 담긴 초대장이 도착합니다.
+                </p>
+              </div>
+            </div>
+
+            {/* Scene 3 */}
+            <div className="flex flex-col gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100"
+              >
+                <img
+                  src="/images/serendipity.png"
+                  alt="우연을 가장한, 완벽한 타이밍의 만남 (D-Day)"
+                  className="w-full h-48 sm:h-56 object-cover"
+                />
+              </motion.div>
+              <div className="space-y-2 px-1 text-left">
+                <span className="text-xs font-bold tracking-wider text-rose-500 block uppercase font-mono">
+                  ⏳ Scene 3
+                </span>
+                <h3 className="text-lg font-bold text-gray-900 break-keep font-serif">
+                  우연을 가장한, 완벽한 타이밍의 만남 (D-Day)
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
+                  "오후 5시 정각, 서쪽 창문의 노을빛이 그림에 닿는 순간." 시그널 트립이 설계한 미션 장소에서 똑같은 시그널을 들고 있는 상대방을 발견하세요. 넓은 공간을 헤맬 필요 없이, 가장 아름다운 찰나의 순간에 영화 같은 만남이 시작됩니다.
+                </p>
+              </div>
+            </div>
+
+            {/* Scene 4 */}
+            <div className="flex flex-col gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100"
+              >
+                <img
+                  src="/images/scene4_fnb.png"
+                  alt="취향이 담긴 공간에서 이어지는 대화"
+                  className="w-full h-48 sm:h-56 object-cover"
+                />
+              </motion.div>
+              <div className="space-y-2 px-1 text-left">
+                <span className="text-xs font-bold tracking-wider text-rose-500 block uppercase font-mono">
+                  🥂 Scene 4
+                </span>
+                <h3 className="text-lg font-bold text-gray-900 break-keep font-serif">
+                  취향이 담긴 공간에서 이어지는 대화
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
+                  서로를 알아본 순간, 두 사람만을 위해 준비된 제주의 숨은 미식 공간(F&B) 보물이 공개됩니다. 뻔한 맛집이 아닌, 두 사람의 취향을 저격할 프라이빗한 공간에서 깊은 대화를 이어가세요.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4.5: How It Works Section (세로형 원형 라인 일러스트 스타일로 복구) */}
         <section className="px-6 py-20 bg-gray-50 border-b border-gray-100">
           <div className="space-y-3 mb-16 text-center">
             <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
               HOW IT WORKS
             </span>
             <h2 className="text-2xl font-bold mb-10 text-center break-keep text-gray-900 leading-snug">
-              제주 여행을 준비중인가요?<br />
-              시그널 트립은 이렇게 여행이 시작돼요
+              시그널 트립,<br />
+              이렇게 진행됩니다
             </h2>
           </div>
 
           {/* Illust Infographic Steps */}
           <div className="space-y-16">
             {/* Step 1 */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-center">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
@@ -164,17 +313,14 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 01</div>
-              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">내 취향 심사 넣기</h3>
+              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">무료 참가 신청</h3>
               <p className="text-base font-medium text-gray-800 mt-4 leading-relaxed break-keep px-4">
-                "신중하게 내 취향을 입력하고 신청하세요. 무개념 유저를 차단하기 위해 꼼꼼한 심사 후 합격자에게만 결제 링크가 전송됩니다."
+                나의 여행 취향을 체크하고 가벼운 마음으로 신청해 주세요. 결제는 나와 핏이 맞는 메이트가 매칭된 후에만 진행되니 안심하셔도 좋습니다.
               </p>
-              <div className="mt-4 bg-gray-100 rounded-xl p-4 mx-4 text-sm text-gray-600 leading-relaxed break-keep">
-                ✨ 전시, 체험, 선호하는 음식 등 나의 여행 취향을 상세히 입력해 주세요. 이 데이터를 바탕으로 나와 가장 잘 맞는 운명적인 여행 메이트를 찾게 됩니다.
-              </div>
             </div>
 
             {/* Step 2 */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-center">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
@@ -189,17 +335,14 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 02</div>
-              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">D-1, 비밀 미션지 도착</h3>
+              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">웹앱 로그인 및 초대장 확인</h3>
               <p className="text-base font-medium text-gray-800 mt-4 leading-relaxed break-keep px-4">
-                "여행 전날 밤, 99% 취향이 일치하는 여행 메이트와의 만남 장소와 '시크릿 시그널(예: 왼손에 든 팜플렛)'이 도착합니다. 사진과 나이는 아직 비밀입니다."
+                매칭이 성사되면 시그널 트립 전용 웹앱 접속 링크가 문자로 발송됩니다. 로그인하여 나의 여행 메이트 힌트와 시크릿 미션 장소를 확인하세요.
               </p>
-              <div className="mt-4 bg-gray-100 rounded-xl p-4 mx-4 text-sm text-gray-600 leading-relaxed break-keep">
-                ✨ 잠긴 자물쇠 아이콘이 열리면서 '내일 오후 2시, 본태박물관'이라는 카카오톡 알림톡 팝업이 도착합니다.
-              </div>
             </div>
 
             {/* Step 3 */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-center">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
@@ -214,17 +357,14 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 03</div>
-              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">D-Day, 영화와 같은 만남과 보물찾기</h3>
+              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">약속 장소로 이동 & 미션 시작</h3>
               <p className="text-base font-medium text-gray-800 mt-4 leading-relaxed break-keep px-4">
-                "약속 장소에서 시그널을 통해 서로를 영화처럼 발견하세요. 만나자마자 서로의 QR코드를 스캔하여 보물찾기 미션을 완료합니다."
+                D-Day, 설레는 마음으로 제주도의 약속 장소로 이동합니다. 초대장에 적힌 시그널을 단서로 나만의 여행 메이트를 찾아보세요.
               </p>
-              <div className="mt-4 bg-gray-100 rounded-xl p-4 mx-4 text-sm text-gray-600 leading-relaxed break-keep">
-                ✨ 여행 메이트들은 만나 서로의 스마트폰 화면(QR코드)을 스캔하며 어색함을 깨고 경쾌한 아이스브레이킹을 시작합니다.
-              </div>
             </div>
 
             {/* Step 4 */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-center">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
@@ -239,14 +379,133 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 />
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8">STEP 04</div>
-              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">프로필 해제 & 보물찾기</h3>
+              <h3 className="text-xl font-extrabold text-gray-900 mt-2 break-keep">프로필 교환 및 프라이빗 다이닝</h3>
               <p className="text-base font-medium text-gray-800 mt-4 leading-relaxed break-keep px-4">
-                "스캔 즉시 상대방의 진짜 프로필과 시그널 트립이 쏘는 '보물(검증된 F&B 2인 이용권)'이 지급됩니다. 이제 준비된 공간에서 두 사람만의 여행을 시작하세요."
+                서로를 알아보고 QR코드를 스캔하면, 숨겨져 있던 진짜 프로필이 열립니다. 이제 준비된 F&B 공간에서 맛있는 음식과 함께 편안한 대화를 나누세요.
               </p>
-              <div className="mt-4 bg-gray-100 rounded-xl p-4 mx-4 text-sm text-gray-600 leading-relaxed break-keep">
-                ✨ 스캔 완료 알림과 함께 상대방의 프로필 카드가 열리고, 근처 로컬 맛집의 '2인 식사권' 쿠폰이 반짝이며 나타납니다.
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4.7: Virtual Persona (Matching Preview) Section */}
+        <section className="px-6 py-20 bg-stone-50 border-b border-gray-100 flex flex-col items-center">
+          <div className="text-center space-y-3 mb-12">
+            <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
+              MATCHING PREVIEW
+            </span>
+            <h2 className="text-2xl font-serif font-extrabold text-gray-900 leading-snug break-keep tracking-tight">
+              당신이 만나게 될지도 모르는 누군가
+            </h2>
+            <p className="text-sm text-gray-600 leading-relaxed break-keep px-4 font-sans font-light">
+              엄격한 취향 심사를 통과한, 매력적이고 결이 맞는 분들이 시그널 트립을 기다리고 있습니다.
+            </p>
+          </div>
+
+          {/* Cards container: Horizontal scroll layout on all viewports since the page is enclosed in max-w-md */}
+          <div className="w-full flex overflow-x-auto gap-4 snap-x snap-mandatory pb-6 flex-nowrap scrollbar-none">
+            {/* Card 1 */}
+            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">건축 디자이너 <span className="text-xs font-normal text-gray-500">(32세, 남)</span></h3>
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#차분함</span>
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#계획형</span>
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#미술관_산책</span>
+                </div>
+              </div>
+              <div className="border-t border-stone-100 pt-4 mt-auto">
+                <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
+                  "시끄러운 술자리보다는, 조용한 공간에서 건축과 공간에 대한 깊은 대화를 나누는 걸 좋아합니다."
+                </p>
               </div>
             </div>
+
+            {/* Card 2 */}
+            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">스타트업 마케터 <span className="text-xs font-normal text-gray-500">(29세, 여)</span></h3>
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#다정함</span>
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#경청</span>
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#내추럴와인</span>
+                </div>
+              </div>
+              <div className="border-t border-stone-100 pt-4 mt-auto">
+                <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
+                  "잘 알려진 관광지보다는 로컬들만 아는 숨겨진 골목길의 와인바를 찾아내는 것에 설렘을 느껴요."
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">IT 개발자 <span className="text-xs font-normal text-gray-500">(34세, 남)</span></h3>
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#여유로움</span>
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#재즈</span>
+                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#해안도로_드라이브</span>
+                </div>
+              </div>
+              <div className="border-t border-stone-100 pt-4 mt-auto">
+                <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
+                  "목적지 없이 달리는 드라이브와 재즈를 사랑합니다. 대화의 템포가 편안하게 맞는 분과 함께하고 싶습니다."
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Trust & Safety Section */}
+        <section className="px-6 py-20 bg-zinc-900 text-white flex flex-col items-center">
+          <div className="text-center space-y-3 mb-12">
+            <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
+              TRUST & SAFETY
+            </span>
+            <h2 className="text-xl font-extrabold text-stone-100 leading-snug tracking-tight break-keep font-sans px-2">
+              아무나 탑승할 수 없는,<br />가장 안전하고 프라이빗한 매칭
+            </h2>
+          </div>
+
+          <div className="w-full space-y-5 max-w-sm">
+            {[
+              {
+                icon: Shield,
+                title: "깐깐한 취향 심사",
+                desc: "단순 신청이 아닌, 심층 인터뷰를 통해 무개념/비매너 유저를 1차로 필터링합니다."
+              },
+              {
+                icon: Lock,
+                title: "신원 검증 프로세스",
+                desc: "매칭이 성사된 합격자에 한해 직장/학생 신분 인증(KYC)을 거친 후 최종 결제가 진행됩니다."
+              },
+              {
+                icon: FileText,
+                title: "3대 클린 서약",
+                desc: "노쇼, 무단 이탈, 비매너를 엄격히 금지하는 서약서에 동의한 분들만 모여 안전을 보장합니다."
+              }
+            ].map((item, idx) => {
+              const IconComponent = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-zinc-800/40 border border-zinc-700/40 rounded-2xl p-6 flex flex-col items-center text-center shadow-md hover:border-zinc-600/50 transition-all duration-200"
+                >
+                  <div className="w-12 h-12 rounded-full bg-zinc-800/80 border border-zinc-700/30 flex items-center justify-center text-[#00C7B5] mb-4">
+                    <IconComponent className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-base font-bold text-stone-150 mb-2 font-sans">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-stone-400 leading-relaxed font-sans font-light break-keep px-2">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -287,21 +546,6 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Image Text Banner */}
-          <div className="w-full h-56 rounded-3xl relative overflow-hidden mb-6 shadow-md">
-            <img src="/images/serendipity.png" className="absolute inset-0 w-full h-full object-cover object-center" alt="우연한 만남" />
-            <div className="bg-gradient-to-t from-black/70 via-black/20 to-transparent absolute inset-0" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="text-white text-lg font-serif leading-snug drop-shadow-md break-keep">
-                여행지에서 우연히 만나는<br />
-                낯선곳에서 우연히 계속 지나치는
-              </p>
-              <p className="text-[#00C7B5] text-xl font-bold mt-2 tracking-wide drop-shadow-md">
-                시그널 트립
-              </p>
-            </div>
-          </div>
-
           {/* Premium Pricing Card Widget (Shadow rich design) */}
           <div className="max-w-sm mx-auto bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-100 p-10 mt-16 mb-24 text-center">
             <span className="text-xs font-bold tracking-[0.2em] text-gray-400 mb-4 block">
@@ -312,6 +556,9 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             </div>
             <p className="text-sm text-gray-500 font-sans">
               왕복 항공료와 숙박비는 포함되어 있지 않아요
+            </p>
+            <p className="text-xs text-[#00C7B5] font-bold mt-4 break-keep leading-relaxed">
+              * 초기 신청 및 심사는 100% 무료이며, 매칭 성사 시에만 참가비(35,000원) 결제가 진행됩니다.
             </p>
           </div>
         </section>
@@ -327,8 +574,11 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             onClick={handleCtaClick}
             className="w-3/4 max-w-xs mx-auto block bg-[#00C7B5] text-white py-3.5 rounded-xl font-bold text-base shadow-xl hover:brightness-105 active:scale-[0.99] transition-all duration-200 cursor-pointer text-center"
           >
-            시그널 트립 탑승하기
+            시그널 트립 무료로 탑승하기
           </button>
+          <p className="text-[10px] text-stone-300 text-center mt-2 px-6 break-keep font-sans opacity-90 drop-shadow-md">
+            * 초기 신청 및 심사는 100% 무료이며, 매칭 성사 시에만 참가비(35,000원) 결제가 진행됩니다.
+          </p>
         </div>
 
       </div>

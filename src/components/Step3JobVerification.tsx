@@ -103,7 +103,7 @@ export const Step3JobVerification: React.FC<Step3Props> = ({ data, updateData, e
     <div className="space-y-6">
       <div className="text-center mb-6">
         <h3 className="font-cinzel text-xl font-bold text-gold-premium tracking-wider">Step 4. Verification</h3>
-        <p className="text-xs text-stone-400 font-light mt-1">프리미엄 커뮤니티의 신뢰를 위해 직업 및 신원을 인증합니다.</p>
+        <p className="text-xs text-stone-400 font-light mt-1">가장 안전하고 프라이빗한 만남을 위해, 마지막으로 신원 인증을 진행합니다.</p>
       </div>
 
       {/* 직업 선택 드롭다운 */}
@@ -173,14 +173,14 @@ export const Step3JobVerification: React.FC<Step3Props> = ({ data, updateData, e
                 <div className="flex flex-col items-center space-y-2">
                   <CheckCircle2 size={36} className="text-gold-premium animate-[pulse_2s_infinite]" />
                   <span className="text-xs text-stone-200 font-medium">{data.fileName}</span>
-                  <span className="text-[10px] text-stone-500">클릭하여 파일 변경</span>
+                  <span className="text-[10px] text-stone-500">인증 서류가 안전하게 암호화되어 첨부되었습니다.</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-center space-y-2">
                   <Upload size={32} className="text-stone-600 group-hover:text-gold-premium transition-colors" />
-                  <span className="text-xs text-stone-400 font-medium">증빙용 문서 업로드</span>
+                  <span className="text-xs text-stone-400 font-medium">인증 서류 업로드 (안전 보장)</span>
                   <span className="text-[10px] text-stone-500 text-center px-4 max-w-sm">
-                    {labels.fileDesc}
+                    {labels.fileDesc} <br />(제출하신 서류는 심사 후 즉시 영구 파기됩니다.)
                   </span>
                 </div>
               )}

@@ -33,7 +33,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
   });
 
   const [step3Data, setStep3Data] = useState<PreInterviewData>({
-    q1: '', q2: '', groupPosition: '', q3: '', q4: '', q5: ''
+    q1: '', q2: '', q3: '', q4: '', q5: ''
   });
 
   const [step4Data, setStep4Data] = useState<Step3Data>({
@@ -74,7 +74,6 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
     if (currentStep === 3) {
       if (!step3Data.q1) newErrors.q1 = 'Q1 질문에 답해주세요.';
       if (!step3Data.q2) newErrors.q2 = 'Q2 질문에 답해주세요.';
-      if (!step3Data.groupPosition) newErrors.groupPosition = '모임 내 포지션을 선택해 주세요.';
       if (!step3Data.q3) newErrors.q3 = 'Q3 질문에 답해주세요.';
       if (!step3Data.q4 || !step3Data.q4.trim()) newErrors.q4 = 'Q4 질문에 답해주세요.';
       if (!step3Data.q5 || !step3Data.q5.trim()) newErrors.q5 = 'Q5 질문에 답해주세요.';
@@ -174,7 +173,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
 
         deal_breaker: `Q1: ${step3Data.q1} / Q4 지뢰: ${step3Data.q4.trim()}`,
         crisis_response: `Q2: ${step3Data.q2} / Q5 소울: ${step3Data.q5.trim()}`,
-        group_position: `포지션: ${step3Data.groupPosition} / Q3: ${step3Data.q3}`
+        group_position: `Q3: ${step3Data.q3}`
       };
 
       // 5. Supabase Database Insert 실행
@@ -201,7 +200,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
     setIsSuccess(false);
     setStep1Data({ name: '', nickname: '', phone: '', address: '', gender: '', age: '', mbti: '' });
     setStep2Data({ idealType: '', bio: '', photos: [], snsLink: '', photoFiles: [] });
-    setStep3Data({ q1: '', q2: '', groupPosition: '', q3: '', q4: '', q5: '' });
+    setStep3Data({ q1: '', q2: '', q3: '', q4: '', q5: '' });
     setStep4Data({ jobType: '', companyName: '', verificationFile: '', fileName: '', verificationFileObject: undefined });
     setStep5Data({ schedule: [], singlePledge: false, privacyPledge: false });
     setErrors({});
