@@ -66,9 +66,8 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           {heroImages.map((src, idx) => (
             <div
               key={src}
-              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
-                currentHeroIndex === idx ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${currentHeroIndex === idx ? 'opacity-100' : 'opacity-0'
+                }`}
               style={{ backgroundImage: `url('${src}')` }}
             />
           ))}
@@ -407,7 +406,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
               <div>
                 <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
-                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">건축 디자이너 <span className="text-xs font-normal text-gray-500">(32세, 남)</span></h3>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">건축 디자이너 <span className="text-xs font-normal text-gray-500">(30세, 남)</span></h3>
                 <div className="flex flex-wrap gap-1.5 mb-6">
                   <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#차분함</span>
                   <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#계획형</span>
@@ -425,7 +424,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
               <div>
                 <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
-                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">스타트업 마케터 <span className="text-xs font-normal text-gray-500">(29세, 여)</span></h3>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">스타트업 마케터 <span className="text-xs font-normal text-gray-500">(25세, 여)</span></h3>
                 <div className="flex flex-wrap gap-1.5 mb-6">
                   <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#다정함</span>
                   <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#경청</span>
@@ -443,7 +442,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
               <div>
                 <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
-                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">IT 개발자 <span className="text-xs font-normal text-gray-500">(34세, 남)</span></h3>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">IT 개발자 <span className="text-xs font-normal text-gray-500">(29세, 남)</span></h3>
                 <div className="flex flex-wrap gap-1.5 mb-6">
                   <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#여유로움</span>
                   <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#재즈</span>

@@ -37,7 +37,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
   });
 
   const [step4Data, setStep4Data] = useState<Step3Data>({
-    jobType: '', companyName: '', verificationFile: '', fileName: '', verificationFileObject: undefined,
+    jobType: '', companyName: '',
   });
 
   const [step5Data, setStep5Data] = useState<Step4Data>({
@@ -68,7 +68,6 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
       if (!step2Data.idealType.trim()) newErrors.idealType = '나의 여행 스타일을 입력해 주세요.';
       if (!step2Data.bio.trim()) newErrors.bio = '자기소개를 입력해 주세요.';
       if (step2Data.photos.length === 0) newErrors.photos = '사진을 업로드해 주세요.';
-      if (!step2Data.snsLink.trim()) newErrors.snsLink = 'SNS 링크를 필수로 입력해 주세요.';
     }
 
     if (currentStep === 3) {
@@ -83,7 +82,6 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
       if (!step4Data.jobType) newErrors.jobType = '직업을 선택해 주세요.';
       else {
         if (!step4Data.companyName.trim()) newErrors.companyName = '직장명/상호명을 입력해 주세요.';
-        if (!step4Data.verificationFile) newErrors.verificationFile = '증빙 서류를 첨부해 주세요.';
       }
     }
 
@@ -118,9 +116,6 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
       if (!step2Data.photoFiles || step2Data.photoFiles.length === 0) {
         throw new Error('업로드된 프로필 사진 파일이 유실되었습니다. 2단계로 돌아가 다시 업로드해 주세요.');
       }
-      if (!step4Data.verificationFileObject) {
-        throw new Error('업로드된 증빙 서류 파일이 유실되었습니다. 4단계로 돌아가 다시 업로드해 주세요.');
-      }
 
       // 2. 파일 업로드 Helper 함수 정의
       const uploadToStorage = async (file: File, bucket: 'profile_photos' | 'verification_docs'): Promise<string> => {
@@ -145,7 +140,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
       // 3. 파일 스토리지 비동기 일괄 업로드 진행
       const photoUploadPromises = step2Data.photoFiles.map((file) => uploadToStorage(file, 'profile_photos'));
       const uploadedPhotoUrls = await Promise.all(photoUploadPromises);
-      const uploadedVerificationUrl = await uploadToStorage(step4Data.verificationFileObject, 'verification_docs');
+      const uploadedVerificationUrl = '';
 
       // 4. 데이터베이스 Payload 데이터 형식 변환 및 매핑
       const applicationPayload: Application = {
@@ -201,7 +196,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
     setStep1Data({ name: '', nickname: '', phone: '', address: '', gender: '', age: '', mbti: '' });
     setStep2Data({ idealType: '', bio: '', photos: [], snsLink: '', photoFiles: [] });
     setStep3Data({ q1: '', q2: '', q3: '', q4: '', q5: '' });
-    setStep4Data({ jobType: '', companyName: '', verificationFile: '', fileName: '', verificationFileObject: undefined });
+    setStep4Data({ jobType: '', companyName: '' });
     setStep5Data({ schedule: [], singlePledge: false, privacyPledge: false });
     setErrors({});
     onClose();

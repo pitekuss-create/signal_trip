@@ -95,14 +95,14 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
         {errors.bio && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.bio}</p>}
       </div>
 
-      {/* 파일 업로드 UI */}
+      {/* 파일 업로드 UI (약 30% 축소 적용) */}
       <div className="space-y-2">
         <div className="flex justify-between items-center">
           <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">개인 사진 업로드 (최대 5장)</label>
           <span className="text-[10px] text-stone-500">{data.photos.length} / 5</span>
         </div>
 
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-5 gap-2 max-w-[320px]">
           {data.photos.map((photo, index) => (
             <div key={index} className="relative aspect-square rounded-lg border border-stone-800 overflow-hidden group">
               <img src={photo} alt={`profile-${index}`} className="w-full h-full object-cover" />
@@ -111,7 +111,7 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
                 onClick={() => removePhoto(index)}
                 className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-red-400 cursor-pointer"
               >
-                <Trash2 size={16} />
+                <Trash2 size={14} />
               </button>
             </div>
           ))}
@@ -122,8 +122,8 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
               onClick={triggerFileInput}
               className="aspect-square rounded-lg border-2 border-dashed border-stone-800 hover:border-gold-premium/40 flex flex-col items-center justify-center text-stone-500 hover:text-gold-premium transition-colors cursor-pointer bg-brand-black/50"
             >
-              <Image size={20} className="mb-1" />
-              <span className="text-[9px]">추가</span>
+              <Image size={16} className="mb-0.5" />
+              <span className="text-[8px]">추가</span>
             </button>
           )}
         </div>
@@ -141,9 +141,9 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
         {errors.photos && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.photos}</p>}
       </div>
 
-      {/* 개인 SNS 주소 (필수) */}
+      {/* 개인 SNS 주소 (선택) */}
       <div className="space-y-2">
-        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">개인 SNS 주소 (인스타그램, 블로그 등 - 필수)</label>
+        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">개인 SNS 주소 (인스타그램, 블로그 등 - 선택)</label>
         <div className="relative">
           <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-600">
             <Link size={15} />
@@ -159,7 +159,7 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
           />
         </div>
         <p className="text-[10px] text-stone-500 font-light italic mt-1">
-          * 본인을 가장 잘 나타낼 수 있는 소셜 프로필 링크를 입력해 주세요.
+          * 본인의 분위기를 알 수 있는 계정을 남겨주시면, 훨씬 더 정교하고 완벽한 취향 매칭이 가능합니다.
         </p>
         {errors.snsLink && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.snsLink}</p>}
       </div>
