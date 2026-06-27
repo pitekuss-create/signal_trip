@@ -4,7 +4,6 @@ import { supabase } from '../../supabaseClient';
 import { MOCK_PARTICIPANTS, type Participant, type MatchResult } from './mockData';
 import { Lock, Copy, Info, Sparkles, LogOut, Phone, Star, RefreshCw, Heart, ArrowRight } from 'lucide-react';
 import Phase0Login from './Phase0Login';
-import RuleNoticeModal from './RuleNoticeModal';
 
 // ── BankAccountInfo Component ──
 const BankAccountInfo: React.FC = () => {
@@ -744,7 +743,6 @@ export default function WebAppContainer() {
 
       {/* Popups & Overlays */}
       <Toast message={toast.message} visible={toast.visible} />
-      <RuleNoticeModal />
       
       <AlertModal
         isOpen={activeModal.isOpen}
