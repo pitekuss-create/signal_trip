@@ -49,6 +49,11 @@ export interface MatchResult {
   participant_id: string;
   matched_with_id: string | null;
   is_matched: boolean;
+  meeting_time?: string | null;
+  meeting_place?: string | null;
+  partner_hint?: string | null;
+  action_hint?: string | null;
+  current_step?: number | null;
   created_at?: string;
 }
 

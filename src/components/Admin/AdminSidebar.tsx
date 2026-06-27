@@ -6,12 +6,13 @@ import {
   Heart, 
   ArrowLeft, 
   ShieldCheck,
-  LogOut
+  LogOut,
+  MapPin
 } from 'lucide-react';
 
 interface SidebarProps {
-  activeTab: 'crm' | 'phase' | 'mixer' | 'votes';
-  setActiveTab: (tab: 'crm' | 'phase' | 'mixer' | 'votes') => void;
+  activeTab: 'crm' | 'phase' | 'mixer' | 'votes' | 'couples';
+  setActiveTab: (tab: 'crm' | 'phase' | 'mixer' | 'votes' | 'couples') => void;
   onLogout: () => void;
 }
 
@@ -21,6 +22,7 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, 
     { id: 'phase', label: '실시간 페이즈 제어', icon: Radio, desc: '글로벌 Phase 전환' },
     { id: 'mixer', label: '자동 팀 배정기', icon: Shuffle, desc: '4인 조 및 데이트 믹싱' },
     { id: 'votes', label: '투표 & 매칭 현황', icon: Heart, desc: '실시간 투표 및 결과 확정' },
+    { id: 'couples', label: '1:1 매칭 & 미션 (V2)', icon: MapPin, desc: '커플별 힌트 및 미션 정보 설정' },
   ] as const;
 
   return (

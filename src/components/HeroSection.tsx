@@ -207,7 +207,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               >
                 <img
                   src="/images/scene2_invitation.png"
-                  alt="운명적인 시크릿 초대장 도착 (D-1)"
+                  alt="운명적인 시크릿 초대장 도착 (D-3)"
                   className="w-full h-48 sm:h-56 object-cover"
                 />
               </motion.div>
@@ -216,10 +216,10 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                   💌 Scene 2
                 </span>
                 <h3 className="text-lg font-bold text-gray-900 break-keep font-serif">
-                  운명적인 시크릿 초대장 도착 (D-1)
+                  운명적인 시크릿 초대장 도착 (D-3)
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
-                  "내일 오후 3시, 안도 타다오가 설계한 [본태박물관] 물의 정원 앞으로 와주세요." 매칭이 완료되면, 두 사람의 취향이 교차하는 완벽한 장소와 시크릿 시그널(예: 왼손에 반으로 접은 팜플렛)이 담긴 초대장이 도착합니다.
+                  여행 3일 전, 두 사람만을 위해 준비된 완벽한 장소와 시크릿 시그널(예: 왼손에 반으로 접은 팜플렛)이 담긴 초대장이 도착합니다.
                 </p>
               </div>
             </div>
