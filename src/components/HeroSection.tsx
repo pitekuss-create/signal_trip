@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   ChevronDown,
@@ -22,16 +22,6 @@ interface HeroSectionProps {
 
 export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
-
-  const heroImages = ['/images/hero-bright.png', '/images/hero-dark.png'];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length);
-    }, 5500);
-    return () => clearInterval(timer);
-  }, []);
 
   const handleCtaClick = () => {
     if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
@@ -62,15 +52,11 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
 
         {/* Section 1: Main Hero 1 (Slider BG - Dark Gradient Overlay & Overline) */}
         <section className="relative h-[80vh] flex flex-col justify-end px-6 pb-20 overflow-hidden bg-stone-950">
-          {/* Background Slider Images */}
-          {heroImages.map((src, idx) => (
-            <div
-              key={src}
-              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${currentHeroIndex === idx ? 'opacity-100' : 'opacity-0'
-                }`}
-              style={{ backgroundImage: `url('${src}')` }}
-            />
-          ))}
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/images/hero-bright.png')" }}
+          />
 
           {/* Dark Gradient Overlay for Text Contrast */}
           <div className="absolute inset-0 bg-black/40" />
@@ -78,6 +64,12 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
 
           {/* Main Hook Copy with Overline */}
           <div className="relative z-10">
+            {/* Trust Badge */}
+            <div className="mb-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-black/60 backdrop-blur-md border border-[#00C7B5]/30 text-white text-[11px] font-bold rounded-full shadow-lg">
+              <span className="text-[#00C7B5]">🛡️</span>
+              <span>100% 직장/신원 인증 완료된 분만 매칭됩니다</span>
+            </div>
+
             <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
               JEJU SECRET TRAVEL
             </span>
@@ -178,7 +170,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100"
               >
                 <img
-                  src="/images/scene1_taste.png"
+                  src="/images/bg-architecture.png"
                   alt="나의 여행 취향 기록하기 (D-3)"
                   className="w-full h-48 sm:h-56 object-cover"
                 />
@@ -262,7 +254,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 className="w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100"
               >
                 <img
-                  src="/images/scene4_fnb.png"
+                  src="/images/bg-dining.png"
                   alt="취향이 담긴 공간에서 이어지는 대화"
                   className="w-full h-48 sm:h-56 object-cover"
                 />
@@ -283,7 +275,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         </section>
 
         {/* Section 4.5: How It Works Section (세로형 원형 라인 일러스트 스타일로 복구) */}
-        <section className="px-6 py-20 bg-gray-50 border-b border-gray-100">
+        <section className="px-6 py-28 bg-gray-50 border-b border-gray-100">
           <div className="space-y-3 mb-16 text-center">
             <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
               HOW IT WORKS
@@ -387,7 +379,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         </section>
 
         {/* Section 4.7: Virtual Persona (Matching Preview) Section */}
-        <section className="px-6 py-20 bg-stone-50 border-b border-gray-100 flex flex-col items-center">
+        <section className="px-6 py-28 bg-stone-50 border-b border-gray-100 flex flex-col items-center">
           <div className="text-center space-y-3 mb-12">
             <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
               MATCHING PREVIEW
@@ -400,66 +392,78 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             </p>
           </div>
 
+          {/* Swipe Indicator (Visual Cue) */}
+          <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-[#00C7B5] mb-6 tracking-wider bg-[#00C7B5]/5 px-3.5 py-1.5 rounded-full border border-[#00C7B5]/10 w-fit mx-auto shadow-sm">
+            <span>옆으로 넘겨보세요</span>
+            <motion.span
+              animate={{ x: [0, 3, 0] }}
+              transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+              className="inline-block"
+            >
+              →
+            </motion.span>
+          </div>
+
           {/* Cards container: Horizontal scroll layout on all viewports since the page is enclosed in max-w-md */}
-          <div className="w-full flex overflow-x-auto gap-4 snap-x snap-mandatory pb-6 flex-nowrap scrollbar-none">
+          <div className="w-full flex overflow-x-auto gap-4 snap-x snap-mandatory pb-6 flex-nowrap scrollbar-none px-4">
             {/* Card 1 */}
-            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
-              <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
-                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">건축 디자이너 <span className="text-xs font-normal text-gray-500">(30세, 남)</span></h3>
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#차분함</span>
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#계획형</span>
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#미술관_산책</span>
-                </div>
+            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-100 rounded-2xl shadow-lg flex flex-col overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="relative w-full aspect-[4/5] object-cover overflow-hidden">
+                <img
+                  src="/images/profile-man.png"
+                  alt="건축 디자이너"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
               </div>
-              <div className="border-t border-stone-100 pt-4 mt-auto">
-                <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
-                  "시끄러운 술자리보다는, 조용한 공간에서 건축과 공간에 대한 깊은 대화를 나누는 걸 좋아합니다."
-                </p>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
+                  <h3 className="text-lg font-bold text-gray-800 mb-3 font-sans">건축 디자이너 <span className="text-xs font-normal text-gray-500">(30세 / 남)</span></h3>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#차분함</span>
+                    <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#계획형</span>
+                    <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#미술관_산책</span>
+                  </div>
+                </div>
+                <div className="border-t border-stone-100 pt-4 mt-auto">
+                  <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
+                    "시끄러운 술자리보다는, 조용한 공간에서 건축과 공간에 대한 깊은 대화를 나누는 걸 좋아합니다."
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Card 2 */}
-            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
-              <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
-                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">스타트업 마케터 <span className="text-xs font-normal text-gray-500">(25세, 여)</span></h3>
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#다정함</span>
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#경청</span>
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#내추럴와인</span>
+            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-100 rounded-2xl shadow-lg flex flex-col overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="relative w-full aspect-[4/5] object-cover overflow-hidden">
+                <img
+                  src="/images/profile-girl.png"
+                  alt="스타트업 마케터"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </div>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
+                  <h3 className="text-lg font-bold text-gray-800 mb-3 font-sans">스타트업 마케터 <span className="text-xs font-normal text-gray-500">(28세 / 여)</span></h3>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#다정함</span>
+                    <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#경청</span>
+                    <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#내추럴와인</span>
+                  </div>
                 </div>
-              </div>
-              <div className="border-t border-stone-100 pt-4 mt-auto">
-                <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
-                  "잘 알려진 관광지보다는 로컬들만 아는 숨겨진 골목길의 와인바를 찾아내는 것에 설렘을 느껴요."
-                </p>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="w-[280px] flex-shrink-0 snap-center bg-white border border-stone-200/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-200">
-              <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#00C7B5] block mb-1">MEMBER PROFILE</span>
-                <h3 className="text-lg font-bold text-gray-800 mb-4 font-sans">IT 개발자 <span className="text-xs font-normal text-gray-500">(29세, 남)</span></h3>
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#여유로움</span>
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#재즈</span>
-                  <span className="text-[11px] font-bold text-[#00C7B5] bg-[#00C7B5]/10 px-2.5 py-1 rounded-full">#해안도로_드라이브</span>
+                <div className="border-t border-stone-100 pt-4 mt-auto">
+                  <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
+                    "잘 알려진 관광지보다는 로컬들만 아는 숨겨진 골목길의 와인바를 찾아내는 것에 설렘을 느껴요."
+                  </p>
                 </div>
-              </div>
-              <div className="border-t border-stone-100 pt-4 mt-auto">
-                <p className="text-xs text-gray-600 leading-relaxed break-keep font-serif italic text-center">
-                  "목적지 없이 달리는 드라이브와 재즈를 사랑합니다. 대화의 템포가 편안하게 맞는 분과 함께하고 싶습니다."
-                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Section 5: Trust & Safety Section */}
-        <section className="px-6 py-20 bg-zinc-900 text-white flex flex-col items-center">
+        <section className="px-6 py-28 bg-zinc-900 text-white flex flex-col items-center">
           <div className="text-center space-y-3 mb-12">
             <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
               TRUST & SAFETY
@@ -509,7 +513,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         </section>
 
         {/* Section 5: Pricing & FAQ (White Background - Font scaled 30%) */}
-        <section className="px-6 py-20 bg-white">
+        <section className="px-6 py-28 bg-white">
           {/* FAQ Accordion UI */}
           <div className="mb-14">
             <h2 className="text-2xl font-bold mb-10 text-center text-gray-900">
