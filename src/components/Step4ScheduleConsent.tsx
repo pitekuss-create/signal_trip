@@ -3,6 +3,7 @@ import { Calendar, ShieldAlert, Check } from 'lucide-react';
 
 export interface Step4Data {
   schedule: string[];
+  isDateFlexible: boolean;
   singlePledge: boolean;
   privacyPledge: boolean;
 }
@@ -56,14 +57,6 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
       updateData({ schedule: [] });
     } else {
       updateData({ schedule: [dateStr] });
-    }
-  };
-
-  const handleFlexibleToggle = () => {
-    if (data.schedule.includes('flexible')) {
-      updateData({ schedule: [] });
-    } else {
-      updateData({ schedule: ['flexible'] });
     }
   };
 
@@ -192,24 +185,24 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
           </div>
 
           {/* Selected Date Preview text */}
-          {data.schedule.length > 0 && !data.schedule.includes('flexible') && (
+          {data.schedule.length > 0 && (
             <div style={{ marginTop: '16px', fontSize: '13px', fontWeight: 'bold', color: '#00C7B5', textAlign: 'center' }}>
               선택한 일정: {data.schedule[0]}
             </div>
           )}
         </div>
 
-        {/* 제주 여행 예정 checkbox */}
+        {/* 일정 조율 동의 checkbox */}
         <div
-          onClick={handleFlexibleToggle}
+          onClick={() => updateData({ isDateFlexible: !data.isDateFlexible })}
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
             padding: '16px 20px',
             borderRadius: '12px',
-            border: data.schedule.includes('flexible') ? '2px solid #00C7B5' : '1px solid #d6d3d1',
-            backgroundColor: data.schedule.includes('flexible') ? '#e6f9f7' : '#ffffff',
+            border: data.isDateFlexible ? '2px solid #00C7B5' : '1px solid #d6d3d1',
+            backgroundColor: data.isDateFlexible ? '#e6f9f7' : '#ffffff',
             cursor: 'pointer',
             marginTop: '16px',
             transition: 'all 0.2s'
@@ -219,17 +212,17 @@ export const Step4ScheduleConsent: React.FC<Step4Props> = ({
             width: '24px',
             height: '24px',
             borderRadius: '6px',
-            border: data.schedule.includes('flexible') ? '2px solid #00C7B5' : '2px solid #d6d3d1',
-            backgroundColor: data.schedule.includes('flexible') ? '#00C7B5' : 'transparent',
+            border: data.isDateFlexible ? '2px solid #00C7B5' : '2px solid #d6d3d1',
+            backgroundColor: data.isDateFlexible ? '#00C7B5' : 'transparent',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0
           }}>
-            {data.schedule.includes('flexible') && <Check size={16} color="#ffffff" strokeWidth={3} />}
+            {data.isDateFlexible && <Check size={16} color="#ffffff" strokeWidth={3} />}
           </div>
-          <span style={{ fontSize: '14px', fontWeight: 'bold', color: data.schedule.includes('flexible') ? '#00C7B5' : '#444', lineHeight: '1.4' }}>
-            제주 여행 예정 - 취향이 비슷한 여행 메이트가 나타날 경우 연락 (일정 조율)
+          <span style={{ fontSize: '14px', fontWeight: 'bold', color: data.isDateFlexible ? '#00C7B5' : '#444', lineHeight: '1.4' }}>
+            선택한 날짜 외에도, 취향이 완벽히 일치하는 메이트가 있다면 일정을 조율할 의향이 있습니다. (선택)
           </span>
         </div>
 

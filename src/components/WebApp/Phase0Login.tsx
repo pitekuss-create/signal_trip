@@ -87,7 +87,7 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
         style={{ textAlign: 'center', marginBottom: 48 }}
       >
         <h1 style={{
-          fontFamily: "'Cinzel', serif", fontSize: 28, fontWeight: 800,
+          fontFamily: "'Cinzel', serif", fontSize: 34, fontWeight: 800,
           letterSpacing: '0.2em', color: '#f5f5f4', marginBottom: 8,
         }}>
           SIGNAL TRIP
@@ -97,7 +97,7 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
           margin: '0 auto 16px',
         }} />
         <p style={{
-          fontFamily: "'Noto Sans KR', sans-serif", fontSize: 13,
+          fontFamily: "'Noto Sans KR', sans-serif", fontSize: 16,
           color: '#78716c', letterSpacing: '0.15em', fontWeight: 400,
         }}>
           참가자 전용 인증
@@ -110,17 +110,17 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
         style={{
-          width: '100%', maxWidth: 360,
+          width: '100%', maxWidth: 400,
           background: '#141414', border: '1px solid #1e1e1e',
-          borderRadius: 20, padding: 32,
+          borderRadius: 24, padding: '40px 36px',
           boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
         }}
       >
         {/* Nickname */}
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 24 }}>
           <label style={{
-            display: 'block', fontSize: 11, fontWeight: 600, color: '#78716c',
-            letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8,
+            display: 'block', fontSize: 14, fontWeight: 600, color: '#78716c',
+            letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 10,
           }}>
             닉네임
           </label>
@@ -130,8 +130,8 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
             onChange={(e) => { setNickname(e.target.value); setError(''); }}
             placeholder="시그널 트립 닉네임"
             style={{
-              width: '100%', padding: '14px 16px', fontSize: 15,
-              background: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: 12,
+              width: '100%', padding: '18px 20px', fontSize: 18,
+              background: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: 14,
               color: '#f5f5f4', outline: 'none', boxSizing: 'border-box',
               fontFamily: "'Noto Sans KR', sans-serif",
               transition: 'border-color 0.2s',
@@ -142,10 +142,10 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
         </div>
 
         {/* Phone last 4 digits */}
-        <div style={{ marginBottom: 28 }}>
+        <div style={{ marginBottom: 36 }}>
           <label style={{
-            display: 'block', fontSize: 11, fontWeight: 600, color: '#78716c',
-            letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8,
+            display: 'block', fontSize: 14, fontWeight: 600, color: '#78716c',
+            letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 10,
           }}>
             연락처 뒷자리 4자리
           </label>
@@ -156,8 +156,8 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
             placeholder="0000"
             maxLength={4}
             style={{
-              width: '100%', padding: '14px 16px', fontSize: 15,
-              background: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: 12,
+              width: '100%', padding: '18px 20px', fontSize: 18,
+              background: '#0a0a0a', border: '1px solid #2a2a2a', borderRadius: 14,
               color: '#f5f5f4', outline: 'none', boxSizing: 'border-box',
               fontFamily: "'Noto Sans KR', sans-serif",
               letterSpacing: '0.3em', textAlign: 'center',
@@ -174,8 +174,8 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
             style={{
-              fontSize: 12, color: '#ef4444', textAlign: 'center',
-              marginBottom: 16, fontWeight: 500,
+              fontSize: 14, color: '#ef4444', textAlign: 'center',
+              marginBottom: 20, fontWeight: 505,
             }}
           >
             {error}
@@ -187,9 +187,9 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
           onClick={handleLogin}
           disabled={isLoading}
           style={{
-            width: '100%', padding: '16px 0', fontSize: 15, fontWeight: 700,
+            width: '100%', padding: '20px 0', fontSize: 18, fontWeight: 700,
             background: isLoading ? '#1a1a1a' : 'linear-gradient(135deg, #00C7B5, #00a89a)',
-            color: '#fff', border: 'none', borderRadius: 14, cursor: isLoading ? 'not-allowed' : 'pointer',
+            color: '#fff', border: 'none', borderRadius: 16, cursor: isLoading ? 'not-allowed' : 'pointer',
             fontFamily: "'Noto Sans KR', sans-serif", letterSpacing: '0.1em',
             boxShadow: isLoading ? 'none' : '0 6px 20px rgba(0,199,181,0.25)',
             transition: 'all 0.3s',
@@ -206,7 +206,7 @@ export default function Phase0Login({ onLogin, showToast }: Phase0Props) {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
         style={{
-          fontSize: 11, color: '#44403c', marginTop: 32, textAlign: 'center',
+          fontSize: 14, color: '#44403c', marginTop: 36, textAlign: 'center',
           lineHeight: 1.8, fontFamily: "'Noto Sans KR', sans-serif",
         }}
       >

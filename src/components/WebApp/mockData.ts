@@ -20,6 +20,9 @@ export interface Participant {
   address: string;
   status?: string;
   is_agreed?: boolean;
+  preferred_schedules?: string[];
+  is_date_flexible?: boolean;
+  signal_code?: string;
 }
 
 export interface TripSession {
@@ -55,6 +58,11 @@ export interface MatchResult {
   action_hint?: string | null;
   current_step?: number | null;
   created_at?: string;
+  status?: 'active' | 'pending_date_coordination' | null;
+  step4_popup_msg?: string | null;
+  dining_name?: string | null;
+  dining_course?: string | null;
+  dining_address?: string | null;
 }
 
 // ============================================================
@@ -77,6 +85,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'professional',
     company_name: '삼우종합건축사사무소',
     address: '서울 강남구',
+    signal_code: '5678',
   },
   {
     id: 'mock-m2',
@@ -93,6 +102,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'business_owner',
     company_name: '웨이브 커피 로스터스',
     address: '부산 해운대구',
+    signal_code: '6789',
   },
   {
     id: 'mock-m3',
@@ -109,6 +119,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'freelancer',
     company_name: '프리랜서 포토그래퍼',
     address: '서울 마포구',
+    signal_code: '7890',
   },
   {
     id: 'mock-m4',
@@ -125,6 +136,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'business_owner',
     company_name: '넥스트비전 테크',
     address: '서울 성동구',
+    signal_code: '8901',
   },
   // ── Females ──
   {
@@ -142,6 +154,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'business_owner',
     company_name: '주식회사 뷰티플로우',
     address: '서울 강남구',
+    signal_code: '9012',
   },
   {
     id: 'mock-f2',
@@ -158,6 +171,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'civil_servant',
     company_name: '한국토지주택공사',
     address: '경기 성남시',
+    signal_code: '0123',
   },
   {
     id: 'mock-f3',
@@ -174,6 +188,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'professional',
     company_name: '국립현대미술관',
     address: '서울 종로구',
+    signal_code: '1234',
   },
   {
     id: 'mock-f4',
@@ -190,6 +205,7 @@ export const MOCK_PARTICIPANTS: Participant[] = [
     job_type: 'office_worker',
     company_name: '네이버',
     address: '경기 성남시',
+    signal_code: '2345',
   },
 ];
 

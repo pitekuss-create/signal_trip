@@ -70,4 +70,10 @@ export interface Application {
 
   // Onboarding
   is_agreed?: boolean;
+
+  // Date flexibility consent
+  is_date_flexible?: boolean;
+
+  // Signal meetup code
+  signal_code?: string;
 }

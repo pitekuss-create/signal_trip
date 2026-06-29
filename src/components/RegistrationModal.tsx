@@ -41,7 +41,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
   });
 
   const [step5Data, setStep5Data] = useState<Step4Data>({
-    schedule: [], singlePledge: false, privacyPledge: false,
+    schedule: [], isDateFlexible: false, singlePledge: false, privacyPledge: false,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -143,6 +143,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
       const uploadedVerificationUrl = '';
 
       // 4. 데이터베이스 Payload 데이터 형식 변환 및 매핑
+      const signalCode = Math.floor(1000 + Math.random() * 9000).toString();
       const applicationPayload: Application = {
         name: step1Data.name.trim(),
         nickname: step1Data.nickname.trim(),
@@ -162,13 +163,15 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
         verification_file_url: uploadedVerificationUrl,
         
         preferred_schedules: step5Data.schedule,
+        is_date_flexible: step5Data.isDateFlexible,
         single_pledge: step5Data.singlePledge,
         privacy_pledge: step5Data.privacyPledge,
         status: 'pending',
 
         deal_breaker: `Q1: ${step3Data.q1} / Q4 지뢰: ${step3Data.q4.trim()}`,
         crisis_response: `Q2: ${step3Data.q2} / Q5 소울: ${step3Data.q5.trim()}`,
-        group_position: `Q3: ${step3Data.q3}`
+        group_position: `Q3: ${step3Data.q3}`,
+        signal_code: signalCode
       };
 
       // 5. Supabase Database Insert 실행
@@ -197,7 +200,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
     setStep2Data({ idealType: '', bio: '', photos: [], snsLink: '', photoFiles: [] });
     setStep3Data({ q1: '', q2: '', q3: '', q4: '', q5: '' });
     setStep4Data({ jobType: '', companyName: '' });
-    setStep5Data({ schedule: [], singlePledge: false, privacyPledge: false });
+    setStep5Data({ schedule: [], isDateFlexible: false, singlePledge: false, privacyPledge: false });
     setErrors({});
     onClose();
   };

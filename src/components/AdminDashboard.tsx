@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AdminSidebar } from './Admin/AdminSidebar';
 import { CRMTab } from './Admin/CRMTab';
-import { PhaseControlTab } from './Admin/PhaseControlTab';
-import { TeamMixerTab } from './Admin/TeamMixerTab';
 import { VoteViewerTab } from './Admin/VoteViewerTab';
 import { CouplesTab } from './Admin/CouplesTab';
 
 export const AdminDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'crm' | 'phase' | 'mixer' | 'votes' | 'couples'>('crm');
+  const [activeTab, setActiveTab] = useState<'crm' | 'votes' | 'couples'>('crm');
   const [toast, setToast] = useState({ message: '', visible: false });
 
   // Toast helper
@@ -50,15 +48,11 @@ export const AdminDashboard: React.FC = () => {
             </div>
             <h2 className="text-2xl font-black font-sans tracking-tight text-stone-100 uppercase">
               {activeTab === 'crm' && '참가 지원자 심사 관리 (CRM)'}
-              {activeTab === 'phase' && '실시간 글로벌 페이즈 제어기 (Live Controller)'}
-              {activeTab === 'mixer' && '자동 팀 믹서 및 데이트 매칭 (Auto Mixer)'}
               {activeTab === 'votes' && '참가자 투표 및 최종 매칭 집계 (Vote Viewer)'}
               {activeTab === 'couples' && '1:1 매칭 커플 및 시크릿 미션 관리 (V2)'}
             </h2>
             <p className="text-xs text-stone-500 mt-1 font-light tracking-wide">
               {activeTab === 'crm' && '모든 지원서의 정보를 검토하고 참가 승인 여부를 제어합니다.'}
-              {activeTab === 'phase' && '행사 현장 타임라인에 맞춰 모든 참가자들의 폰 화면 상태를 강제 전환합니다.'}
-              {activeTab === 'mixer' && '승인된 8명의 참가자들을 5:5 성비에 맞춰 조별(A/B) 및 1:1로 랜덤 믹싱합니다.'}
               {activeTab === 'votes' && '1차 투표 결과 점수 합산 및 최종 선택의 상호 지목 매칭 정보를 실시간 모니터링합니다.'}
               {activeTab === 'couples' && '매칭된 1:1 커플들의 비밀 만남 장소, 시간, 상대방 식별 힌트, 도착 후 지령 및 비동기 단계를 수동 설정합니다.'}
             </p>
@@ -66,8 +60,6 @@ export const AdminDashboard: React.FC = () => {
 
           <div>
             {activeTab === 'crm' && <CRMTab showToast={showToast} />}
-            {activeTab === 'phase' && <PhaseControlTab showToast={showToast} />}
-            {activeTab === 'mixer' && <TeamMixerTab showToast={showToast} />}
             {activeTab === 'votes' && <VoteViewerTab showToast={showToast} />}
             {activeTab === 'couples' && <CouplesTab showToast={showToast} />}
           </div>

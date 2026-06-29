@@ -271,7 +271,8 @@ export const TeamMixerTab: React.FC<TeamMixerTabProps> = ({ showToast }) => {
         preferred_schedules: ['상시'],
         single_pledge: true,
         privacy_pledge: true,
-        status: 'approved'
+        status: 'approved',
+        signal_code: Math.floor(1000 + Math.random() * 9000).toString()
       };
 
       const { error } = await supabase
