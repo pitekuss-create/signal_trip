@@ -171,7 +171,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               >
                 <img
                   src="/images/bg-architecture.png"
-                  alt="나의 여행 취향 기록하기 (D-3)"
+                  alt="나의 여행 취향 기록하기 "
                   className="w-full h-48 sm:h-56 object-cover"
                 />
               </motion.div>
@@ -180,7 +180,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                   🎬 Scene 1
                 </span>
                 <h3 className="text-lg font-bold text-gray-900 break-keep font-serif">
-                  나의 여행 취향 기록하기 (D-3)
+                  나의 여행 취향 기록하기
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
                   복잡한 스펙 대신, 당신이 제주에서 느끼고 싶은 분위기, 좋아하는 음악, 선호하는 대화의 온도를 들려주세요. 당신의 결에 완벽히 맞는 단 한 명의 여행 메이트를 찾기 위한 첫걸음입니다.
