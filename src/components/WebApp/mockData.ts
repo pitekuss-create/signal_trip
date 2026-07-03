@@ -58,7 +58,7 @@ export interface MatchResult {
   action_hint?: string | null;
   current_step?: number | null;
   created_at?: string;
-  status?: 'active' | 'pending_date_coordination' | null;
+  status?: 'active' | 'pending_date_coordination' | 'accepted' | 'rejected' | null;
   step4_popup_msg?: string | null;
   dining_name?: string | null;
   dining_course?: string | null;

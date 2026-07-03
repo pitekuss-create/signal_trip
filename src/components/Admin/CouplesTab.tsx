@@ -40,7 +40,7 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
     diningAddress: string;
   }>>({});
 
-  const [previewTabs, setPreviewTabs] = useState<Record<string, 'step2' | 'step3' | 'step4'>>({});
+  const [previewTabs, setPreviewTabs] = useState<Record<string, 'step2' | 'step3'>>({});
   const [previewUserSelector, setPreviewUserSelector] = useState<Record<string, 'A' | 'B'>>({});
 
   const fetchData = useCallback(async () => {
@@ -189,7 +189,7 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold font-sans text-stone-100 flex items-center gap-2">
           <Heart className="text-rose-500 fill-rose-500/20" size={20} />
-          매칭 커플 미션 & 진행 제어 (총 {pairs.length}커플)
+          1:1 매칭 커플 티타임 관리 (총 {pairs.length}커플)
         </h3>
         <button
           onClick={fetchData}
@@ -316,10 +316,10 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                       </div>
                     </div>
 
-                    {/* Step 2. D-3 시크릿 편지 설정 */}
+                    {/* Step 2. D-3 프라이빗 공간 안내 */}
                     <div className="bg-stone-950 p-4.5 border border-stone-850 rounded-xl space-y-4">
                       <h5 className="text-[11px] uppercase font-extrabold tracking-widest text-[#00C7B5] flex items-center gap-1.5 border-b border-stone-900 pb-2.5">
-                        <Compass size={13} /> Step 2. D-3 시크릿 편지 설정
+                        <Compass size={13} /> STEP 2. D-3 프라이빗 공간 안내
                       </h5>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -359,7 +359,7 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-stone-900/50 pt-3">
                         <div className="space-y-1.5">
                           <label className="block text-[10px] font-bold text-stone-400">
-                            A ({pair.partnerA.nickname})가 볼 B 식별 힌트 (`partner_hint`)
+                            A ({pair.partnerA.nickname})가 볼 B의 착장 시그널 ('partner_hint' - 당일 유저가 자동 업데이트함)
                           </label>
                           <input
                             type="text"
@@ -372,7 +372,7 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
 
                         <div className="space-y-1.5">
                           <label className="block text-[10px] font-bold text-stone-400">
-                            B ({pair.partnerB.nickname})가 볼 A 식별 힌트 (`partner_hint`)
+                            B ({pair.partnerB.nickname})가 볼 A의 착장 시그널 ('partner_hint' - 당일 유저가 자동 업데이트함)
                           </label>
                           <input
                             type="text"
@@ -385,76 +385,21 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                       </div>
                     </div>
 
-                    {/* Step 3. D-Day 현장 행동 요령 설정 */}
+                    {/* Step 3. D-DAY 티타임 안내 메시지 */}
                     <div className="bg-stone-950 p-4.5 border border-stone-850 rounded-xl space-y-4">
                       <h5 className="text-[11px] uppercase font-extrabold tracking-widest text-rose-400 flex items-center gap-1.5 border-b border-stone-900 pb-2.5">
-                        <Sparkles size={13} className="text-rose-400" /> Step 3. D-Day 현장 행동 요령 설정
+                        <Sparkles size={13} className="text-rose-400" /> STEP 3. D-DAY 티타임 안내 메시지
                       </h5>
 
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] font-bold text-stone-400">행동 힌트 및 현장 지령 (`action_hint` - 공통)</label>
+                        <label className="block text-[10px] font-bold text-stone-400">도착 시 안내 메시지 ('action_hint')</label>
                         <textarea
                           rows={3}
-                          placeholder="예) 카운터에 '시그널 예약'이라고 귀띔 후, 예약석으로 가서 깊은 이야기를 나누세요."
+                          placeholder="예) 카운터에 '시그널 예약'이라고 귀디 후, 예약석으로 가서 깊은 이야기를 나누세요."
                           value={values.actionHint}
                           onChange={(e) => handleInputChange(key, 'actionHint', e.target.value)}
                           className="w-full p-3 bg-stone-900 border border-stone-850 rounded-lg text-xs text-stone-200 placeholder-stone-700 focus:outline-none focus:border-teal-500/80 resize-none font-sans"
                         />
-                      </div>
-                    </div>
-
-                    {/* Step 4. 다이닝 정보 & 성공 팝업 설정 */}
-                    <div className="bg-stone-950 p-4.5 border border-stone-850 rounded-xl space-y-4">
-                      <h5 className="text-[11px] uppercase font-extrabold tracking-widest text-amber-500 flex items-center gap-1.5 border-b border-stone-900 pb-2.5">
-                        <MapPin size={13} className="text-amber-500" /> Step 4. 다이닝 정보 & 성공 팝업 설정
-                      </h5>
-
-                      <div className="space-y-3.5">
-                        <div className="space-y-1.5">
-                          <label className="block text-[10px] font-bold text-stone-400">보물찾기 성공 팝업 안내 메시지 (`step4_popup_msg`)</label>
-                          <textarea
-                            rows={3}
-                            placeholder="예) 진짜 보물을 발견하셨군요! 두 분의 자유로운 시간을 위해 지정된 식당에 3만 원의 '시크릿 다이닝 예치금'을 미리 결제해 두었습니다. 카운터에 '시그널 예약'이라고 말씀하신 후, 두 분만을 위해 준비된 프라이빗한 공간에서 맛있는 음식과 함께 더 많은 대화를 나누시길 바랍니다."
-                            value={values.step4PopupMsg}
-                            onChange={(e) => handleInputChange(key, 'step4PopupMsg', e.target.value)}
-                            className="w-full p-3 bg-stone-900 border border-stone-800 rounded-lg text-xs text-stone-200 placeholder-stone-700 focus:outline-none focus:border-teal-500/80 resize-none font-sans"
-                          />
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-1.5">
-                            <label className="block text-[10px] font-bold text-stone-400">다이닝 식당명 (`dining_name`)</label>
-                            <input
-                              type="text"
-                              placeholder="예) 제주 애월 아쿠아 디너"
-                              value={values.diningName}
-                              onChange={(e) => handleInputChange(key, 'diningName', e.target.value)}
-                              className="w-full px-3 py-2 bg-stone-900 border border-stone-800 rounded-lg text-xs text-stone-200 placeholder-stone-700 focus:outline-none focus:border-teal-500/80"
-                            />
-                          </div>
-
-                          <div className="space-y-1.5">
-                            <label className="block text-[10px] font-bold text-stone-400">제공 코스 (`dining_course`)</label>
-                            <input
-                              type="text"
-                              placeholder="예) 시그널 트립 특별 페어링 코스"
-                              value={values.diningCourse}
-                              onChange={(e) => handleInputChange(key, 'diningCourse', e.target.value)}
-                              className="w-full px-3 py-2 bg-stone-900 border border-stone-800 rounded-lg text-xs text-stone-200 placeholder-stone-700 focus:outline-none focus:border-teal-500/80"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="block text-[10px] font-bold text-stone-400">식당 주소 (`dining_address`)</label>
-                          <input
-                            type="text"
-                            placeholder="예) 제주특별자치도 제주시 애월읍 애월로 123"
-                            value={values.diningAddress}
-                            onChange={(e) => handleInputChange(key, 'diningAddress', e.target.value)}
-                            className="w-full px-3 py-2 bg-stone-900 border border-stone-800 rounded-lg text-xs text-stone-200 placeholder-stone-700 focus:outline-none focus:border-teal-500/80"
-                          />
-                        </div>
                       </div>
                     </div>
 
@@ -471,8 +416,8 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                       </p>
                     </div>
 
-                    {/* 미리보기 탭 컨트롤러 (Step 2 vs Step 3 vs Step 4) */}
-                    <div className="flex bg-stone-950 p-1 rounded-xl border border-stone-850 w-full max-w-[280px] mb-2.5 z-20 relative">
+                    {/* 미리보기 탭 컨트롤러 (Step 2 vs Step 3) */}
+                    <div className="flex bg-[#000] p-1 rounded-xl border border-stone-850 w-full max-w-[280px] mb-2.5 z-20 relative">
                       <button
                         type="button"
                         onClick={() => setPreviewTabs(prev => ({ ...prev, [key]: 'step2' }))}
@@ -492,16 +437,6 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                           }`}
                       >
                         Step 3 미션
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setPreviewTabs(prev => ({ ...prev, [key]: 'step4' }))}
-                        className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all cursor-pointer text-center ${(previewTabs[key] || 'step2') === 'step4'
-                            ? 'bg-amber-500 text-stone-950'
-                            : 'text-stone-400 hover:text-stone-200'
-                          }`}
-                      >
-                        Step 4 다이닝
                       </button>
                     </div>
 
@@ -551,7 +486,7 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                             SIGNAL TRIP
                           </span>
                           <span className="text-[8px] px-1.5 py-0.5 rounded bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20 font-bold font-mono">
-                            {(previewTabs[key] || 'step2') === 'step2' ? 'STEP 2' : (previewTabs[key] || 'step2') === 'step3' ? 'STEP 3' : 'STEP 4'}
+                            {(previewTabs[key] || 'step2') === 'step2' ? 'STEP 2' : 'STEP 3'}
                           </span>
                         </div>
 
@@ -652,123 +587,12 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                                         {values.actionHint || "두 분의 완벽한 만남을 위한 시크릿 미션이 곧 도착합니다. 💌"}
                                       </p>
                                     </div>
-
-                                    <p className="text-[9px] text-stone-400 leading-normal font-light">
-                                      상대방의 시그널 힌트(인상착의 등)를 확인하여 메이트를 조심스럽게 탐색해 보세요. 서로 만나 가볍게 수줍은 첫인사를 나눈 다음, 서로의 시그널 번호를 확인하고 아래 인증 양식에 입력해 주십시오.
-                                    </p>
                                   </div>
                                 </div>
 
-                                {/* 시그널 코드 인증 폼 미리보기 */}
-                                <div className="bg-stone-900 border border-stone-850 rounded-xl p-3 space-y-3 shadow-md relative z-10">
-                                  <div className="text-center py-2 bg-stone-950/60 border border-stone-850 rounded-lg">
-                                    <span className="text-[7.5px] text-stone-500 block font-bold uppercase tracking-wider">나의 시그널 번호</span>
-                                    <span className="text-sm font-black tracking-widest text-[#00C7B5] font-mono mt-0.5 block">
-                                      {(previewUserSelector[key] || 'A') === 'A'
-                                        ? (pair.partnerA.signal_code || pair.partnerA.phone.replace(/[^0-9]/g, '').slice(-4))
-                                        : (pair.partnerB.signal_code || pair.partnerB.phone.replace(/[^0-9]/g, '').slice(-4))}
-                                    </span>
-                                  </div>
-
-                                  <div className="space-y-1">
-                                    <label className="block text-[8px] font-bold text-stone-400">상대방의 시그널 번호 4자리를 입력하세요</label>
-                                    <input
-                                      type="text"
-                                      disabled
-                                      placeholder="상대방 시그널 번호 4자리"
-                                      className="w-full px-2 py-1.5 bg-stone-950 border border-stone-850 rounded-lg text-center text-xs font-bold tracking-widest font-mono text-stone-600 cursor-not-allowed"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="w-full pt-4">
-                                <div className="w-full py-2.5 bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-700 text-stone-400 font-bold rounded-lg text-[9px] tracking-wider uppercase text-center cursor-not-allowed">
-                                  💎 보물찾기 완료 (프로필 해제)
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {/* ── Step 4 미리보기 ── */}
-                          {(previewTabs[key] || 'step2') === 'step4' && (
-                            <div className="space-y-4 animate-fadeIn flex-1 flex flex-col justify-between">
-                              <div className="space-y-3.5">
-                                <div className="text-center space-y-1">
-                                  <span className="text-[9px] text-teal-400 font-mono tracking-widest uppercase font-extrabold">Step 4</span>
-                                  <h3 className="text-xs font-extrabold text-stone-200 tracking-wider">보물찾기 성공!</h3>
-                                  <p className="text-[8px] text-stone-500 font-light">매칭 메이트의 실명 정보와 프로필이 완전히 해제되었습니다.</p>
-                                </div>
-
-                                {/* 보물찾기 성공 팝업 미리보기 */}
-                                <div className="bg-stone-900 border border-amber-500/25 rounded-xl p-3 space-y-1.5 shadow-md">
-                                  <span className="text-[8px] text-amber-400 font-extrabold uppercase tracking-wider block">💬 팝업 안내 메시지</span>
-                                  <p className="text-[9px] text-stone-300 font-light leading-relaxed bg-stone-950 p-2 border border-stone-900 rounded-lg whitespace-pre-wrap">
-                                    {values.step4PopupMsg || "진짜 보물을 발견하셨군요! 두 분을 위해 준비된 프라이빗 다이닝 장소가 곧 안내됩니다."}
-                                  </p>
-                                </div>
-
-                                {/* Unblurred Partner Profile Card */}
-                                <div className="bg-stone-900 border border-stone-850 rounded-xl p-3 space-y-3 shadow-md">
-                                  <div className="flex items-center gap-2.5">
-                                    <div className="w-8 h-8 rounded-full overflow-hidden border border-[#00C7B5]/30 bg-stone-950 shrink-0">
-                                      <img
-                                        src={((previewUserSelector[key] || 'A') === 'A' ? pair.partnerB.photo_urls?.[0] : pair.partnerA.photo_urls?.[0]) || 'https://api.dicebear.com/7.x/identicon/svg?seed=placeholder'}
-                                        alt="Mate"
-                                        className="w-full h-full object-cover"
-                                      />
-                                    </div>
-                                    <div>
-                                      <div className="flex items-center gap-1.5">
-                                        <h4 className="text-[10px] font-extrabold text-stone-100">
-                                          {((previewUserSelector[key] || 'A') === 'A' ? pair.partnerB.name : pair.partnerA.name) || '홍길동'}
-                                        </h4>
-                                        <span className="text-[8px] px-1 py-0.2 rounded bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20 font-bold">
-                                          {((previewUserSelector[key] || 'A') === 'A' ? pair.partnerB.nickname : pair.partnerA.nickname)}
-                                        </span>
-                                      </div>
-                                      <p className="text-[8px] text-stone-400 font-mono">
-                                        {((previewUserSelector[key] || 'A') === 'A' ? pair.partnerB.phone : pair.partnerA.phone) || '010-0000-0000'}
-                                      </p>
-                                    </div>
-                                  </div>
-
-                                  <div className="border-t border-stone-850 my-1" />
-
-                                  <div className="grid grid-cols-2 gap-2 text-[8px] text-stone-300">
-                                    <div className="bg-stone-950 p-1.5 rounded border border-stone-850">
-                                      <span className="text-[6.5px] text-stone-500 block font-bold">직무 / 회사</span>
-                                      <span className="font-semibold block truncate">
-                                        {((previewUserSelector[key] || 'A') === 'A' ? `${pair.partnerB.job_type} / ${pair.partnerB.company_name}` : `${pair.partnerA.job_type} / ${pair.partnerA.company_name}`)}
-                                      </span>
-                                    </div>
-                                    <div className="bg-stone-950 p-1.5 rounded border border-stone-850">
-                                      <span className="text-[6.5px] text-stone-500 block font-bold">MBTI</span>
-                                      <span className="font-semibold block">
-                                        {((previewUserSelector[key] || 'A') === 'A' ? pair.partnerB.mbti : pair.partnerA.mbti)}
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                {/* Private Dining Card Info */}
-                                <div className="bg-stone-900 border border-stone-850 rounded-xl p-3 space-y-2 shadow-md">
-                                  <h4 className="text-[9px] uppercase font-extrabold tracking-wider text-[#00C7B5] flex items-center gap-1">
-                                    ⭐ 프라이빗 다이닝 예약 정보
-                                  </h4>
-                                  <div className="bg-stone-950 p-2.5 border border-stone-900 rounded-lg space-y-2 text-[9px] text-stone-300">
-                                    <div>
-                                      <span className="text-[7px] text-stone-500 block font-bold">식당명</span>
-                                      <span className="font-bold text-stone-200">{values.diningName || "호스트가 비밀 장소를 수배 중입니다 🤫"}</span>
-                                    </div>
-                                    <div>
-                                      <span className="text-[7px] text-stone-500 block font-bold">제공 코스</span>
-                                      <span className="text-stone-200">{values.diningCourse || '시그널 트립 특별 페어링 코스'}</span>
-                                    </div>
-                                    <div>
-                                      <span className="text-[7px] text-stone-500 block font-bold">식당 위치</span>
-                                      <span className="text-stone-200 text-[8px] break-keep">{values.diningAddress || "호스트가 비밀 장소를 수배 중입니다 🤫"}</span>
-                                    </div>
+                                <div className="w-full pt-4">
+                                  <div className="w-full py-2.5 bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-700 text-stone-400 font-bold rounded-lg text-[9px] tracking-wider uppercase text-center cursor-not-allowed">
+                                    💎 보물찾기 완료 (프로필 해제)
                                   </div>
                                 </div>
                               </div>

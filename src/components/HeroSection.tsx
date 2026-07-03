@@ -399,6 +399,76 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           </div>
         </section>
 
+        {/* Section 4.4: 4가지 정밀 매칭 & 안전 보장 (매칭 신뢰성 명세 섹션 - 세로 1열 리디자인) */}
+        <section className="px-6 py-20 bg-[#FCFAF7] border-b border-stone-200/40 flex flex-col items-center">
+          <div className="text-center space-y-3 mb-10">
+            <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block font-mono">
+              MATCHING SYSTEM
+            </span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-stone-900 leading-snug tracking-tight font-serif break-keep px-2">
+              나의 완벽한 반쪽을 찾는<br />
+              <span className="text-[#00C7B5]">4가지 정밀 매칭 & 안전 보장</span>
+            </h2>
+            <p className="text-xs text-stone-500 leading-relaxed font-sans break-keep font-medium px-4">
+              직관이나 단순 신청이 아닌, 정교한 취향 분석과 철저한 안전 검증 시스템을 제공합니다.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4 w-full max-w-sm">
+            {/* Card 1 */}
+            <div className="bg-white border border-stone-200/60 rounded-2xl p-5 flex flex-row items-center gap-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 shadow-sm cursor-pointer w-full">
+              <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
+                <span className="text-2xl">🪪</span>
+              </div>
+              <div className="flex flex-col space-y-0.5 text-left">
+                <h4 className="text-sm sm:text-base font-bold text-stone-900">철저한 신원 인증 (KYC)</h4>
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+                  직장·학생 신분 증빙을 통과한 검증된 매너 유저만 매칭됩니다.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bg-white border border-stone-200/60 rounded-2xl p-5 flex flex-row items-center gap-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 shadow-sm cursor-pointer w-full">
+              <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
+                <span className="text-2xl">🎯</span>
+              </div>
+              <div className="flex flex-col space-y-0.5 text-left">
+                <h4 className="text-sm sm:text-base font-bold text-stone-900">5대 핵심 취향 매핑</h4>
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+                  대화 온도, 여행 스타일, 미식 취향을 분석해 결이 맞는 반쪽을 찾습니다.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-white border border-stone-200/60 rounded-2xl p-5 flex flex-row items-center gap-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 shadow-sm cursor-pointer w-full">
+              <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
+                <span className="text-2xl">🌊</span>
+              </div>
+              <div className="flex flex-col space-y-0.5 text-left">
+                <h4 className="text-sm sm:text-base font-bold text-stone-900">프라이빗 감성 공간 큐레이션</h4>
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+                  복잡한 동선 없이, 둘만의 대화에 집중할 수 있는 감성 공간을 매핑합니다.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="bg-white border border-stone-200/60 rounded-2xl p-5 flex flex-row items-center gap-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 shadow-sm cursor-pointer w-full">
+              <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
+                <span className="text-2xl">☕</span>
+              </div>
+              <div className="flex flex-col space-y-0.5 text-left">
+                <h4 className="text-sm sm:text-base font-bold text-stone-900">운영진 3분 거리 항시 대기</h4>
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+                  어색함이나 만일의 상황에 대비해 호스트가 3분 거리에 상시 대기하여 안전합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Section 4.5: How It Works Section (진행 순서 전면 수정) */}
         <section className="px-6 py-28 bg-[#FAF7F2] border-b border-stone-200/40">
           <div className="space-y-3 mb-16 text-center">

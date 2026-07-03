@@ -5,6 +5,30 @@ import { MOCK_PARTICIPANTS, type Participant, type MatchResult } from './mockDat
 import { Lock, Copy, Info, Sparkles, LogOut, Phone, Star, RefreshCw, Heart, ArrowRight } from 'lucide-react';
 import Phase0Login from './Phase0Login';
 
+// Helper to clean up address to representative cities
+const getRepresentativeAddress = (addr: string | null | undefined) => {
+  if (!addr) return '미정';
+  const firstWord = addr.trim().split(/\s+/)[0];
+  return firstWord
+    .replace('서울특별시', '서울')
+    .replace('부산광역시', '부산')
+    .replace('대구광역시', '대구')
+    .replace('인천광역시', '인천')
+    .replace('광주광역시', '광주')
+    .replace('대전광역시', '대전')
+    .replace('울산광역시', '울산')
+    .replace('세종특별자치시', '세종')
+    .replace('경기도', '경기')
+    .replace('강원특별자치도', '강원')
+    .replace('충청북도', '충북')
+    .replace('충청남도', '충남')
+    .replace('전라북도', '전북')
+    .replace('전라남도', '전남')
+    .replace('경상북도', '경북')
+    .replace('경상남도', '경남')
+    .replace('제주특별자치도', '제주');
+};
+
 // ── BankAccountInfo Component ──
 const BankAccountInfo: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -255,10 +279,10 @@ const Step1View = ({
 // ── Step 2 View ──
 const Step2View = ({
   matchResult,
-  onArriveAtPlace
+  onGoToOutfitInput
 }: {
   matchResult: MatchResult;
-  onArriveAtPlace: () => void;
+  onGoToOutfitInput: () => void;
 }) => {
   return (
     <div className="space-y-6 animate-fadeIn text-left">
@@ -297,6 +321,7 @@ const Step2View = ({
               </div>
             </div>
 
+            {/* 
             <div className="flex items-start gap-3">
               <span className="text-[#00C7B5] shrink-0 text-sm mt-0.5">🕵️‍♂️</span>
               <div>
@@ -304,19 +329,20 @@ const Step2View = ({
                 <span className="text-sm text-stone-200 font-semibold leading-relaxed">{matchResult.partner_hint || '인증 심사 진행 중'}</span>
               </div>
             </div>
+            */}
           </div>
         </div>
 
         <p className="text-sm text-stone-300 leading-relaxed font-light mt-1.5">
-          ※ 약속된 날짜에 장소에 도착하시면 [📍 장소 도착] 버튼을 터치해 주시기 바랍니다.
+          ※ 오늘의 착장 정보 입력 후 [📍 약속 장소 도착 확인] 버튼을 완료하셔야 상대방 프로필이 활성화됩니다.
         </p>
       </div>
 
       <button
-        onClick={onArriveAtPlace}
+        onClick={onGoToOutfitInput}
         className="w-full py-3.5 bg-gradient-to-r from-[#00C7B5] to-[#00a89a] hover:from-[#00b0a0] hover:to-[#009285] text-stone-950 font-bold rounded-xl text-sm tracking-wider uppercase cursor-pointer transition-all duration-300 shadow-lg shadow-[#00C7B5]/10"
       >
-        📍 장소 도착 (도착 확인)
+        오늘의 착장 입력하러 가기
       </button>
     </div>
   );
@@ -325,24 +351,44 @@ const Step2View = ({
 // ── Step 3 View ──
 const Step3View = ({
   matchResult,
+  partnerMatchResult,
+  partnerProfile,
   onStartTreasureHunt,
-  userCode,
-  partnerCode
+  onSubmitOutfit,
+  onArriveAtPlace
 }: {
   matchResult: MatchResult;
+  partnerMatchResult: MatchResult | null;
+  partnerProfile: Participant | null;
   onStartTreasureHunt: () => void;
-  userCode: string;
-  partnerCode: string;
+  onSubmitOutfit: (outfit: string) => Promise<void>;
+  onArriveAtPlace: () => void;
 }) => {
-  const [inputCode, setInputCode] = useState('');
+  const [outfit, setOutfit] = useState('');
+  const [submittingOutfit, setSubmittingOutfit] = useState(false);
 
-  const handleVerify = () => {
-    if (inputCode.trim() === partnerCode.trim()) {
-      onStartTreasureHunt();
-    } else {
-      alert("시그널 번호가 일치하지 않습니다.");
+  useEffect(() => {
+    // Note: partnerMatchResult.partner_hint stores the USER's outfit (submitted by the user to the partner's row).
+    if (partnerMatchResult?.partner_hint) {
+      setOutfit(partnerMatchResult.partner_hint);
     }
+  }, [partnerMatchResult]);
+
+  const handleOutfitSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!outfit.trim()) {
+      alert("착장 정보를 입력해 주세요.");
+      return;
+    }
+    setSubmittingOutfit(true);
+    await onSubmitOutfit(outfit.trim());
+    setSubmittingOutfit(false);
   };
+
+  // State checks:
+  const isOutfitSubmitted = !!partnerMatchResult?.partner_hint;
+  const hasArrived = (matchResult.current_step ?? 1) >= 3;
+  const hasPartnerArrived = partnerMatchResult ? ((partnerMatchResult.current_step ?? 1) >= 3) : false;
 
   return (
     <div className="space-y-6 animate-fadeIn text-left">
@@ -352,56 +398,166 @@ const Step3View = ({
         <p className="text-sm text-stone-200 font-light">메이트가 가까운 곳에 도착하여 만남을 기다리고 있습니다.</p>
       </div>
 
-      {/* Action Hint Card */}
-      <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl relative overflow-hidden space-y-7 border-t-4 border-t-rose-500">
-        <div className="flex items-center justify-between border-b border-stone-850 pb-4">
-          <span className="font-cinzel text-xs tracking-[0.2em] text-rose-400 font-bold">MISSION HINT</span>
-          <span className="text-xs font-mono text-stone-500">D-DAY INSTRUCTIONS</span>
+      {/* 상태 A: 도착 전 - 아침 착장 입력 */}
+      {!isOutfitSubmitted && (
+        <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl space-y-3">
+          <span className="text-xs uppercase font-extrabold tracking-widest text-[#00C7B5] flex items-center gap-1.5">
+            👕 나의 착장 정보 입력
+          </span>
+          <p className="text-xs text-stone-300 font-light leading-relaxed">
+            오늘의 착장 정보를 입력해 주세요. 제출 완료 후 장소 도착 확인 버튼이 활성화됩니다.
+          </p>
+          <form onSubmit={handleOutfitSubmit} className="flex gap-2">
+            <input
+              type="text"
+              placeholder="오늘의 착장 정보를 입력해 주세요 (예: 하얀색 셔츠)"
+              value={outfit}
+              onChange={(e) => setOutfit(e.target.value)}
+              className="flex-grow px-3 py-2 bg-stone-950 border border-stone-850 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-teal-500/80"
+            />
+            <button
+              type="submit"
+              disabled={submittingOutfit}
+              className="px-4 py-2 bg-[#00C7B5] text-stone-950 font-bold rounded-xl text-xs hover:bg-[#00b0a0] transition-colors shrink-0 cursor-pointer disabled:opacity-50"
+            >
+              {submittingOutfit ? '제출 중...' : '제출'}
+            </button>
+          </form>
         </div>
+      )}
 
-        <div className="space-y-5.5">
-          <div className="bg-stone-950 p-4 border border-stone-900 rounded-xl space-y-3">
-            <span className="text-xs text-[#00C7B5] font-extrabold tracking-wide block">💌 시크릿 미션</span>
-            <p className="text-sm text-stone-200 leading-relaxed font-semibold">
-              {matchResult.action_hint || "두 분의 완벽한 만남을 위한 시크릿 미션이 곧 도착합니다. 💌"}
+      {/* 상태 B: 도착 확인 및 대기 */}
+      {isOutfitSubmitted && !hasArrived && (
+        <div className="space-y-4">
+          <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl text-center space-y-3">
+            <span className="text-xs text-teal-400 font-bold font-mono">👕 제출 완료된 착장: {partnerMatchResult?.partner_hint}</span>
+            <p className="text-xs text-stone-400 font-light">약속 장소에 도착하셨다면 아래 도착 확인 버튼을 눌러주세요.</p>
+          </div>
+          <button
+            onClick={onArriveAtPlace}
+            className="w-full py-3.5 bg-gradient-to-r from-[#00C7B5] to-[#00a89a] hover:from-[#00b0a0] hover:to-[#009285] text-stone-950 font-bold rounded-xl text-sm tracking-wider uppercase cursor-pointer transition-all duration-300 shadow-lg shadow-[#00C7B5]/10"
+          >
+            📍 약속 장소 도착 확인
+          </button>
+        </div>
+      )}
+
+      {isOutfitSubmitted && hasArrived && !hasPartnerArrived && (
+        <div className="bg-stone-900/60 border border-stone-850 rounded-2xl p-8 text-center text-stone-400 space-y-4 shadow-xl">
+          <div className="w-12 h-12 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center mx-auto text-[#00C7B5] animate-pulse">
+            ⏱
+          </div>
+          <div className="space-y-1.5">
+            <h4 className="text-sm font-bold text-stone-200">상대방의 도착을 기다리고 있습니다...</h4>
+            <p className="text-xs text-stone-300 font-light leading-relaxed">
+              상대방도 장소 도착 확인 버튼을 누르면 상대방의 블라인드 프로필과 시크릿 지령이 여기에 활성화됩니다.
             </p>
           </div>
-
-          <p className="text-sm text-stone-200 leading-relaxed font-light">
-            상대방의 시그널 힌트(인상착의 등)를 확인하여 메이트를 조심스럽게 탐색해 보세요. 서로 만나 가볍게 수줍은 첫인사를 나눈 다음, 서로의 시그널 번호를 확인하고 아래 인증 양식에 입력해 주십시오.
-          </p>
         </div>
-      </div>
+      )}
 
-      {/* 시그널 코드 인증 폼 */}
-      <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl space-y-4">
-        <div className="text-center py-2 bg-stone-950/60 border border-stone-850 rounded-xl">
-          <span className="text-xs text-stone-300 block font-bold uppercase tracking-wider">나의 시그널 번호</span>
-          <span className="text-2xl font-black tracking-widest text-[#00C7B5] font-mono mt-1 block">
-            {userCode}
-          </span>
-        </div>
+      {/* 상태 C: 쌍방 도착 완료 (Mutual Arrival) */}
+      {isOutfitSubmitted && hasArrived && hasPartnerArrived && (
+        <>
+          {/* Blind Profile Card */}
+          <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl space-y-6">
+            <div className="flex items-center justify-between border-b border-stone-850 pb-3">
+              <span className="font-cinzel text-xs tracking-[0.2em] text-[#00C7B5] font-bold">BLIND PROFILE</span>
+              <span className="text-xs font-mono text-stone-500">MUTUAL ARRIVAL DETECTED</span>
+            </div>
 
-        <div className="space-y-2">
-          <label className="block text-sm font-bold text-stone-200">상대방의 시그널 번호 4자리를 입력하세요</label>
-          <input
-            type="number"
-            pattern="[0-9]*"
-            maxLength={4}
-            placeholder="상대방 시그널 번호 4자리"
-            value={inputCode}
-            onChange={(e) => setInputCode(e.target.value.slice(0, 4))}
-            className="w-full px-4 py-2.5 bg-stone-950 border border-stone-850 rounded-xl text-center text-lg font-bold tracking-widest font-mono text-stone-200 focus:outline-none focus:border-teal-500/80 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          />
-        </div>
+            <div className="flex items-center gap-5">
+              <div className="w-18 h-18 rounded-full overflow-hidden border border-[#00C7B5]/30 shrink-0">
+                <img
+                  src={partnerProfile?.photo_urls[0] || 'https://api.dicebear.com/7.x/identicon/svg?seed=placeholder'}
+                  alt="Mate Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <h4 className="text-base font-extrabold text-stone-100">* * * (실명 비공개)</h4>
+                  <span className="text-xs px-2 py-0.5 rounded bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20 font-bold font-mono">
+                    {partnerProfile?.nickname}
+                  </span>
+                </div>
+                <p className="text-xs text-stone-400 font-mono font-semibold">
+                  연락처: ***-****-**** (비공개)
+                </p>
+              </div>
+            </div>
 
-        <button
-          onClick={handleVerify}
-          className="w-full py-3.5 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-400 hover:to-rose-500 text-stone-950 font-bold rounded-xl text-sm tracking-wider uppercase cursor-pointer transition-all duration-300 shadow-lg shadow-rose-500/10"
-        >
-          💎 보물찾기 완료 (프로필 해제)
-        </button>
-      </div>
+            <div className="bg-stone-950 p-4 border border-stone-900 rounded-xl space-y-3.5 text-sm">
+              <div className="grid grid-cols-2 gap-3.5">
+                <div>
+                  <span className="text-xs text-stone-400 font-bold block uppercase tracking-wider">나이 / 성별</span>
+                  <span className="text-stone-200 font-medium">{partnerProfile?.age}세 / {partnerProfile?.gender === 'MALE' ? '남성' : '여성'}</span>
+                </div>
+                <div>
+                  <span className="text-xs text-stone-400 font-bold block uppercase tracking-wider">MBTI</span>
+                  <span className="text-stone-200 font-medium">{partnerProfile?.mbti}</span>
+                </div>
+                <div>
+                  <span className="text-xs text-stone-400 font-bold block uppercase tracking-wider">직업 분류</span>
+                  <span className="text-stone-200 font-medium">
+                    {partnerProfile?.job_type === 'office_worker' && '직장인 (회사원)'}
+                    {partnerProfile?.job_type === 'business_owner' && '사업자 (대표)'}
+                    {partnerProfile?.job_type === 'professional' && '전문직'}
+                    {partnerProfile?.job_type === 'civil_servant' && '공무원 / 공기업'}
+                    {partnerProfile?.job_type === 'freelancer' && '프리랜서'}
+                    {partnerProfile?.job_type === 'student' && '학생'}
+                    {partnerProfile?.job_type === 'other' && '기타'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-xs text-stone-400 font-bold block uppercase tracking-wider">소속 / 회사</span>
+                  <span className="text-stone-200 font-medium truncate block">{partnerProfile?.company_name || '미기재'}</span>
+                </div>
+                <div>
+                  <span className="text-xs text-stone-400 font-bold block uppercase tracking-wider">사는 곳</span>
+                  <span className="text-stone-200 font-medium block">
+                    {partnerProfile?.address ? getRepresentativeAddress(partnerProfile.address) : '미지정'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-xs text-stone-400 font-bold block uppercase tracking-wider">상대방 착장</span>
+                  <span className="text-stone-200 font-semibold text-teal-400 block truncate">
+                    {matchResult.partner_hint || '미입력'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Hint Card */}
+          <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl relative overflow-hidden space-y-7 border-t-4 border-t-rose-500">
+            <div className="flex items-center justify-between border-b border-stone-850 pb-4">
+              <span className="font-cinzel text-xs tracking-[0.2em] text-rose-400 font-bold">MISSION HINT</span>
+              <span className="text-xs font-mono text-stone-500">D-DAY INSTRUCTIONS</span>
+            </div>
+
+            <div className="space-y-5.5">
+              <div className="bg-stone-950 p-4 border border-stone-900 rounded-xl space-y-3">
+                <span className="text-xs text-[#00C7B5] font-extrabold tracking-wide block">💌 시크릿 미션</span>
+                <p className="text-sm text-stone-200 leading-relaxed font-semibold">
+                  {matchResult.action_hint || "두 분의 완벽한 만남을 위한 시크릿 미션이 곧 도착합니다. 💌"}
+                </p>
+              </div>
+
+              <p className="text-sm text-stone-200 leading-relaxed font-light">
+                상대방의 착장 시그널 힌트(인상착의 등)를 확인하여 메이트를 조심스럽게 탐색해 보세요. 서로 만나 가볍게 수줍은 첫인사를 나누고 깊은 이야기를 나눠보시기 바랍니다.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={onStartTreasureHunt}
+            className="w-full py-3.5 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-400 hover:to-rose-500 text-stone-950 font-bold rounded-xl text-sm tracking-wider uppercase cursor-pointer transition-all duration-300 shadow-lg shadow-rose-500/10"
+          >
+            ☕️ 티타임 시작 (최종 선택으로 이동)
+          </button>
+        </>
+      )}
     </div>
   );
 };
@@ -409,22 +565,74 @@ const Step3View = ({
 // ── Step 4 View ──
 const Step4View = ({
   partnerProfile,
-  matchResult
+  matchResult,
+  partnerMatchResult,
+  onSelectChoice
 }: {
   partnerProfile: Participant | null;
   matchResult: MatchResult | null;
+  partnerMatchResult: MatchResult | null;
+  onSelectChoice: (choice: 'accepted' | 'rejected') => void;
 }) => {
-  if (!partnerProfile) return null;
+  const [showRefusalModal, setShowRefusalModal] = useState(false);
+
+  if (!partnerProfile || !matchResult) return null;
+
+  // Double Opt-in status checks
+  const myStatus = matchResult.status || 'active'; // 'active', 'accepted', 'rejected'
+  const partnerStatus = partnerMatchResult?.status || 'active';
+
+  const isMutualAccepted = myStatus === 'accepted' && partnerStatus === 'accepted';
+  const isWaitingPartner = myStatus === 'accepted' && partnerStatus === 'active';
+  const isFailedMatch = myStatus === 'rejected' || partnerStatus === 'rejected';
+
+  // Masking functions
+  const getMaskedName = (name: string) => {
+    if (isMutualAccepted) return name;
+    return "* * * (상호 수락 시 공개)";
+  };
+
+  const getMaskedPhone = (phone: string) => {
+    if (isMutualAccepted) return phone;
+    return "***-****-**** (상호 수락 시 공개)";
+  };
 
   return (
     <div className="space-y-6 animate-fadeIn text-left">
       <div className="text-center space-y-1.5">
         <span className="text-xs text-teal-400 font-mono tracking-widest uppercase font-extrabold">Step 4</span>
         <h3 className="font-cinzel text-xl font-bold text-gold-premium tracking-wider">보물찾기 성공!</h3>
-        <p className="text-sm text-stone-200 font-light">매칭 메이트의 실명 정보와 프로필이 완전히 해제되었습니다.</p>
+        <p className="text-sm text-stone-200 font-light">서로 마주한 두 분의 보물이 해제되는 순간입니다.</p>
       </div>
 
-      {/* Unblurred Partner Profile Card */}
+      {/* Timer Text */}
+      <div className="bg-stone-900/60 border border-stone-850 rounded-2xl p-4 text-center">
+        <p className="text-sm text-stone-300 font-medium">
+          ⏱ 티타임이 시작되었습니다. 2시간 뒤 최종 선택이 활성화됩니다.
+        </p>
+        <p className="text-[11px] text-[#00C7B5] mt-1 font-light opacity-90">
+          (※ 테스트 편의를 위해 최종 선택 버튼은 즉시 클릭 가능하도록 활성화되어 있습니다.)
+        </p>
+      </div>
+
+      {/* Opt-in Status Badge */}
+      {isMutualAccepted && (
+        <div className="bg-teal-500/10 border border-teal-500/30 text-[#00C7B5] rounded-xl p-4 text-center font-bold text-sm tracking-wide animate-pulse">
+          🎉 매칭이 최종 성사되었습니다! 서로의 실명과 연락처가 공개됩니다. 💖
+        </div>
+      )}
+      {isWaitingPartner && (
+        <div className="bg-stone-900/60 border border-stone-850 text-stone-300 rounded-xl p-4 text-center font-medium text-sm">
+          ⏳ 나의 선택 완료: 상대방의 최종 선택을 기다리고 있습니다...
+        </div>
+      )}
+      {isFailedMatch && (
+        <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl p-4 text-center font-medium text-sm">
+          ❌ 매칭이 종료되었습니다. (거절 의사 확인됨)
+        </div>
+      )}
+
+      {/* Partner Profile Card */}
       <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl space-y-7">
         <div className="flex items-center gap-6">
           <div className="w-20 h-20 rounded-full overflow-hidden border border-[#00C7B5]/30 shrink-0">
@@ -436,13 +644,15 @@ const Step4View = ({
           </div>
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
-              <h4 className="text-base font-extrabold text-stone-100">{partnerProfile.name}</h4>
+              <h4 className="text-base font-extrabold text-stone-100">
+                {getMaskedName(partnerProfile.name)}
+              </h4>
               <span className="text-xs px-2.5 py-0.5 rounded bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20 font-bold font-mono">
                 {partnerProfile.nickname}
               </span>
             </div>
             <p className="text-sm text-stone-200 font-mono font-semibold flex items-center gap-1.5">
-              <Phone size={14} className="text-[#00C7B5]" /> {partnerProfile.phone || '연락처 정보 없음'}
+              <Phone size={14} className="text-[#00C7B5]" /> {getMaskedPhone(partnerProfile.phone || '연락처 정보 없음')}
             </p>
           </div>
         </div>
@@ -486,6 +696,70 @@ const Step4View = ({
           </div>
         </div>
       </div>
+
+      {/* Choice Form Buttons (Only show when my status is 'active') */}
+      {myStatus === 'active' && !isFailedMatch && (
+        <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl space-y-4">
+          <span className="text-xs uppercase font-extrabold tracking-widest text-[#00C7B5] block text-center">
+            💌 최종 선택을 진행해 주세요
+          </span>
+          <div className="flex flex-col gap-2.5">
+            <button
+              onClick={() => onSelectChoice('accepted')}
+              className="w-full py-3.5 bg-gradient-to-r from-[#00C7B5] to-[#00a89a] hover:from-[#00b0a0] hover:to-[#009285] text-stone-950 font-bold rounded-xl text-sm tracking-wider cursor-pointer transition-all duration-300"
+            >
+              예, 더 알아가고 싶어요
+            </button>
+            <button
+              onClick={() => setShowRefusalModal(true)}
+              className="w-full py-3.5 bg-stone-950 border border-stone-850 hover:bg-stone-900 text-stone-400 font-bold rounded-xl text-sm tracking-wider cursor-pointer transition-all duration-300"
+            >
+              아니오, 여기까지 할게요
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Refusal Friction Confirmation Modal */}
+      {showRefusalModal && (
+        <AnimatePresence>
+          <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/85 backdrop-blur-sm p-5">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="w-full max-w-sm bg-stone-900 border border-stone-800 rounded-3xl p-8 text-center space-y-6 shadow-2xl"
+            >
+              <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mx-auto text-rose-500">
+                ⚠️
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-base font-extrabold text-stone-200 tracking-wide">정말 거절하시겠습니까?</h4>
+                <p className="text-sm text-stone-300 font-light leading-relaxed">
+                  한 번 거절하면 되돌릴 수 없습니다. 신중히 결정해 주시기 바랍니다.
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    onSelectChoice('rejected');
+                    setShowRefusalModal(false);
+                  }}
+                  className="flex-1 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-xs cursor-pointer transition-colors"
+                >
+                  예, 거절합니다
+                </button>
+                <button
+                  onClick={() => setShowRefusalModal(false)}
+                  className="flex-1 py-3 bg-stone-950 border border-stone-800 text-stone-300 font-bold rounded-xl text-xs cursor-pointer transition-colors"
+                >
+                  아니오, 취소합니다
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </AnimatePresence>
+      )}
 
       {/* Private Dining Card Info */}
       <div className="bg-stone-900 border border-stone-850 rounded-2xl p-5 shadow-xl space-y-4">
@@ -578,7 +852,18 @@ function Toast({ message, visible }: { message: string; visible: boolean }) {
 export default function WebAppContainer() {
   const [user, setUser] = useState<Participant | null>(null);
   const [matchResult, setMatchResult] = useState<MatchResult | null>(null);
+  const [partnerMatchResult, setPartnerMatchResult] = useState<MatchResult | null>(null);
   const [partnerProfile, setPartnerProfile] = useState<Participant | null>(null);
+  const [ddayStarted, setDdayStarted] = useState<boolean>(() => {
+    const saved = localStorage.getItem('signal_trip_user');
+    if (saved) {
+      try {
+        const u = JSON.parse(saved);
+        return localStorage.getItem('signal_trip_dday_started_' + u.id) === 'true';
+      } catch { return false; }
+    }
+    return false;
+  });
   const [toast, setToast] = useState({ message: '', visible: false });
   const [lastShownStep, setLastShownStep] = useState<number | null>(null);
   const [activeModal, setActiveModal] = useState<{
@@ -638,10 +923,11 @@ export default function WebAppContainer() {
     }
   }, []);
 
-  // Fetch partner profile details
+  // Fetch partner profile and match result details
   useEffect(() => {
     if (matchResult && matchResult.is_matched && matchResult.status !== 'pending_date_coordination' && matchResult.matched_with_id) {
-      const fetchPartner = async () => {
+      const fetchPartnerData = async () => {
+        // Fetch partner profile
         try {
           const { data, error } = await supabase
             .from('applications')
@@ -652,19 +938,47 @@ export default function WebAppContainer() {
           if (data && !error) {
             setPartnerProfile(data as unknown as Participant);
           } else {
-            // Fallback mock
             const mockPartner = MOCK_PARTICIPANTS.find(p => p.id === matchResult.matched_with_id);
             if (mockPartner) setPartnerProfile(mockPartner);
           }
         } catch {
-          // Fallback mock
           const mockPartner = MOCK_PARTICIPANTS.find(p => p.id === matchResult.matched_with_id);
           if (mockPartner) setPartnerProfile(mockPartner);
         }
+
+        // Fetch partner match result
+        try {
+          const { data, error } = await supabase
+            .from('match_results')
+            .select('*')
+            .eq('participant_id', matchResult.matched_with_id)
+            .single();
+
+          if (data && !error) {
+            setPartnerMatchResult(data as unknown as MatchResult);
+          } else {
+            setPartnerMatchResult({
+              participant_id: matchResult.matched_with_id || '',
+              matched_with_id: matchResult.participant_id,
+              is_matched: true,
+              current_step: 1,
+              status: 'active'
+            });
+          }
+        } catch {
+          setPartnerMatchResult({
+            participant_id: matchResult.matched_with_id || '',
+            matched_with_id: matchResult.participant_id,
+            is_matched: true,
+            current_step: 1,
+            status: 'active'
+          });
+        }
       };
-      fetchPartner();
+      fetchPartnerData();
     } else {
       setPartnerProfile(null);
+      setPartnerMatchResult(null);
     }
   }, [matchResult]);
 
@@ -694,8 +1008,11 @@ export default function WebAppContainer() {
         title = 'Step 3. 약속 장소 도착 확인 📍';
         message = '메이트가 가까운 곳에 있습니다!\n\n상대를 찾아 가볍게 인사를 나누고 함께 [💎 보물찾기 시작]을 눌러주세요.';
       } else if (step === 4) {
+        // Step 4 기존 팝업 로직은 주석 처리
+        /*
         title = 'Step 4. 보물찾기 성공 💎';
         message = matchResult?.step4_popup_msg || "진짜 보물을 발견하셨군요! 두 분을 위해 준비된 프라이빗 다이닝 장소가 곧 안내됩니다.";
+        */
       }
 
       if (message) {
@@ -704,24 +1021,29 @@ export default function WebAppContainer() {
     }
   }, [matchResult, lastShownStep]);
 
-  // ── Supabase Realtime subscription for match results step change ──
+  // ── Supabase Realtime subscription for match results changes (Robust Refetch) ──
   useEffect(() => {
     if (!user) return;
 
+    const partnerId = matchResult?.matched_with_id;
+
     const channel = supabase
-      .channel(`match-results-realtime-${user.id}`)
+      .channel(`match_results_realtime_sync`)
       .on(
         'postgres_changes',
         {
           event: '*',
           schema: 'public',
-          table: 'match_results',
-          filter: `participant_id=eq.${user.id}`
+          table: 'match_results'
         },
-        (payload) => {
-          const newData = payload.new as MatchResult;
-          if (newData) {
-            setMatchResult(newData);
+        async (payload) => {
+          const newRow = payload.new as any;
+          const oldRow = payload.old as any;
+          const pId = newRow?.participant_id || oldRow?.participant_id;
+
+          if (pId === user.id || (partnerId && pId === partnerId)) {
+            // Re-fetch match info from DB to guarantee correct step and columns propagation
+            await fetchMatchingInfo(user.id);
           }
         }
       )
@@ -730,24 +1052,29 @@ export default function WebAppContainer() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [user]);
+  }, [user, matchResult?.matched_with_id, fetchMatchingInfo]);
 
   // ── On login ──
   const handleLogin = useCallback((userData: Participant) => {
     setUser(userData);
     localStorage.setItem('signal_trip_user', JSON.stringify(userData));
     setIsPaymentSubmitted(localStorage.getItem(`payment_submitted_${userData.id}`) === 'true');
+    setDdayStarted(localStorage.getItem('signal_trip_dday_started_' + userData.id) === 'true');
     fetchMatchingInfo(userData.id);
   }, [fetchMatchingInfo]);
 
   // ── On logout ──
   const handleLogout = useCallback(() => {
+    if (user) {
+      localStorage.removeItem('signal_trip_dday_started_' + user.id);
+    }
     setUser(null);
     setMatchResult(null);
     setPartnerProfile(null);
     setLastShownStep(null);
+    setDdayStarted(false);
     localStorage.removeItem('signal_trip_user');
-  }, []);
+  }, [user]);
 
   // ── Client updates database step ──
   const handleAdvanceStep = async (nextStep: number) => {
@@ -763,7 +1090,8 @@ export default function WebAppContainer() {
           meeting_place: matchResult?.meeting_place || null,
           partner_hint: matchResult?.partner_hint || null,
           action_hint: matchResult?.action_hint || null,
-          current_step: nextStep
+          current_step: nextStep,
+          status: matchResult?.status || 'active'
         }, { onConflict: 'participant_id' });
 
       if (error) throw error;
@@ -771,6 +1099,42 @@ export default function WebAppContainer() {
     } catch (err) {
       console.warn("Database step transition error, fallback to local transition:", err);
       setMatchResult(prev => prev ? { ...prev, current_step: nextStep } : null);
+    }
+  };
+
+  // Submit own outfit (updates partner's partner_hint in DB)
+  const handleSaveOutfit = async (outfit: string) => {
+    if (!matchResult || !matchResult.matched_with_id) return;
+    try {
+      const { error } = await supabase
+        .from('match_results')
+        .update({ partner_hint: outfit })
+        .eq('participant_id', matchResult.matched_with_id);
+      if (error) throw error;
+      setPartnerMatchResult(prev => prev ? { ...prev, partner_hint: outfit } : null);
+      showToast("👕 오늘의 착장 정보가 제출되었습니다!");
+    } catch (err) {
+      console.warn("Database outfit update failed:", err);
+      showToast("👕 착장 정보가 임시 등록되었습니다.");
+    }
+  };
+
+  // Submit final accept/reject choice (updates own status in DB)
+  const handleSelectChoice = async (choice: 'accepted' | 'rejected') => {
+    if (!user) return;
+    try {
+      const { error } = await supabase
+        .from('match_results')
+        .update({ status: choice })
+        .eq('participant_id', user.id);
+      if (error) throw error;
+      
+      setMatchResult(prev => prev ? { ...prev, status: choice } : null);
+      showToast(choice === 'accepted' ? "💖 최종 수락을 선택하셨습니다!" : "🖤 거절을 선택하셨습니다.");
+    } catch (err) {
+      console.warn("Choice update failed:", err);
+      setMatchResult(prev => prev ? { ...prev, status: choice } : null);
+      showToast("⚠️ 선택이 임시 등록되었습니다.");
     }
   };
 
@@ -790,6 +1154,22 @@ export default function WebAppContainer() {
 
     const step = matchResult.current_step || 1;
 
+    // Transition to Step 3 D-Day views if the step is 3 or local state/database indicates it started
+    const isStep3Active = step >= 3 || !!partnerMatchResult?.partner_hint || ddayStarted;
+
+    if (isStep3Active && step < 4) {
+      return (
+        <Step3View
+          matchResult={matchResult}
+          partnerMatchResult={partnerMatchResult}
+          partnerProfile={partnerProfile}
+          onStartTreasureHunt={() => handleAdvanceStep(4)}
+          onSubmitOutfit={handleSaveOutfit}
+          onArriveAtPlace={() => handleAdvanceStep(3)}
+        />
+      );
+    }
+
     switch (step) {
       case 1:
         return (
@@ -804,20 +1184,21 @@ export default function WebAppContainer() {
         return (
           <Step2View
             matchResult={matchResult}
-            onArriveAtPlace={() => handleAdvanceStep(3)}
-          />
-        );
-      case 3:
-        return (
-          <Step3View
-            matchResult={matchResult}
-            onStartTreasureHunt={() => handleAdvanceStep(4)}
-            userCode={user?.signal_code || (user?.phone ? user.phone.replace(/[^0-9]/g, '').slice(-4) : '0000')}
-            partnerCode={partnerProfile?.signal_code || (partnerProfile?.phone ? partnerProfile.phone.replace(/[^0-9]/g, '').slice(-4) : '0000')}
+            onGoToOutfitInput={() => {
+              localStorage.setItem('signal_trip_dday_started_' + user.id, 'true');
+              setDdayStarted(true);
+            }}
           />
         );
       case 4:
-        return <Step4View partnerProfile={partnerProfile} matchResult={matchResult} />;
+        return (
+          <Step4View
+            partnerProfile={partnerProfile}
+            matchResult={matchResult}
+            partnerMatchResult={partnerMatchResult}
+            onSelectChoice={handleSelectChoice}
+          />
+        );
       default:
         return <LobbyWaitingView />;
     }
