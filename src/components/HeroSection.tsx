@@ -44,6 +44,10 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
       a: "아니요. 연락처는 현장에서 교환하지 않습니다. 티타임 종료 2시간 후 시스템을 통해 서로 '수락'을 누른 경우에만 연락처가 공개되므로 거절의 민망함이 전혀 없습니다."
     },
     {
+      q: "연락처도 없는데 사진만 보고 서로 어떻게 알아보죠? 못 찾으면 어떡하죠?",
+      a: "도착 직전, 시스템을 통해 서로의 '오늘의 착장 정보(예: 하얀색 셔츠, 베이지색 가디건)'를 간단히 입력하게 됩니다. 약속 장소에 도착해 버튼을 누르는 순간 프로필과 함께 착장 정보가 공개되어 영화처럼 자연스럽게 마주할 수 있습니다. 만일의 상황을 대비해 운영진이 '3분 거리'에 대기 중이니 안심하셔도 좋습니다."
+    },
+    {
       q: "만남 시 운영진이 동행하나요? 단둘이 만나면 어색하거나 위험하진 않을까요?",
       a: "어색한 아이스브레이킹이나 운영진의 개입은 전혀 없습니다. 웹앱의 안내에 따라 두 분이서만 자연스럽게 티타임을 진행합니다. 단, 안전과 돌발 상황에 대비해 운영진이 항상 만남 장소 '3분 거리'에서 밀착 대기하며 즉각 도와드리니 안심하셔도 좋습니다."
     }
@@ -471,7 +475,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8 font-mono">STEP 03</div>
               <h3 className="text-xl font-extrabold text-stone-900 mt-2 break-keep">약속 장소로 이동 & 프로필 확인</h3>
               <p className="text-sm font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
-                D-Day, 설레는 마음으로 제주도의 약속 장소로 이동해요. 도착 후 버튼을 누르면 상대방의 프로필이 공개됩니다.
+                D-Day, 설레는 마음으로 제주도의 약속 장소로 이동해요. 도착 후 버튼을 누르면 상대방의 프로필과 함께 '오늘의 착장 정보'가 공개되어, 인파 속에서도 어색함 없이 단번에 서로를 알아볼 수 있습니다.
               </p>
             </div>
 
