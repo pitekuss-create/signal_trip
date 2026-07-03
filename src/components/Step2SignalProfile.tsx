@@ -61,50 +61,50 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
   return (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h3 className="font-cinzel text-xl font-bold text-gold-premium tracking-wider">Step 2. Signal Profile</h3>
-        <p className="text-xs text-stone-400 font-light mt-1">당신의 취향과 개성을 표현해 주세요.</p>
+        <h3 className="font-sans text-xl font-bold text-[#00C7B5] tracking-wider">Step 2. Signal Profile</h3>
+        <p className="text-xs text-stone-500 font-light mt-1">당신의 취향과 개성을 표현해 주세요.</p>
       </div>
 
       {/* 여행 스타일 소개 */}
-      <div className="space-y-2">
-        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">나의 여행 스타일</label>
+      <div className="space-y-2 text-left">
+        <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">나의 여행 스타일</label>
         <textarea
           rows={3}
           placeholder="어떤 스타일의 여행을 떠나고 싶으신가요? 선호하는 여행 방식이나 성향을 적어주세요."
           value={data.idealType}
           onChange={(e) => updateData({ idealType: e.target.value })}
-          className={`w-full px-4 py-3 bg-brand-black border ${
-            errors.idealType ? 'border-red-500/70 focus:border-red-500' : 'border-stone-800 focus:border-gold-premium/80'
-          } rounded-lg text-sm text-stone-200 placeholder-stone-600 focus:outline-none resize-none transition-all duration-300`}
+          className={`w-full px-4 py-3 bg-white border ${
+            errors.idealType ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
+          } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none resize-none transition-all duration-300`}
         />
-        {errors.idealType && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.idealType}</p>}
+        {errors.idealType && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.idealType}</p>}
       </div>
 
       {/* 자기소개 */}
-      <div className="space-y-2">
-        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">자기소개</label>
+      <div className="space-y-2 text-left">
+        <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">자기소개</label>
         <textarea
           rows={3}
           placeholder="참가자들에게 어필할 나만의 매력이나 여행 성향을 적어주세요."
           value={data.bio}
           onChange={(e) => updateData({ bio: e.target.value })}
-          className={`w-full px-4 py-3 bg-brand-black border ${
-            errors.bio ? 'border-red-500/70 focus:border-red-500' : 'border-stone-800 focus:border-gold-premium/80'
-          } rounded-lg text-sm text-stone-200 placeholder-stone-600 focus:outline-none resize-none transition-all duration-300`}
+          className={`w-full px-4 py-3 bg-white border ${
+            errors.bio ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
+          } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none resize-none transition-all duration-300`}
         />
-        {errors.bio && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.bio}</p>}
+        {errors.bio && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.bio}</p>}
       </div>
 
       {/* 파일 업로드 UI (약 30% 축소 적용) */}
-      <div className="space-y-2">
+      <div className="space-y-2 text-left">
         <div className="flex justify-between items-center">
-          <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">개인 사진 업로드 (최대 5장)</label>
+          <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">개인 사진 업로드 (최대 5장)</label>
           <span className="text-[10px] text-stone-500">{data.photos.length} / 5</span>
         </div>
 
         <div className="grid grid-cols-5 gap-2 max-w-[320px]">
           {data.photos.map((photo, index) => (
-            <div key={index} className="relative aspect-square rounded-lg border border-stone-800 overflow-hidden group">
+            <div key={index} className="relative aspect-square rounded-lg border border-stone-200 overflow-hidden group">
               <img src={photo} alt={`profile-${index}`} className="w-full h-full object-cover" />
               <button
                 type="button"
@@ -120,7 +120,7 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
             <button
               type="button"
               onClick={triggerFileInput}
-              className="aspect-square rounded-lg border-2 border-dashed border-stone-800 hover:border-gold-premium/40 flex flex-col items-center justify-center text-stone-500 hover:text-gold-premium transition-colors cursor-pointer bg-brand-black/50"
+              className="aspect-square rounded-lg border-2 border-dashed border-stone-300 hover:border-[#00C7B5]/40 flex flex-col items-center justify-center text-stone-400 hover:text-[#00C7B5] transition-colors cursor-pointer bg-stone-50"
             >
               <Image size={16} className="mb-0.5" />
               <span className="text-[8px]">추가</span>
@@ -138,14 +138,14 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
         <p className="text-[10px] text-stone-500 font-light italic mt-1.5">
           * 가장 자연스러운 본인의 모습을 올려주세요. (최소 1장 이상 등록 권장)
         </p>
-        {errors.photos && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.photos}</p>}
+        {errors.photos && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.photos}</p>}
       </div>
 
       {/* 개인 SNS 주소 (선택) */}
-      <div className="space-y-2">
-        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">개인 SNS 주소 (인스타그램, 블로그 등 - 선택)</label>
+      <div className="space-y-2 text-left">
+        <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">개인 SNS 주소 (인스타그램, 블로그 등 - 선택)</label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-600">
+          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
             <Link size={15} />
           </span>
           <input
@@ -153,15 +153,15 @@ export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, err
             placeholder="instagram.com/your_account"
             value={data.snsLink}
             onChange={(e) => updateData({ snsLink: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 bg-brand-black border ${
-              errors.snsLink ? 'border-red-500/70 focus:border-red-500' : 'border-stone-800 focus:border-gold-premium/80'
-            } rounded-lg text-sm text-stone-200 placeholder-stone-600 focus:outline-none transition-all duration-300`}
+            className={`w-full pl-10 pr-4 py-3 bg-white border ${
+              errors.snsLink ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
+            } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none transition-all duration-300`}
           />
         </div>
         <p className="text-[10px] text-stone-500 font-light italic mt-1">
           * 본인의 분위기를 알 수 있는 계정을 남겨주시면, 훨씬 더 정교하고 완벽한 취향 매칭이 가능합니다.
         </p>
-        {errors.snsLink && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.snsLink}</p>}
+        {errors.snsLink && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.snsLink}</p>}
       </div>
     </div>
   );

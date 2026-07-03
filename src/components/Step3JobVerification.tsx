@@ -62,25 +62,25 @@ export const Step3JobVerification: React.FC<Step3Props> = ({ data, updateData, e
   return (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h3 className="font-cinzel text-xl font-bold text-gold-premium tracking-wider">Step 4. Verification</h3>
-        <p className="text-xs text-stone-400 font-light mt-1">
+        <h3 className="font-sans text-xl font-bold text-[#00C7B5] tracking-wider">Step 4. Verification</h3>
+        <p className="text-xs text-stone-550 font-light mt-1">
           프리미엄 커뮤니티의 신뢰를 위해 현재 직업군과 소속을 기재해 주세요. (증빙 서류는 매칭이 성사된 후, 최종 결제 단계에서 안전하게 요청드립니다.)
         </p>
       </div>
 
       {/* 직업 선택 드롭다운 */}
-      <div className="space-y-2">
-        <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">직업 분류</label>
+      <div className="space-y-2 text-left">
+        <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">직업 분류</label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-600">
+          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
             <Briefcase size={15} />
           </span>
           <select
             value={data.jobType}
             onChange={(e) => updateData({ jobType: e.target.value as JobType, companyName: '' })}
-            className={`w-full pl-10 pr-4 py-3 bg-brand-black border ${
-              errors.jobType ? 'border-red-500/70 focus:border-red-500' : 'border-stone-800 focus:border-gold-premium/80'
-            } rounded-lg text-sm text-stone-200 placeholder-stone-600 focus:outline-none appearance-none cursor-pointer transition-all duration-300`}
+            className={`w-full pl-10 pr-4 py-3 bg-white border ${
+              errors.jobType ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
+            } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none appearance-none cursor-pointer transition-all duration-300`}
           >
             <option value="" disabled>직업을 선택해 주세요</option>
             <option value="office_worker">직장인 (회사원)</option>
@@ -92,19 +92,19 @@ export const Step3JobVerification: React.FC<Step3Props> = ({ data, updateData, e
             <option value="other">기타</option>
           </select>
           {/* Custom Select Arrow */}
-          <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-stone-600">
-            <span className="border-l border-r border-b border-t-0 border-stone-600 w-2 h-2 transform rotate-45 translate-y-[-2px]" />
+          <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-stone-400">
+            <span className="border-l border-r border-b border-t-0 border-stone-400 w-2 h-2 transform rotate-45 translate-y-[-2px]" />
           </div>
         </div>
-        {errors.jobType && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.jobType}</p>}
+        {errors.jobType && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.jobType}</p>}
       </div>
 
       {/* 조건부 입력 필드 */}
       {data.jobType && labels && (
-        <div className="space-y-5 animate-[fadeIn_0.5s_ease-out]">
+        <div className="space-y-5 animate-[fadeIn_0.5s_ease-out] text-left">
           {/* 직장명/상호명/기관명/학교명 인풋 */}
           <div className="space-y-2">
-            <label className="block text-xs font-medium text-stone-400 tracking-wider uppercase">
+            <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">
               {labels.nameLabel}
             </label>
             <input
@@ -112,14 +112,14 @@ export const Step3JobVerification: React.FC<Step3Props> = ({ data, updateData, e
               placeholder={labels.namePlaceholder}
               value={data.companyName}
               onChange={(e) => updateData({ companyName: e.target.value })}
-              className={`w-full px-4 py-3 bg-brand-black border ${
-                errors.companyName ? 'border-red-500/70 focus:border-red-500' : 'border-stone-800 focus:border-gold-premium/80'
-              } rounded-lg text-sm text-stone-200 placeholder-stone-600 focus:outline-none transition-all duration-300`}
+              className={`w-full px-4 py-3 bg-white border ${
+                errors.companyName ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
+              } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none transition-all duration-300`}
             />
             <p className="text-[11px] text-stone-500 mt-1 font-light">
               * 향후 제출하실 증빙 서류(명함, 사원증 등)와 일치하는 소속을 정확히 기재해 주세요.
             </p>
-            {errors.companyName && <p className="text-[11px] text-red-400 mt-1 font-light">{errors.companyName}</p>}
+            {errors.companyName && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.companyName}</p>}
           </div>
         </div>
       )}
