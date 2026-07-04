@@ -3,10 +3,7 @@ import { motion } from 'framer-motion';
 import {
   ChevronDown,
   ChevronUp,
-  Check,
-  Shield,
-  Lock,
-  FileText
+  Check
 } from 'lucide-react';
 import Footer from './WebApp/Footer';
 
@@ -96,8 +93,8 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
           />
 
           {/* Dark Overlay for Text legibility */}
-          <div className="absolute inset-0 bg-black/50"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20" />
 
           {/* Sub Copy */}
           <div className="relative z-10 text-left">
@@ -111,8 +108,8 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               viewport={{ once: true }}
               className="text-base sm:text-lg font-bold text-white leading-relaxed font-sans break-keep"
             >
-              시끄러운 게하 파티나 어두운 술집이 아니에요.<br />
-              철저히 검증된 사람과, 운영진이 엄선한 제주의 <span className="text-[#00C7B5] font-bold">프리미엄 오션뷰 카페</span>에서 만나는 <span className="text-[#00C7B5] font-bold">완벽한 반쪽 찾기</span> 만남.
+              시끄러운 게하 파티, 어두운 술집의 어색함은 뺐어요.<br />
+              오직 대화에 집중할 수 있는 제주의 프라이빗 공간에서 검증된 인연을 만나보세요.
             </motion.p>
           </div>
         </section>
@@ -273,7 +270,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 <div className="w-6 h-6 rounded-full bg-[#00C7B5]/10 flex items-center justify-center text-[#00C7B5] shrink-0 mt-0.5">
                   <Check className="w-3.5 h-3.5" strokeWidth={3} />
                 </div>
-                <p className="text-sm font-medium text-stone-700 leading-relaxed break-keep font-sans text-left">
+                <p className="text-base font-medium text-stone-700 leading-relaxed break-keep font-sans text-left">
                   {text}
                 </p>
               </div>
@@ -306,7 +303,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 <span className="text-lg md:text-xl font-bold tracking-wider text-stone-900 block font-sans">
                   🎬 Scene 1. (D-7) 나의 완벽한 반쪽 매칭
                 </span>
-                <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
+                <p className="text-base text-gray-600 leading-relaxed break-keep font-sans">
                   선택하신 여행 날짜 일주일 전, 수많은 데이터 중 당신의 취향과 가장 잘 맞는 단 한 사람을 찾아 매칭 완료 초대장을 발송합니다.
                 </p>
               </div>
@@ -325,7 +322,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 <span className="text-lg md:text-xl font-bold tracking-wider text-stone-900 block font-sans">
                   🎬 Scene 2. (D-3) 프라이빗 공간 안내
                 </span>
-                <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
+                <p className="text-base text-gray-600 leading-relaxed break-keep font-sans">
                   약속일 3일 전, 시끄러운 곳을 벗어나 오직 두 사람의 대화에만 집중할 수 있는 제주의 프리미엄 오션뷰 카페 위치가 공개됩니다.
                 </p>
               </div>
@@ -344,7 +341,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                 <span className="text-lg md:text-xl font-bold tracking-wider text-stone-900 block font-sans">
                   🎬 Scene 3. (D-Day) 영화 같은 마주침
                 </span>
-                <p className="text-sm text-gray-600 leading-relaxed break-keep font-sans">
+                <p className="text-base text-gray-600 leading-relaxed break-keep font-sans">
                   약속 장소에 도착해 '도착 버튼'을 누르는 순간 상대방의 프로필이 열립니다. 어색한 식사 자리를 생략한 완벽한 1:1 티타임이 시작됩니다.
                 </p>
               </div>
@@ -361,7 +358,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
             <h2 className="text-2xl font-extrabold text-stone-900 leading-snug tracking-tight font-serif break-keep">
               운영진이 검증한 매칭 공간
             </h2>
-            <p className="text-sm text-stone-600 leading-relaxed font-sans break-keep font-medium px-4">
+            <p className="text-base text-stone-600 leading-relaxed font-sans break-keep font-medium px-4">
               시끄러운 술집이 아니에요. 나와 가장 잘 맞는 분과 대화에 온전히 집중할 수 있는 프라이빗한 공간에서 1:1 티타임이 진행됩니다.
             </p>
           </div>
@@ -376,7 +373,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               />
               <div className="p-5 space-y-2 text-left">
                 <h4 className="text-base font-bold text-stone-900 font-serif">바다가 한눈에 담기는 오션뷰 카페</h4>
-                <p className="text-xs text-stone-600 leading-relaxed break-keep font-sans">
+                <p className="text-sm text-stone-600 leading-relaxed break-keep font-sans">
                   서로의 첫인상과 시그널을 확인하며, 탁 트인 제주 바다와 함께 아늑한 티타임을 시작하는 검증된 프리미엄 공간입니다.
                 </p>
               </div>
@@ -391,7 +388,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               />
               <div className="p-5 space-y-2 text-left">
                 <h4 className="text-base font-bold text-stone-900 font-serif">노을빛이 스며드는 테라스</h4>
-                <p className="text-xs text-stone-600 leading-relaxed break-keep font-sans">
+                <p className="text-sm text-stone-600 leading-relaxed break-keep font-sans">
                   노을과 선선한 제주 바람을 느끼며 차분하게 마주 앉아 온전히 상대방에게 집중할 수 있는 프라이빗 테라스 공간입니다.
                 </p>
               </div>
@@ -409,7 +406,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               나의 완벽한 반쪽을 찾는<br />
               <span className="text-[#00C7B5]">4가지 정밀 매칭 & 안전 보장</span>
             </h2>
-            <p className="text-xs text-stone-500 leading-relaxed font-sans break-keep font-medium px-4">
+            <p className="text-base md:text-lg font-medium text-stone-600 leading-relaxed font-sans break-keep px-4">
               직관이나 단순 신청이 아닌, 정교한 취향 분석과 철저한 안전 검증 시스템을 제공합니다.
             </p>
           </div>
@@ -420,9 +417,9 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
                 <span className="text-2xl">🪪</span>
               </div>
-              <div className="flex flex-col space-y-0.5 text-left">
-                <h4 className="text-sm sm:text-base font-bold text-stone-900">철저한 신원 인증 (KYC)</h4>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+              <div className="flex flex-col space-y-1 text-left">
+                <h4 className="text-lg font-bold text-stone-900">철저한 신원 인증 (KYC)</h4>
+                <p className="text-base text-stone-600 leading-relaxed font-sans break-keep">
                   직장·학생 신분 증빙을 통과한 검증된 매너 유저만 매칭됩니다.
                 </p>
               </div>
@@ -433,9 +430,9 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
                 <span className="text-2xl">🎯</span>
               </div>
-              <div className="flex flex-col space-y-0.5 text-left">
-                <h4 className="text-sm sm:text-base font-bold text-stone-900">5대 핵심 취향 매핑</h4>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+              <div className="flex flex-col space-y-1 text-left">
+                <h4 className="text-lg font-bold text-stone-900">5대 핵심 취향 매핑</h4>
+                <p className="text-base text-stone-600 leading-relaxed font-sans break-keep">
                   대화 온도, 여행 스타일, 미식 취향을 분석해 결이 맞는 반쪽을 찾습니다.
                 </p>
               </div>
@@ -446,9 +443,9 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
                 <span className="text-2xl">🌊</span>
               </div>
-              <div className="flex flex-col space-y-0.5 text-left">
-                <h4 className="text-sm sm:text-base font-bold text-stone-900">프라이빗 감성 공간 큐레이션</h4>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+              <div className="flex flex-col space-y-1 text-left">
+                <h4 className="text-lg font-bold text-stone-900">프라이빗 감성 공간 큐레이션</h4>
+                <p className="text-base text-stone-600 leading-relaxed font-sans break-keep">
                   복잡한 동선 없이, 둘만의 대화에 집중할 수 있는 감성 공간을 매핑합니다.
                 </p>
               </div>
@@ -459,9 +456,9 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 flex items-center justify-center shrink-0">
                 <span className="text-2xl">☕</span>
               </div>
-              <div className="flex flex-col space-y-0.5 text-left">
-                <h4 className="text-sm sm:text-base font-bold text-stone-900">운영진 3분 거리 항시 대기</h4>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans break-keep">
+              <div className="flex flex-col space-y-1 text-left">
+                <h4 className="text-lg font-bold text-stone-900">운영진 3분 거리 항시 대기</h4>
+                <p className="text-base text-stone-600 leading-relaxed font-sans break-keep">
                   어색함이나 만일의 상황에 대비해 호스트가 3분 거리에 상시 대기하여 안전합니다.
                 </p>
               </div>
@@ -500,7 +497,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8 font-mono">STEP 01</div>
               <h3 className="text-xl font-extrabold text-stone-900 mt-2 break-keep">무료 참가 신청</h3>
-              <p className="text-sm font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
+              <p className="text-base font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
                 나의 여행 취향을 체크하고 가벼운 마음으로 신청해 주세요. 나와 핏이 맞는 메이트가 매칭된 후에만 참가비 결제가 진행되니 안심하셔도 좋습니다.
               </p>
             </div>
@@ -522,7 +519,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8 font-mono">STEP 02</div>
               <h3 className="text-xl font-extrabold text-stone-900 mt-2 break-keep">웹앱 로그인 및 초대장 확인</h3>
-              <p className="text-sm font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
+              <p className="text-base font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
                 매칭이 성사되면 시그널 트립 전용 웹앱 접속 링크가 문자로 발송됩니다. 로그인하여 만남을 시작할 장소를 확인하세요.
               </p>
             </div>
@@ -544,7 +541,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8 font-mono">STEP 03</div>
               <h3 className="text-xl font-extrabold text-stone-900 mt-2 break-keep">약속 장소로 이동 & 프로필 확인</h3>
-              <p className="text-sm font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
+              <p className="text-base font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
                 D-Day, 설레는 마음으로 제주도의 약속 장소로 이동해요. 도착 후 버튼을 누르면 상대방의 프로필과 함께 '오늘의 착장 정보'가 공개되어, 인파 속에서도 어색함 없이 단번에 서로를 알아볼 수 있습니다.
               </p>
             </div>
@@ -566,63 +563,14 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
               </motion.div>
               <div className="text-sm font-bold text-[#00C7B5] tracking-widest mt-8 font-mono">STEP 04</div>
               <h3 className="text-xl font-extrabold text-stone-900 mt-2 break-keep">1:1 티타임 진행 후 프로필 교환</h3>
-              <p className="text-sm font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
+              <p className="text-base font-medium text-stone-700 mt-4 leading-relaxed break-keep px-4">
                 서로의 속마음은 티타임 종료 2시간 후 웹앱을 통해 확인해요. 서로 마음이 통했다면 연락처와 실명이 최종 공개됩니다.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section 5: Trust & Safety Section (Brightened Up) */}
-        <section className="px-6 py-28 bg-[#FCFAF7] text-stone-900 flex flex-col items-center border-b border-stone-200/40">
-          <div className="text-center space-y-3 mb-12">
-            <span className="text-xs font-bold tracking-[0.2em] text-[#00C7B5] uppercase mb-3 block">
-              TRUST & SAFETY
-            </span>
-            <h2 className="text-xl font-extrabold text-stone-900 leading-snug tracking-tight break-keep font-sans px-2">
-              아무나 탑승할 수 없는,<br />가장 안전하고 프라이빗한 매칭
-            </h2>
-          </div>
 
-          <div className="w-full space-y-5 max-w-sm">
-            {[
-              {
-                icon: Shield,
-                title: "깐깐한 취향 심사",
-                desc: "단순 신청이 아닌, 심층 인터뷰를 통해 <span class=\"text-[#00C7B5] font-bold\">무개념/비매너 유저</span>를 1차로 필터링합니다."
-              },
-              {
-                icon: Lock,
-                title: "신원 검증 프로세스",
-                desc: "매칭이 성사된 합격자에 한해 <span class=\"text-[#00C7B5] font-bold\">직장/학생 신분 인증(KYC)</span>을 거친 후 최종 결제가 진행됩니다."
-              },
-              {
-                icon: FileText,
-                title: "3대 클린 서약",
-                desc: "노쇼, 무단 이탈, 비매너를 <span class=\"text-[#00C7B5] font-bold\">엄격히 금지</span>하는 서약서에 동의한 분들만 모여 <span class=\"text-[#00C7B5] font-bold\">안전을 보장</span>합니다."
-              }
-            ].map((item, idx) => {
-              const IconComponent = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white border border-stone-200/60 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-200"
-                >
-                  <div className="w-12 h-12 rounded-full bg-[#00C7B5]/10 border border-[#00C7B5]/25 flex items-center justify-center text-[#00C7B5] mb-4">
-                    <IconComponent className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-lg font-bold text-stone-900 mb-2 font-sans">
-                    {item.title}
-                  </h3>
-                  <p
-                    className="text-base text-stone-700 leading-relaxed font-sans break-keep px-2"
-                    dangerouslySetInnerHTML={{ __html: item.desc }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </section>
 
         {/* Section 6: FAQ & Pricing (Bright Warm theme) */}
         <section className="px-6 py-28 bg-[#FAF8F5]">
@@ -651,7 +599,7 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
                     </button>
 
                     {isOpen && (
-                      <div className="p-5 pt-0 text-sm text-stone-700 leading-relaxed font-sans border-t border-stone-200/20 break-keep bg-white text-left">
+                      <div className="p-5 pt-0 text-base text-stone-700 leading-relaxed font-sans border-t border-stone-200/20 break-keep bg-white text-left">
                         {faq.a}
                       </div>
                     )}
