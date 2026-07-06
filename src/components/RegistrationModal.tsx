@@ -212,7 +212,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
       `}</style>
 
       <div
-        className="w-full max-w-[460px] bg-white rounded-[24px] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden"
+        className="w-full max-w-[460px] md:max-w-2xl bg-white rounded-[24px] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div style={{ width: '100%', height: '6px', backgroundColor: '#00C7B5' }} />
