@@ -55,7 +55,7 @@ export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onClose, n
       >
         <div className="flex justify-between items-center pb-4 border-b-2 border-stone-200">
           <span className="text-stone-900">신청 현황</span>
-          <span className="text-xs px-3 py-1 rounded-full bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20">매칭 준비 중</span>
+          <span className="text-xs px-3 py-1 rounded-full bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20">취향 확인 중</span>
         </div>
         <div className="flex justify-between items-center">
           <span>접수 내용</span>
