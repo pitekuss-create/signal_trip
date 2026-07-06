@@ -33,16 +33,16 @@ export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onClose, n
         className="space-y-4"
       >
         <span className="text-sm tracking-[0.4em] text-[#00C7B5] uppercase font-bold">
-          Application Completed
+          INVITATION REQUESTED
         </span>
 
         <h3 className="text-3xl font-bold text-stone-900">
-          초대장 심사 신청 완료
+          포구 밤크닉 신청이 완료되었습니다 🌙
         </h3>
 
         <p className="text-sm sm:text-base text-stone-600 font-bold leading-relaxed max-w-md break-keep mx-auto">
-          <strong className="text-[#00C7B5] text-lg">{nickname}</strong>님의 서류가 안전하게 밀봉되었습니다.<br />
-          엄격한 스크리닝이 진행되며, 심사 통과자에 한해 개별 연락을 드립니다.
+          <strong className="text-[#00C7B5] text-lg">{nickname}</strong>님의 소중한 신청서가 잘 도착했습니다.<br />
+          결이 맞는 분들과의 다정한 시간을 위해 취향을 꼼꼼히 확인한 후, 초대되신 분들께 일주일 전 개별 연락을 드릴게요. 제주의 밤바다에서 뵙기를 기다리겠습니다.
         </p>
       </motion.div>
 
@@ -55,15 +55,15 @@ export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onClose, n
       >
         <div className="flex justify-between items-center pb-4 border-b-2 border-stone-200">
           <span className="text-stone-900">신청 현황</span>
-          <span className="text-xs px-3 py-1 rounded-full bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20">심사 대기중</span>
+          <span className="text-xs px-3 py-1 rounded-full bg-[#00C7B5]/10 text-[#00C7B5] border border-[#00C7B5]/20">매칭 준비 중</span>
         </div>
         <div className="flex justify-between items-center">
-          <span>제출 문서</span>
-          <span className="text-stone-900">신원 및 인증 서류</span>
+          <span>접수 내용</span>
+          <span className="text-stone-900">여행 취향 및 신청서</span>
         </div>
         <div className="flex justify-between items-center">
           <span>진행 단계</span>
-          <span className="text-stone-900">1단계 서류 스크리닝</span>
+          <span className="text-stone-900">초대장 발송 대기</span>
         </div>
       </motion.div>
 

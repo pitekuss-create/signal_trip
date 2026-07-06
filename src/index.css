@@ -1,12 +1,14 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-cinzel: 'Cinzel', serif;
-  --font-sans: 'Outfit', sans-serif;
-  --font-cormorant: 'Cormorant Garamond', serif;
-  --font-noto: 'Noto Serif KR', serif;
-  --font-montserrat: 'Montserrat', sans-serif;
+  --font-cinzel: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-cormorant: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-noto: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-montserrat: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-serif: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
 }
 
 body {

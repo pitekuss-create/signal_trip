@@ -513,7 +513,7 @@ export const CouplesTab: React.FC<CouplesTabProps> = ({ showToast }) => {
                                   </div>
 
                                   <div className="space-y-3.5 py-0.5">
-                                    <p className="text-[10px] text-stone-300 leading-relaxed font-serif italic text-center break-keep">
+                                    <p className="text-[10px] text-stone-300 leading-relaxed font-sans italic text-center break-keep">
                                       \"{(previewUserSelector[key] || 'A') === 'A' ? pair.partnerA.nickname : pair.partnerB.nickname}님, 제주의 낭만 속에서 서로의 여행 결이 맞닿는 약속의 공간으로 당신을 초대합니다.\"
                                     </p>
 

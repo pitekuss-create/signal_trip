@@ -1,167 +1,153 @@
-import React, { useRef } from 'react';
-import { Image, Trash2, Link } from 'lucide-react';
+import React from 'react';
 
 export interface Step2Data {
-  idealType: string;
-  bio: string;
-  photos: string[]; // Base64 or object URLs
-  snsLink: string;
-  photoFiles?: File[];
+  musicVibes: string[];
+  midnightDrink: string;
+  conversationStyle: string;
 }
 
 interface Step2Props {
   data: Step2Data;
   updateData: (fields: Partial<Step2Data>) => void;
-  errors: Record<string, string>;
+  errors?: Record<string, string>;
 }
 
 export const Step2SignalProfile: React.FC<Step2Props> = ({ data, updateData, errors }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const musicOptions = [
+    '칠링되는 잔잔한 R&B/재즈',
+    '감성 터지는 인디/어쿠스틱',
+    '적당한 그루브의 시티팝/팝송'
+  ];
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const remainingSlots = 5 - data.photos.length;
-      const allowedFiles = filesArray.slice(0, remainingSlots);
+  const drinkOptions = [
+    '감성적인 크래프트 캔 와인 (알코올)',
+    '차를 가져와도 안심, 프리미엄 논알콜 음료'
+  ];
 
-      const promises = allowedFiles.map((file) => {
-        return new Promise<string>((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            resolve(reader.result as string);
-          };
-          reader.readAsDataURL(file);
-        });
-      });
+  const talkOptions = [
+    '주로 편안하게 들어주는 편이에요.',
+    '분위기를 주도하며 이야기를 이끄는 편이에요.',
+    '티키타카, 핑퐁 대화를 즐겨요.'
+  ];
 
-      Promise.all(promises).then((newPhotos) => {
-        updateData({
-          photos: [...data.photos, ...newPhotos],
-          photoFiles: [...(data.photoFiles || []), ...allowedFiles]
-        });
-      });
-    }
-  };
-
-  const removePhoto = (index: number) => {
-    const updatedPhotos = data.photos.filter((_, i) => i !== index);
-    const updatedFiles = (data.photoFiles || []).filter((_, i) => i !== index);
-    updateData({
-      photos: updatedPhotos,
-      photoFiles: updatedFiles
-    });
-  };
-
-  const triggerFileInput = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+  const toggleMusic = (option: string) => {
+    const isSelected = data.musicVibes.includes(option);
+    const updated = isSelected
+      ? data.musicVibes.filter((item) => item !== option)
+      : [...data.musicVibes, option];
+    updateData({ musicVibes: updated });
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-stone-800 font-sans">
       <div className="text-center mb-6">
-        <h3 className="font-sans text-xl font-bold text-[#00C7B5] tracking-wider">Step 2. Signal Profile</h3>
-        <p className="text-xs text-stone-500 font-light mt-1">당신의 취향과 개성을 표현해 주세요.</p>
+        <h2 className="text-xl font-extrabold text-[#00C7B5]">Step 2. 미드나잇 큐레이션</h2>
+        <p className="text-xs text-stone-500 mt-1">결이 맞는 그룹 큐레이션을 위해 취향을 묻습니다.</p>
+        <p className="text-[10px] text-stone-400 mt-0.5">선택하신 취향을 바탕으로 가장 완벽한 2시간을 준비합니다.</p>
       </div>
 
-      {/* 여행 스타일 소개 */}
+      {/* 밤바다 음악 바이브 */}
       <div className="space-y-2 text-left">
-        <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">나의 여행 스타일</label>
-        <textarea
-          rows={3}
-          placeholder="어떤 스타일의 여행을 떠나고 싶으신가요? 선호하는 여행 방식이나 성향을 적어주세요."
-          value={data.idealType}
-          onChange={(e) => updateData({ idealType: e.target.value })}
-          className={`w-full px-4 py-3 bg-white border ${
-            errors.idealType ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
-          } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none resize-none transition-all duration-300`}
-        />
-        {errors.idealType && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.idealType}</p>}
-      </div>
-
-      {/* 자기소개 */}
-      <div className="space-y-2 text-left">
-        <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">자기소개</label>
-        <textarea
-          rows={3}
-          placeholder="참가자들에게 어필할 나만의 매력이나 여행 성향을 적어주세요."
-          value={data.bio}
-          onChange={(e) => updateData({ bio: e.target.value })}
-          className={`w-full px-4 py-3 bg-white border ${
-            errors.bio ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
-          } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none resize-none transition-all duration-300`}
-        />
-        {errors.bio && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.bio}</p>}
-      </div>
-
-      {/* 파일 업로드 UI (약 30% 축소 적용) */}
-      <div className="space-y-2 text-left">
-        <div className="flex justify-between items-center">
-          <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">개인 사진 업로드 (최대 5장)</label>
-          <span className="text-[10px] text-stone-500">{data.photos.length} / 5</span>
-        </div>
-
-        <div className="grid grid-cols-5 gap-2 max-w-[320px]">
-          {data.photos.map((photo, index) => (
-            <div key={index} className="relative aspect-square rounded-lg border border-stone-200 overflow-hidden group">
-              <img src={photo} alt={`profile-${index}`} className="w-full h-full object-cover" />
+        <label className="text-sm font-bold text-stone-700 block">
+          밤바다 음악 바이브 <span className="text-[10px] text-stone-400 font-normal">(중복 선택 가능)</span>
+        </label>
+        <div className="space-y-2">
+          {musicOptions.map((option) => {
+            const isSelected = data.musicVibes.includes(option);
+            return (
               <button
+                key={option}
                 type="button"
-                onClick={() => removePhoto(index)}
-                className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-red-400 cursor-pointer"
+                onClick={() => toggleMusic(option)}
+                className={`w-full py-3.5 px-4 border rounded-xl text-left font-bold text-xs sm:text-sm cursor-pointer transition-all flex items-center gap-3 ${
+                  isSelected 
+                    ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]' 
+                    : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/40 hover:bg-stone-100/50'
+                }`}
               >
-                <Trash2 size={14} />
+                <div className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${
+                  isSelected ? 'bg-[#00C7B5] border-[#00C7B5] text-white' : 'border-stone-300 bg-white'
+                }`}>
+                  {isSelected && (
+                    <svg className="w-2.5 h-2.5 stroke-[3px] stroke-white fill-none" viewBox="0 0 24 24">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
+                </div>
+                <span>{option}</span>
               </button>
-            </div>
-          ))}
-
-          {data.photos.length < 5 && (
-            <button
-              type="button"
-              onClick={triggerFileInput}
-              className="aspect-square rounded-lg border-2 border-dashed border-stone-300 hover:border-[#00C7B5]/40 flex flex-col items-center justify-center text-stone-400 hover:text-[#00C7B5] transition-colors cursor-pointer bg-stone-50"
-            >
-              <Image size={16} className="mb-0.5" />
-              <span className="text-[8px]">추가</span>
-            </button>
-          )}
+            );
+          })}
         </div>
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          accept="image/*"
-          multiple
-          className="hidden"
-        />
-        <p className="text-[10px] text-stone-500 font-light italic mt-1.5">
-          * 가장 자연스러운 본인의 모습을 올려주세요. (최소 1장 이상 등록 권장)
-        </p>
-        {errors.photos && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.photos}</p>}
+        {errors?.musicVibes && (
+          <p className="text-xs text-red-500 mt-1 font-medium pl-1">{errors.musicVibes}</p>
+        )}
       </div>
 
-      {/* 개인 SNS 주소 (선택) */}
+      {/* 미드나잇 주류 선택 */}
       <div className="space-y-2 text-left">
-        <label className="block text-xs font-semibold text-stone-600 tracking-wider uppercase">개인 SNS 주소 (인스타그램, 블로그 등 - 선택)</label>
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
-            <Link size={15} />
-          </span>
-          <input
-            type="text"
-            placeholder="instagram.com/your_account"
-            value={data.snsLink}
-            onChange={(e) => updateData({ snsLink: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 bg-white border ${
-              errors.snsLink ? 'border-red-500/70 focus:border-red-500' : 'border-stone-300 focus:border-[#00C7B5]/80'
-            } rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none transition-all duration-300`}
-          />
+        <label className="text-sm font-bold text-stone-700 block">
+          미드나잇 주류 선택 <span className="text-rose-500 text-xs font-black ml-1">(매우 중요!)</span>
+        </label>
+        <div className="space-y-2">
+          {drinkOptions.map((option) => {
+            const isSelected = data.midnightDrink === option;
+            return (
+              <button
+                key={option}
+                type="button"
+                onClick={() => updateData({ midnightDrink: option })}
+                className={`w-full py-3.5 px-4 border rounded-xl text-left font-bold text-xs sm:text-sm cursor-pointer transition-all flex items-center gap-3 ${
+                  isSelected 
+                    ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]' 
+                    : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/40 hover:bg-stone-100/50'
+                }`}
+              >
+                <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-colors ${
+                  isSelected ? 'border-[#00C7B5]' : 'border-stone-300 bg-white'
+                }`}>
+                  {isSelected && <div className="w-2 h-2 rounded-full bg-[#00C7B5]" />}
+                </div>
+                <span>{option}</span>
+              </button>
+            );
+          })}
         </div>
-        <p className="text-[10px] text-stone-500 font-light italic mt-1">
-          * 본인의 분위기를 알 수 있는 계정을 남겨주시면, 훨씬 더 정교하고 완벽한 취향 매칭이 가능합니다.
-        </p>
-        {errors.snsLink && <p className="text-[11px] text-red-500 mt-1 font-light">{errors.snsLink}</p>}
+        {errors?.midnightDrink && (
+          <p className="text-xs text-red-500 mt-1 font-medium pl-1">{errors.midnightDrink}</p>
+        )}
+      </div>
+
+      {/* 대화 스타일 */}
+      <div className="space-y-2 text-left">
+        <label className="text-sm font-bold text-stone-700 block">대화 스타일</label>
+        <div className="space-y-2">
+          {talkOptions.map((option) => {
+            const isSelected = data.conversationStyle === option;
+            return (
+              <button
+                key={option}
+                type="button"
+                onClick={() => updateData({ conversationStyle: option })}
+                className={`w-full py-3.5 px-4 border rounded-xl text-left font-bold text-xs sm:text-sm cursor-pointer transition-all flex items-center gap-3 ${
+                  isSelected 
+                    ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]' 
+                    : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/40 hover:bg-stone-100/50'
+                }`}
+              >
+                <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-colors ${
+                  isSelected ? 'border-[#00C7B5]' : 'border-stone-300 bg-white'
+                }`}>
+                  {isSelected && <div className="w-2 h-2 rounded-full bg-[#00C7B5]" />}
+                </div>
+                <span>{option}</span>
+              </button>
+            );
+          })}
+        </div>
+        {errors?.conversationStyle && (
+          <p className="text-xs text-red-500 mt-1 font-medium pl-1">{errors.conversationStyle}</p>
+        )}
       </div>
     </div>
   );

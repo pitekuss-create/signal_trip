@@ -300,7 +300,7 @@ const Step2View = ({
         </div>
 
         <div className="space-y-5.5 py-1">
-          <p className="text-sm text-stone-300 leading-relaxed break-keep font-serif italic text-center">
+          <p className="text-sm text-stone-300 leading-relaxed break-keep font-sans italic text-center">
             "제주의 낭만 속에서, 서로의 여행 결이 맞닿는 약속의 공간으로 당신을 초대합니다."
           </p>
 
