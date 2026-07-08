@@ -32,7 +32,7 @@ export default function Step1BasicInfo({ data, updateData, errors }: Step1Props)
         </div>
 
         <p className="text-[15px] md:text-lg leading-relaxed text-stone-200 font-light break-keep">
-          제주의 밤바다에서 파도 소리를 들으며 즐기는 포구 트립은, 프라이빗한 낭만을 위해 <span className="font-bold text-[#00C7B5]">'유료 초대장'</span>제로 운영됩니다. 🌙
+          제주의 밤바다에서 파도 소리를 들으며 즐기는 포구 트립은, 프라이빗한 낭만을 위해 <span className="font-bold text-[#00C7B5]">'프라이빗 초대장'</span>제로 운영됩니다. 🌙
         </p>
 
         <div className="pt-3 md:pt-4 border-t border-stone-850 space-y-3 md:space-y-4">
@@ -48,8 +48,13 @@ export default function Step1BasicInfo({ data, updateData, errors }: Step1Props)
 
           <div className="flex items-start gap-2">
             <span className="text-base md:text-lg leading-none flex-shrink-0 mt-0.5">💳</span>
-            <div className="text-[15px] md:text-lg font-bold text-stone-200 break-keep">
-              참가 비용: <span className="font-extrabold text-[#00C7B5]">55,000원</span> (1인)
+            <div className="space-y-1">
+              <div className="text-[15px] md:text-lg font-bold text-stone-200 break-keep">
+                참가 비용: <span className="font-extrabold text-[#00C7B5]">1기 스페셜 오픈 전액 무료 초청</span>
+              </div>
+              <p className="text-[13px] md:text-[14px] text-stone-400 font-light leading-relaxed break-keep">
+                단, 퀄리티 높은 네트워킹과 노쇼(No-show) 방지를 위해 '예약 보증금 2만 원'을 받고 있으며, 현장 참석 시 100% 환급(페이백) 해드립니다.
+              </p>
             </div>
           </div>
         </div>
@@ -90,8 +95,8 @@ export default function Step1BasicInfo({ data, updateData, errors }: Step1Props)
             type="button"
             onClick={() => updateData({ gender: 'male' })}
             className={`py-3.5 border rounded-xl transition-all font-bold cursor-pointer text-center text-sm ${data.gender === 'male'
-                ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]'
-                : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/50'
+              ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]'
+              : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/50'
               }`}
           >
             남성
@@ -100,8 +105,8 @@ export default function Step1BasicInfo({ data, updateData, errors }: Step1Props)
             type="button"
             onClick={() => updateData({ gender: 'female' })}
             className={`py-3.5 border rounded-xl transition-all font-bold cursor-pointer text-center text-sm ${data.gender === 'female'
-                ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]'
-                : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/50'
+              ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]'
+              : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/50'
               }`}
           >
             여성
@@ -124,8 +129,8 @@ export default function Step1BasicInfo({ data, updateData, errors }: Step1Props)
                 type="button"
                 onClick={() => updateData({ ageGroup: group })}
                 className={`py-2.5 px-4 border rounded-xl transition-all font-bold cursor-pointer text-xs ${isSelected
-                    ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]'
-                    : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/50'
+                  ? 'bg-[#00C7B5]/10 border-[#00C7B5] text-[#00C7B5]'
+                  : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-[#00C7B5]/50'
                   }`}
               >
                 {group}
