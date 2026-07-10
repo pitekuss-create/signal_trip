@@ -1,24 +1,11 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import HeroSection from './components/HeroSection';
-import { RegistrationModal } from './components/RegistrationModal';
+import MaintenancePage from './components/MaintenancePage';
 import { AdminDashboard } from './components/AdminDashboard';
 import WebAppContainer from './components/WebApp/WebAppContainer';
 
 function LandingPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  return (
-    <div className="relative min-h-screen bg-[#FAF8F5] text-stone-900 font-sans">
-      {/* Main Landing Page Hero Section */}
-      <HeroSection onOpenRegistration={() => setIsModalOpen(true)} />
-
-      {/* 🚨 수정: 모달창이 무조건 뜨도록 조건부 렌더링({isModalOpen &&}) 강제화 🚨 */}
-      {isModalOpen && (
-        <RegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      )}
-    </div>
-  );
+  return <MaintenancePage />;
 }
 
 function AdminProtectedRoute({ children }: { children: React.ReactNode }) {
