@@ -463,10 +463,10 @@ export default function HeroSection({ onOpenRegistration }: HeroSectionProps) {
         </div>
 
         {/* Sticky Bottom CTA */}
-        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md px-6 pt-4 pb-8 bg-gradient-to-t from-[#04060F] via-[#04060F]/95 to-transparent z-50">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md px-6 z-50 pointer-events-none">
           <button
             onClick={handleCtaClick}
-            className="w-full bg-[#00C7B5] text-white py-4 rounded-xl font-bold text-base shadow-[0_8px_30px_rgba(0,199,181,0.4)] hover:bg-[#00b2a2] active:scale-[0.98] transition-all duration-200 cursor-pointer text-center tracking-wide"
+            className="w-full pointer-events-auto bg-[#00C7B5] text-white py-4 rounded-xl font-bold text-base shadow-[0_10px_25px_rgba(0,0,0,0.2),_0_4px_12px_rgba(0,199,181,0.35)] hover:bg-[#00b2a2] active:scale-[0.98] transition-all duration-200 cursor-pointer text-center tracking-wide"
           >
             [포구 밤크닉 초대장 신청하기]
           </button>
