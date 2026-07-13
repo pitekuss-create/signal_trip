@@ -7,7 +7,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import WebAppContainer from './components/WebApp/WebAppContainer';
 
 // 유지보수 모드 토글 변수 (true: 임시 휴업 화면, false: 정상 랜딩 페이지)
-const isMaintenanceMode = false;
+const isMaintenanceMode = true;
 
 function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +57,7 @@ function AdminProtectedRoute({ children }: { children: React.ReactNode }) {
       <div className="w-full max-w-md bg-stone-900 border border-stone-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
         {/* Decorative Top Line */}
         <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-teal-500 to-emerald-500" />
-        
+
         <div className="text-center space-y-2 mb-6">
           <span className="font-cinzel text-[10px] tracking-[0.3em] text-teal-400 uppercase font-semibold">Host Administration</span>
           <h2 className="text-xl font-bold font-sans text-stone-100">어드민 보안 접속</h2>
